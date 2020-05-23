@@ -1,0 +1,37 @@
+{
+  "name": "Hugo-Bulma",
+  "version": "0.1.0",
+  "description": "Hugo theme based on Bulma",
+  "author": "Wayne Ho",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wayn3h0/hugo-bulma.git"
+  },
+  "homepage": "https://github.com/wayn3h0/hugo-bulma#readme",
+  "bugs": {
+    "url": "https://github.com/wayn3h0/hugo-bulma/issues"
+  },
+  "devDependencies": {
+    "onchange": "^6.1.0",
+    "http-server": "^0.12.1",
+    "rimraf": "^3.0.2",
+    "shell-executor": "^6.0.1"
+  },
+  "dependencies": {
+    "bulma": "^0.8.2",
+    "postcss-cli": "^7.1.1",
+    "autoprefixer": "^9.8.0",
+    "@babel/core": "^7.9.6",
+    "@babel/cli": "^7.8.4",
+    "@babel/preset-env": "^7.9.6"
+  },
+  "scripts": {
+    "clear": "rimraf exampleSite/public & rimraf exampleSite/resources",
+    "build": "hugo --gc --source exampleSite --themesDir ../../",
+    "rebuild": "npm run clear & npm run build",
+    "watchmsg": "onchange '**/*' -e 'exampleSite/public/**/*' -e 'exampleSite/resources/**/*' -- echo '#EVENT# {{event}} to {{changed}}'",
+    "watch": "onchange '**/*.html' '**/*.js' '**/*.css' '**/*.scss' '**/*.sass' '**/*.svg' '**/*.png' '**/*.toml' '**/*.md' -e 'exampleSite/public/**/*' -e 'exampleSite/resources/**/*' -- npm run rebuild",
+    "serve": "http-server exampleSite/public -p 1313 -c-1",
+    "start": "shell-exec 'npm run rebuild' 'npm run watchmsg' 'npm run watch' 'npm run serve'"
+  }
+}

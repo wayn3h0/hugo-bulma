@@ -1,0 +1,36 @@
+{{ define "main" }}
+{{ $page := . }}
+<main class="main" role="main">
+    {{ partial "breadcrumb.html" $page }}
+    <div class="section">
+        <div class="container">
+            {{ range $page.Paginator.Pages }}
+                {{ $item := . }}
+                <div class="box">
+                    <article>
+                        <header>
+                            <h1 class="title"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}">{{ $item.Title }}</a></h1>
+                            <div class="tags has-addons">
+                                <span class="tag is-dark"><i class="fas fa-calendar-day"></i></span>
+                                <span class="tag"><time pubdate>{{ $item.Date.Format ($item.Site.Params.dateFormat | default "January 2, 2006" ) }}</time></span>
+                            </div>
+                        </header>
+                        <p class="summary">{{ $item.Summary | default $item.Params.summary }}</p>
+                        <footer class="is-clearfix">
+                            <div class="is-pulled-right">
+                                <a class="button" href="{{ $item.Params.externalLink | default $item.RelPermalink }}">
+                                    <span class="icon">
+                                        <i class="fas fa-book-open"></i>
+                                    </span>
+                                    <span>{{ i18n "read_more" }}</span>
+                                </a>
+                            </div>
+                        </footer>
+                    </article>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ partial "pagination.html" $page }}
+</main>
+{{ end }}

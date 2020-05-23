@@ -1,0 +1,33 @@
+{{ $shortcode := . }}
+
+{{ $color := $shortcode.Get "color" | default "" }}
+{{ $isLightColor := $shortcode.Get "isLightColor" | default false }}
+{{ $isCloseable := $shortcode.Get "isCloseable" | default false }}
+
+{{ $class := "notification" }}
+
+{{ if ne $color "" }}
+    {{ if in (slice "primary" "link" "info" "success" "warning" "danger" "light" "dark" "black" "white") $color }}
+        {{ $class = printf "%s is-%s" $class $color }}
+    {{ else }}
+        {{ $message := printf "shortcodes/notification: invalid argument (color=%q) at %s" $color $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ end }}
+
+    {{ $class = printf "%s is-%s" $class $color }}
+    {{ if $isLightColor }}
+        {{ $class = printf "%s is-light" $class }}
+    {{ end }}
+{{ end }}
+
+{{ if eq $shortcode.Inner "" }}
+    {{ $message := printf `shortcodes/box: missing inner content at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <aside class="{{ $class }}">
+        {{ if $isCloseable }}
+            <button class="delete"></button>
+        {{ end }}
+        {{ $shortcode.Inner | emojify }}
+    </aside>
+{{ end }}

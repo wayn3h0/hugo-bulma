@@ -1,0 +1,133 @@
+{{ $page := . }}
+
+{{ $class := "" }}
+{{ if $page.Site.Params.design.navbar.isFixedTop }}
+    {{ $class = printf "%s %s" $class "is-fixed-top" }}
+{{ end }}
+{{ $isBoxed := false }}
+{{ if $page.Site.Params.design.navbar.isTransparent }}
+    {{ $class = printf "%s %s" $class "is-transparent" }}
+    {{ $isBoxed = true }}
+{{ end }}
+{{ if $page.Site.Params.design.navbar.isSpaced }}
+    {{ $class = printf "%s %s" $class "is-spaced" }}
+{{ end }}
+{{ if $page.Site.Params.design.navbar.hasShadow }}
+    {{ $class = printf "%s %s" $class "has-shadow" }}
+{{ end }}
+{{ with $page.Site.Params.design.navbar.backgroundColor }}
+    {{ if in (slice "primary" "link" "info" "success" "warning" "danger" "black" "dark" "light" "white") . }}
+        {{ $class = printf "%s is-%s" $class . }}
+    {{ else }}
+        {{ $message := printf "shortcodes/icon: invalid value %q for parameter `color`" . }}
+        {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+    {{ end }}
+{{ end }}
+{{ $hasTextWeightBold := $page.Site.Params.design.navbar.hasTextWeightBold }}
+<header class="header">
+    <nav class="navbar{{ with $class }} {{ . }}{{ end }}" role="navigation" aria-label="{{ i18n "navigation" }}">
+        <div class="container">
+            <div class="navbar-brand">
+                {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
+                    <a class="navbar-item" href="{{ "/" | relLangURL }}">
+                    {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
+                        {{ $width := $page.Site.Params.design.logo.width }}
+                        {{ $height := $page.Site.Params.design.logo.height }}
+                        {{ $logo := partial "functions/logo.html" (dict "context" $page "width" $width "height" $height) }}
+                        {{ with $logo }}
+                            <img class="logo is-header" src="{{ .RelPermalink }}" alt="{{ $page.Site.Params.title | default $page.Site.Title }}">
+                        {{ end }}
+                    {{ else if ne $page.Site.Params.design.navbar.logo.text "" }}
+                        <span class="title">{{ $page.Site.Params.design.navbar.logo.text | safeHTML }}
+                    {{  end }}
+                    </a>
+                {{ end }}
+                <a role="button" class="navbar-burger" data-target="menu-navbar" aria-label="{{ i18n "menu" }}" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-menu" id="menu-navbar">
+                <div class="navbar-start">
+                    {{ $baseURL := urls.Parse $page.Site.Params.baseURL }}
+                    {{ range $page.Site.Menus.navbar }} 
+                        {{ $item := . }}
+                        {{ $isActive := $page.HasMenuCurrent "navbar" $item }}
+                        {{ $currentURL := urls.Parse $item.URL }}
+                        {{ $isExternal := false }}
+                        {{ if ne $currentURL.Host $baseURL.Host }}
+                            {{ $isExternal = true }}
+                        {{ end }}
+                        {{ $href := $item.URL | relLangURL }}
+                        {{ if in $item.URL "://" }}
+                            {{ $href = $item.URL | safeURL }}
+                        {{ end }}
+                        {{ $pre := $item.Pre | safeHTML | emojify }}
+                        {{ $post := $item.Post | safeHTML | emojify }}
+                        {{ $name := $item.Name | safeHTML | emojify }}
+                        {{ if $item.HasChildren }}
+                            <div class="navbar-item has-dropdown is-hoverable{{ if $isBoxed }} is-boxed{{ end }}">
+                                <a class="navbar-link{{ if $hasTextWeightBold }} has-text-weight-bold{{ end }}{{ if $isActive }} is-active{{ end }}" 
+                                    href="{{ $href }}"
+                                    {{ if $isExternal }} target="_blank" rel="noopener"{{ end }}
+                                    >
+                                    {{ $pre }}<span>{{ $name }}</span>{{ $post}}
+                                </a>
+                                <div class="navbar-dropdown">
+                                    {{ range $item.Children }}
+                                        {{ $item := . }}
+                                        {{ $isActive := $page.HasMenuCurrent "navbar" $item }}
+                                        {{ $currentURL := urls.Parse $item.URL }}
+                                        {{ $isExternal := false }}
+                                        {{ if ne $currentURL.Host $baseURL.Host }}
+                                            {{ $isExternal = true }}
+                                        {{ end }}
+                                        {{ $href := $item.URL | relLangURL }}
+                                        {{ if in $item.URL "://" }}
+                                            {{ $href = $item.URL | safeURL }}
+                                        {{ end }}
+                                        {{ $pre := $item.Pre | safeHTML | emojify }}
+                                        {{ $post := $item.Post | safeHTML | emojify }}
+                                        {{ $name := $item.Name | safeHTML | emojify }}
+                                        <a class="navbar-item{{ if $hasTextWeightBold }} has-text-weight-bold{{ end }}{{ if $isActive }} is-active{{ end }}" 
+                                            href="{{ $href }}"
+                                            {{ if $isExternal }} target="_blank" rel="noopener"{{ end }}
+                                            >
+                                            {{ $pre }}<span>{{ $name }}</span>{{ $post}}
+                                        </a>
+                                    {{ end }}
+                                </div>
+                            </div>
+                        {{ else }}
+                            <a class="navbar-item{{ if $hasTextWeightBold }} has-text-weight-bold{{ end }}{{ if $isActive }} is-active{{ end }}" 
+                                href="{{ $href }}"
+                                {{ if $isExternal }} target="_blank" rel="noopener"{{ end }}
+                                >
+                                {{ $pre }}<span>{{ $name }}</span>{{ $post}}
+                            </a>
+                        {{ end }}
+                    {{ end }}
+                </div>
+
+                {{ if $page.IsTranslated }}
+                    <div class="navbar-end">
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link is-active{{ if $hasTextWeightBold }} has-text-weight-bold{{ end }}">
+                                <span class="icon is-large"><i class="fas fa-language fa-2x"></i></span>
+                                &nbsp;&nbsp;{{ $page.Language.LanguageName }}
+                            </a>
+                            <div class="navbar-dropdown is-right{{ if $isBoxed }} is-boxed{{ end }}">
+                                {{ range .Translations }}
+                                    <a class="navbar-item {{ if $hasTextWeightBold }} has-text-weight-bold{{ end }}" href="{{ .RelPermalink }}">
+                                        {{ .Language.LanguageName }}
+                                    </a>
+                                {{ end }}
+                            </div>
+                        </div>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+    </nav>
+</header>

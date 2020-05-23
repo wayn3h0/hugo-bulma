@@ -1,0 +1,65 @@
+{{ $shortcode := . }}
+
+{{ $isRounded := $shortcode.Get "isRounded" }}
+
+{{ $link := $shortcode.Get "link" }}
+{{ $target := $shortcode.Get "target" }}
+{{ $rel := $shortcode.Get "rel" }}
+
+{{ $src := $shortcode.Get "src" }}
+{{ $alt := $shortcode.Get "alt" }}
+{{ $ratio := $shortcode.Get "ratio" }}
+{{ $width := $shortcode.Get "width" }}
+{{ $height := $shortcode.Get "height" }}
+
+{{ $caption := $shortcode.Get "caption" }}
+
+{{ if eq $src "" }}
+    {{ $message := printf "shortcodes/image: missing value for parameter `src`: %s" $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    {{ $url := $src }}
+    {{ if not (hasPrefix $src "http") }}
+        {{ $found := false }}
+        {{ $asset := ($shortcode.Page.Resources.ByType "image").GetMatch $src }}
+        {{ with $asset }}
+            {{ $found = true }}
+            {{ $url = .RelPermalink }}
+            {{ if and (eq $width "") (eq $height "") }}
+                {{ $width = .Width }}
+                {{ $height = .Height }}
+            {{ end }}
+        {{ end }}
+        {{ if not $found }}
+            {{ $message := printf "shortcodes/image: missing file %q: %s" $src $shortcode.Position }}
+            {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ end }}
+    {{ end }}
+
+    <figure class="image{{ with $ratio }} is-{{ . }}{{ end }}">
+        {{ with $link }}
+            <a href="{{ . }}"{{ with $target }} target="{{ . }}"{{ end }}{{ with $rel }} rel="{{ . }}"{{ end }}>
+        {{ end }}
+        <img{{ if $isRounded }} class="is-rounded"{{ end }} src="{{ $url }}"
+            {{ with $alt }}
+                alt="{{ . }}"
+            {{ end }}
+            {{ with $width }}
+                width="{{ . }}"
+            {{ end }}
+            {{ with $height }}
+                width="{{ . }}"
+            {{ end }}
+        />
+        {{ with $link }}
+            </a>
+        {{ end }}
+
+        {{ with $caption }}
+            <figcaption>
+                {{ $caption | markdownify | emojify }}
+            </figcaption>
+        {{ end }}
+    </figure>
+
+{{ end }}

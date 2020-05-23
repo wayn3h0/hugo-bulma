@@ -1,0 +1,96 @@
+[[navbar]]
+    identifier = "home"
+    weight = 1
+    name = "Home"
+    url = "/"
+    pre = "<span class=\"icon\"><i class=\"fas fa-home\"></i></span>"
+
+[[navbar]]
+    identifier = "documentation"
+    weight = 2
+    name = "Documentation"
+    url = "documentation/"
+    pre = "<span class=\"icon\"><i class=\"fas fa-book\"></i></span>"
+
+[[navbar]]
+    identifier = "backers"
+    weight = 3
+    name = "Backers"
+    url = "#"
+    pre = "<span class=\"icon\"><i class=\"fab fa-patreon\"></i></span>"
+
+[[navbar]]
+    identifier = "irc"
+    weight = 4
+    name = "IRC"
+    url = "irc://irc.org/#hugo-bulma"
+    pre = "<span class=\"icon\"><i class=\"fas fa-hashtag\"></i></span>"
+
+[[navbar]]
+    identifier = "github"
+    weight = 99
+    name = "GitHub"
+    url = "https://github.com/wayn3h0/hugo-bulma"
+    pre = "<span class=\"icon\"><i class=\"fab fa-github\"></i></span>"
+
+
+[[legal]]
+    identifier = "terms-of-use"
+    weight = 1
+    name = "Terms of Use"
+    url = "legal/terms-of-use/"
+
+[[legal]]
+    identifier = "terms-of-conditions"
+    weight = 2
+    name = "Terms of Conditions"
+    url = "legal/terms-of-conditions/"
+
+[[legal]]
+    identifier = "privacy-policy"
+    weight = 3
+    name = "Privacy Policy"
+    url = "legal/privacy-policy/"
+
+
+[[quicklinks]]
+    identifier = "support"
+    weight = 1
+    name = "Support"
+    pre = "<span class=\"icon\"><i class=\"fas fa-heart\"></i></span>"
+
+[[quicklinks]]
+    identifier = "follow"
+    weight = 2
+    name = "Follow Us"
+
+[[quicklinks]]
+    parent = "support"
+    identifier = "about"
+    weight = 1
+    name = "About"
+    url = "/about/"
+
+[[quicklinks]]
+    parent = "support"
+    identifier = "documentation"
+    weight = 2
+    name = "Documentation"
+    url = "/documentation/"
+
+[[quicklinks]]
+    parent = "follow"
+    weight = 1
+    name = "Twitter"
+    url = "https://twitter.com"
+    pre = "<span class=\"icon\"><i class=\"fab fa-twitter\"></i></span>"
+
+[[quicklinks]]
+    parent = "follow"
+    weight = 2
+    name = "Facebook"
+    url = "https://facebook.com"
+    pre = "<span class=\"icon\"><i class=\"fab fa-facebook\"></i></span>"
+
+
+

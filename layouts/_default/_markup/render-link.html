@@ -1,0 +1,19 @@
+{{ $link := . }}
+{{ $isExternal := false }}
+{{ if strings.HasPrefix $link.Destination "http" }}
+    {{ $isExternal = true }}
+{{ end }}
+{{ $isOpenInNewTab := $link.Page.Site.Params.design.externalLink.isOpenInNewTab }}
+{{ $pre := $link.Page.Site.Params.design.externalLink.pre | safeHTML | emojify }}
+{{ $post := $link.Page.Site.Params.design.externalLink.post | safeHTML | emojify }}
+{{ $text := $link.Text | safeHTML | emojify }}
+<a href="{{ $link.Destination }}"
+    {{ with $link.Title}} title="{{ . }}"{{ end }}
+    {{ if and $isExternal $isOpenInNewTab }} target="_blank" rel="noopener"{{ end }}
+    >
+    {{ if and (eq $pre "") (eq $post "") }}
+        {{ $text }}
+    {{ else }}
+        {{ $pre }}<span>{{ $text }}</span>{{ $post }}
+    {{ end }}
+</a>

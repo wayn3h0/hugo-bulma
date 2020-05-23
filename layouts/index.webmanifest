@@ -1,0 +1,38 @@
+{{ $page := . }}
+{{ $title := $page.Site.Title }}
+{{ if eq $title "" }} 
+    {{ $message := printf "index.webmanifest: missing `title` value of site" }}
+    {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+{{ end }}
+{{ $description := $page.Site.Params.description }}
+{{ $lang := $page.Language.Lang }}
+{{ $primaryColor := $page.Site.Params.design.colors.primary | default "#00D1B2" }}
+{{ $icon192Path := "" }}
+{{ $icon192 := (partial "functions/favicon.html" (dict "context" $page "size" 192)) }}
+{{ with $icon192}}
+    {{$icon192Path = .RelPermalink }}
+{{ end }}
+{{ $icon512Path := "" }}
+{{ $icon512 := (partial "functions/favicon.html" (dict "context" $page "size" 512)) }}
+{{ with $icon512}}
+    {{$icon512Path = .RelPermalink }}
+{{ end }}
+{
+    "name":"{{ $title }}",
+    "short_name": "{{ $title }}",
+    "description": "{{ $description }}",
+    "lang": "{{ $lang }}",
+    "display": "standalone",
+    "start_url": "{{ "/" | relLangURL }}?utm_source=web_app_manifest",
+    "theme_color": "{{ $primaryColor }}",
+    "background_color": "{{ $primaryColor }}",
+    "icons": [{
+        "src": "{{ $icon192Path }}",
+        "sizes": "192x192",
+        "type": "image/png"
+        }, {
+            "src": "{{ $icon512Path }}",
+            "sizes": "512x512",
+            "type": "image/png"
+     }] 
+}

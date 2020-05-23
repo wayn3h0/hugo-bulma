@@ -1,0 +1,54 @@
+{{ $shortcode := . }}
+
+{{ $name := $shortcode.Get "name" | default "" }}
+{{ $pack := $shortcode.Get "pack" | default "" }}
+{{ $color := $shortcode.Get "color" | default "" }}
+{{ $size := $shortcode.Get "size" | default "" }}
+
+{{ $spanClass := "icon" }}
+{{ $iClass := "" }}
+
+{{ if ne $pack "" }}
+    {{ if not (in (slice "fas" "fab") $pack) }}
+        {{ $message := printf "shortcodes/icon: invalid argument (pack=%q) at %s" $pack $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ $iClass = "fas" }}
+    {{ else }}
+        {{ $iClass = $pack }}
+    {{ end }}
+{{ end }}
+
+{{ $iClass = printf "%s fa-%s" $iClass $name }}
+
+{{ if ne $color "" }}
+    {{ if not (in (slice "primary" "link" "info" "success" "warning" "danger" "light" "dark" "black" "white" "grey") $color) }}
+        {{ $message := printf "shortcodes/icon: invalid argument (color=%q) at %s" $color $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $spanClass = printf "%s has-text-%s" $spanClass $color}}
+    {{ end }}
+{{ end }}
+
+{{ if ne $size "" }}
+    {{ if not (in (slice "small" "medium" "large") $size) }}
+        {{ $message := printf "shortcodes/icon: invalid argument (size=%q) at %s" $size $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $spanClass = printf "%s is-%s" $spanClass $size }}
+    {{ end }}
+
+    {{ if eq $size "medium" }}
+        {{ $iClass = printf "%s fa-2x" $iClass }}
+    {{ else if eq $size "large"}}
+        {{ $iClass = printf "%s fa-3x" $iClass }}
+    {{ end }}
+{{ end }}
+
+{{ if eq $name "" }}
+    {{ $message := printf `shortcodes/icon: invalid argument (name="") at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <span class="{{ $spanClass }}">
+        <i class="{{ $iClass }}"></i>
+    </span>
+{{ end }}

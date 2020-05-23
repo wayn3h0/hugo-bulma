@@ -1,0 +1,26 @@
+{{ $shortcode := . }}
+
+{{ $isGapless := $shortcode.Get "isGapless" | default false }}
+{{ $isMultiline := $shortcode.Get "isMultiline" | default false }}
+{{ $isVCentered := $shortcode.Get "isVCentered" | default false }}
+
+{{ $class := "columns" }}
+
+{{ if $isGapless }}
+    {{ $class = printf "%s is-gapless" $class }}
+{{ end }}
+{{ if $isMultiline }}
+    {{ $class = printf "%s is-multiline" $class }}
+{{ end }}
+{{ if $isVCentered }}
+    {{ $class = printf "%s is-vcentered" $class }}
+{{ end }}
+
+{{ if (eq (len (findRE `class="column.*"` $shortcode.Inner 1)) 0) }}
+    {{ $message := printf `shortcodes/columns: missing children (columns/column) at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <div class="{{ $class }}">
+        {{ $shortcode.Inner }}
+    </div>
+{{ end }}

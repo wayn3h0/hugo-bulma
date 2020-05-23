@@ -1,0 +1,13 @@
+{{/* Function to handle error               */}}
+{{/* Input: context (.); message (string)   */}}
+{{/* Output: nil                            */}}
+
+{{ $page := .context }}
+{{ $isQuirksMode := $page.Site.Params.isQuirksMode }}
+{{ $message := .message }}
+
+{{ if $isQuirksMode }}
+    {{ warnf $message}}
+{{ else }}
+    {{ errorf $message }} 
+{{ end }}

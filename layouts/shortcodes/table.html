@@ -1,0 +1,40 @@
+{{ $shortcode := . }}
+
+{{ $isBordered := $shortcode.Get "isBordered" }}
+{{ $isStriped := $shortcode.Get "isStriped" }}
+{{ $isNarrow := $shortcode.Get "isNarrow" }}
+{{ $isHoverable := $shortcode.Get "isHoverable" }}
+{{ $isFullwidth := $shortcode.Get "isFullwidth" }}
+{{ $isScrollable := $shortcode.Get "isScrollable" }}
+
+{{ $class := "table" }}
+{{ if $isBordered }}
+    {{ $class = printf "%s is-bordered" $class }}
+{{ end }}
+{{ if $isStriped }}
+    {{ $class = printf "%s is-striped" $class }}
+{{ end }}
+{{ if $isNarrow }}
+    {{ $class = printf "%s is-narrow" $class }}
+{{ end }}
+{{ if $isHoverable }}
+    {{ $class = printf "%s is-hoverable" $class }}
+{{ end }}
+{{ if $isFullwidth }}
+    {{ $class = printf "%s is-fullwidth" $class }}
+{{ end }}
+
+{{ $content := $shortcode.Inner | markdownify | emojify }}
+
+{{/* replace align attribute */}}
+{{ $content = (replace $content `align="left"` `class="has-text-left"`) }}
+{{ $content = (replace $content `align="center"` `class="has-text-centered"`) }}
+{{ $content = (replace $content `align="right"` `class="has-text-right"`) }}
+
+{{ $pattern := `(?si)<table>(.*)</table>` }}
+{{ $replacement := printf `<table class="%s">$1</table>` $class }}
+{{ if $isScrollable }}
+    {{ $replacement = printf `<div class="table-container"><table class="%s">$1</table></div>` $class }}
+{{ end }}
+{{ $content = replaceRE $pattern $replacement $content }}
+{{ $content | safeHTML }}

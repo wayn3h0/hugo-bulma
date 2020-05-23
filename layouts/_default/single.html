@@ -1,0 +1,26 @@
+{{ define "main" }}
+{{ $page := . }}
+<main class="main" role="main">
+    {{ partial "breadcrumb.html" $page }}
+    <div class="section">
+        <div class="container">
+            {{ if $page.Params.design.tableOfContents.isEnabled }}
+                <div class="columns">
+                    <div class="column is-three-quarters">
+                        <article class="content">
+                            {{ $page.Content }}
+                        </article>
+                    </div>
+                     <div class="column">
+                        {{ partial "tableofcontents.html" $page }}
+                    </div>
+                </div>
+            {{ else }}
+                <article class="content">
+                    {{ $page.Content }}
+                </article>
+            {{ end }}
+        </div>
+    </div>
+</main>
+{{ end }}

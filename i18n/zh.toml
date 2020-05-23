@@ -1,0 +1,44 @@
+[navigation]
+other = "导航"
+
+[menu]
+other = "菜单"
+
+[breadcrumb]
+other = "位置导航"
+
+[pagination]
+other = "分页"
+
+[pagination_previous]
+other = "上一页"
+
+[pagination_next]
+other = "下一页"
+
+[pagination_goto]
+other = "跳转至第{{ .PageNumber }}页"
+
+[pagination_current]
+other = "第{{ .PageNumber }}页"
+
+[page_not_found]
+other = "找不到该页面" 
+
+[page_not_found_recommendations]
+other = "也许您对这些感兴趣?"
+
+[page_not_found_latest]
+other = "最新的"
+
+[back_to_top]
+other = "返回顶部"
+
+[breadcrumb_home]
+other = "主页"
+
+[table_of_contents]
+other = "内容目录"
+
+[read_more]
+other = "阅读全文"

@@ -1,0 +1,6 @@
+# Node
+node_modules/
+
+# Hugo
+exampleSite/public/
+exampleSite/resources/

@@ -1,0 +1,44 @@
+[navigation]
+other = "Navigation"
+
+[menu]
+other = "Menu"
+
+[breadcrumb]
+other = "breadcrumbs"
+
+[breadcrumb_home]
+other = "Home"
+
+[pagination]
+other = "Pagination"
+
+[pagination_previous]
+other = "Previous"
+
+[pagination_next]
+other = "Next"
+
+[pagination_goto]
+other = "Goto page {{ .PageNumber }}"
+
+[pagination_current]
+other = "Page {{ .PageNumber }}"
+
+[page_not_found]
+other = "Page not found" 
+
+[page_not_found_recommendations]
+other = "Perhaps you were looking for one of these?"
+
+[page_not_found_latest]
+other = "Latest"
+
+[back_to_top]
+other = "Back to top"
+
+[table_of_contents]
+other = "On this page"
+
+[read_more]
+other = "Read more"

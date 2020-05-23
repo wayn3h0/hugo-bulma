@@ -1,0 +1,30 @@
+[en]
+weight          = 1
+languageCode    = "en"
+languageName    = "English"
+contentDir      = "content/en"
+
+# The copyright notice to display in the site footer.
+# To display a copyright symbol, type `&copy;`. For current year, type `{year}`.
+copyright       = "&copy; {year} Wayne Ho"
+
+# The title of site
+title           = "Hugo-Bulma: Hugo theme based on Bulma" 
+
+[en.params]
+author = "Wayne Ho"
+keywords = "Hugo-Bulma, Hugo, Bulma, Theme"
+description = "Hugo-Bulma is a free, open source Hugo theme based on Bulma."
+
+[zh]
+weight          = 2
+languageCode    = "zh"
+languageName    = "中文"
+contentDir      = "content/zh"
+copyright       = "&copy; {year} 韦恩"
+title           = "韦恩指南" 
+
+[zh.params]
+author = "玮"
+keywords = "keywords heree"
+description = "description here"

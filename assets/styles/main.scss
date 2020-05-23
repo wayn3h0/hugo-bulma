@@ -1,0 +1,142 @@
+// colors
+{{ with .Param "design.colors.primary" }}
+$primary: {{ . }};
+{{ end }}
+{{ with .Param "design.colors.link" }}
+$link: {{ . }};
+{{ end }}
+{{ with .Param "design.colors.info" }}
+$info: {{ . }};
+{{ end }}
+{{ with .Param "design.colors.success" }}
+$success: {{ . }};
+{{ end }}
+{{ with .Param "design.colors.warning" }}
+$warning: {{ . }};
+{{ end }}
+{{ with .Param "design.colors.danger" }}
+$danger: {{ . }};
+{{ end }}
+{{ with .Param "design.colors.light" }}
+$light: {{ . }};
+{{ end }}
+{{ with .Param "design.colors.dark" }}
+$dark: {{ . }};
+{{ end }}
+
+// radiusless
+{{ if .Param "design.isRadiusless" }}
+$radius: 0px;
+$radius-small: 0px;
+$radius-large: 0px;
+{{ end }}
+
+// navbar height
+{{ with .Param "design.navbar.logo.height" }}
+$navbar-item-img-max-height: {{ printf "%s * 0.0625" (strings.TrimSuffix "px" .) }}rem;
+{{ if not ($.Param "design.navbar.isSpaced") }}
+$navbar-height: {{ printf "%s * 0.0625 + 1" (strings.TrimSuffix "px" .) }}rem;
+{{ else }}
+$navbar-height: {{ printf "%s * 0.0625 + 2" (strings.TrimSuffix "px" .) }}rem;
+{{ end }}
+{{ end }}
+
+
+{{ with .Param "design.footer.isPaddingless" }}
+$footer-padding: 0;
+{{ end }}
+
+@import "../../node_modules/bulma/bulma.sass";
+
+/*
+// fix anchor problem with fixed navbar 
+// ref: https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors
+// adding the 1rem is padding of navbar-item
+// **this NOT working well for footnote anthors**
+.has-navbar-fixed-top {
+  :target::before {
+    display: block;
+    content: " ";
+    margin-top: -$navbar-height;
+    padding-top: $navbar-height;
+    visibility: hidden;
+  }
+}
+.has-spaced-navbar-fixed-top {
+  :target::before {
+    display: block;
+    content: " ";
+    margin-top: -(($navbar-height + ($navbar-padding-vertical * 2)) + 1)rem;
+    padding-top: $navbar-height + ($navbar-padding-vertical * 2) + 1rem;
+    visibility: hidden;
+  }
+}
+*/
+
+// helpers
+.is-bottom-paddingless {
+  padding-bottom: 0 !important;
+}
+
+.is-top-paddingless {
+  padding-top: 0 !important;
+}
+
+// logo
+.logo {
+  {{ with .Param "design.logo.width" }}
+  width: {{ strings.TrimSuffix "px" . }}px;
+  {{ end }}
+  {{ with .Param "design.logo.height" }}
+  height: {{ strings.TrimSuffix "px" . }}px;
+  {{ end }}
+  &.is-header {
+    {{ with .Param "design.navbar.logo.width" }}
+    width: {{ strings.TrimSuffix "px" . }}px;
+    {{ end }}
+    {{ with .Param "design.navbar.logo.height" }}
+    height: {{ strings.TrimSuffix "px" . }}px;
+    {{ end }}
+    {{ with .Param "design.navbar.logo.rightMargin" }}
+    margin-right: {{ . }};
+    {{ end }}
+  }
+  &.is-footer {
+  {{ with .Param "design.footer.logo.width" }}
+  width: {{ strings.TrimSuffix "px" . }}px;
+  {{ end }}
+  {{ with .Param "design.footer.logo.height" }}
+  height: {{ strings.TrimSuffix "px" . }}px;
+  {{ end }}
+  }
+}
+
+// back to top
+.back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+}
+
+// summary
+.summary {
+  padding: 1.5rem 0;
+}
+  
+// table of contents
+.table-of-contents {
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid $light;
+  ul {
+    margin-left: 0.5rem;
+    li {
+      list-style-type: none;
+    }
+  }
+  &.is-sticky {
+    position: sticky;
+    top: {{ .Param "design.tableOfContents.top" | default "$navbar-height" }};
+  }
+}

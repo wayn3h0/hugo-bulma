@@ -1,0 +1,83 @@
+{{ $page := . }}
+{{ $paginator := $page.Paginator }}
+{{ if gt $paginator.TotalPages 1 }}
+
+    {{ $class := "" }}
+
+    {{ with $page.Site.Params.design.pagination.alignment }}
+        {{ if not (in (slice "centered" "right")) . }}
+            {{ $message := printf "partials/pagination: invalid argument (alignment=%q) at config [params.design.pagination]" . }}
+            {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+        {{ else }}
+            {{ $class = printf "%s is-%s" $class . }}
+        {{ end }}
+    {{ end }}
+
+    {{ with $page.Site.Params.design.pagination.style }}
+        {{ if not (in (slice "rounded") .) }}
+            {{ $message := printf "partials/pagination: invalid argument (style=%q) at config [params.design.pagination]" . }}
+            {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+        {{ else }}
+            {{ $class = printf "%s is-%s" $class . }}
+        {{ end }}
+    {{ end }}
+
+    {{ with $page.Site.Params.design.pagination.size }}
+        {{ if not (in (slice "small" "medium" "large") .) }}
+            {{ $message := printf "partials/pagination: invalid argument (size=%q) at config [params.design.pagination]" . }}
+            {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+        {{ else }}
+            {{ $class = printf "%s is-%s" $class . }}
+        {{ end }}
+    {{ end }}
+
+    <div class="section is-top-paddingless">
+        <div class="container">
+            <nav class="pagination{{ with $class }} {{ . }}{{ end }}" role="navigation" aria-label="{{ i18n "pagination" }}">
+                <a class="pagination-previous"{{ if $paginator.HasPrev }} href="{{ $paginator.Prev.URL }}"{{ else }} disabled{{ end }}>{{ i18n "pagination_previous" }}</a>
+                <a class="pagination-next"{{ if $paginator.HasNext }} href="{{ $paginator.Next.URL }}"{{ else }} disabled{{ end }}>{{ i18n "pagination_next" }}</a>
+                <ul class="pagination-list">
+                    {{ $showAllNumbers := lt $paginator.TotalPages 5 }}
+                    {{ $left := 0 }}
+                    {{ $right := add $paginator.TotalPages 1 }}
+                    {{ if not $showAllNumbers }}
+                        {{ $left = sub $paginator.PageNumber 2 }}
+                        {{ $right = add $paginator.PageNumber 2 }}
+
+                        {{ if le $left 1 }}
+                            {{ $left = 0}}
+                            {{ $right = 5}}
+                        {{ end }}
+                        {{ if gt $right $paginator.TotalPages }}
+                            {{ $left = sub $paginator.TotalPages 4 }} 
+                            {{ $right = add $paginator.TotalPages 1 }}
+                        {{ end }}    
+                    {{ end }}
+                    
+                    {{ $shouldEllipse := false }}
+                    {{ $ellipsed := false }}
+                    {{ range $paginator.Pagers }}
+                        {{ if eq .PageNumber $paginator.PageNumber }}
+                            <li><a class="pagination-link is-current" aria-current="page" aria-label="{{ i18n "pagination_current" (dict "PageNumber" .PageNumber) }}" href="{{ .URL }}">{{ .PageNumber }}</a></li>
+                        {{ else }}
+                            {{ $showNumber := or $showAllNumbers (or (or (eq .PageNumber 1) (eq .PageNumber $paginator.TotalPages)) (and (gt .PageNumber $left) (gt $right .PageNumber))) }}
+                            {{ if $showNumber }}
+                                {{ $ellipsed = false }}
+                                {{ $shouldEllipse = false }}
+                            {{ else }}
+                                {{ $shouldEllipse = not $ellipsed }}
+                                {{ $ellipsed = true }}
+                            {{ end }}
+
+                            {{ if $showNumber }}
+                                <li><a class="pagination-link" aria-label="{{ i18n "pagination_goto" (dict "PageNumber" .PageNumber) }}" href="{{ .URL }}">{{ .PageNumber }}</a></li>
+                            {{ else if $shouldEllipse }}
+                                <li><span class="pagination-ellipsis">&hellip;</span></li>
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{{ end }}

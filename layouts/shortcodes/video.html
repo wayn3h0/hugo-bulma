@@ -1,0 +1,90 @@
+{{ $shortcode := . }}
+
+{{ $sourceURL := $shortcode.Get "sourceURL" | default "" }}
+{{ $posterURL := $shortcode.Get "posterURL" | default "" }}
+{{ $width := $shortcode.Get "width" | default "" }}
+{{ $height := $shortcode.Get "height" | default "" }}
+{{ $preload := $shortcode.Get "preload" | default "none" }}
+{{ $isControllable := $shortcode.Get "isControllable" | default true }}
+{{ $isAutoplay := $shortcode.Get "isAutoplay" | default false }}
+{{ $isLoop := $shortcode.Get "isLoop" | default false }}
+{{ $isMuted := $shortcode.Get "isMuted" | default false }}
+
+{{ $poster := "" }}
+{{ if ne $posterURL "" }}
+    {{ if hasPrefix $posterURL "http" }}
+        {{ $poster = $posterURL }}
+    {{ else }}
+        {{ $resource := $shortcode.Page.Resources.GetMatch $posterURL }}
+        {{ if not $resource }}
+            {{ $message := printf "shortcodes/video: file not found (posterURL=%q) at %s" $posterURL $shortcode.Position }}
+            {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ else }}
+            {{ $poster = $resource.RelPermalink }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if not (in (slice "auto" "metadata" "none") $preload) }}
+    {{ $message := printf "shortcodes/video: invalid argument (preload=%q) at %s" $preload $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+
+    {{/* continue if set Site.Params.isQuirksMode as true in config */}}
+    $preload = "none"
+{{ end }}
+
+{{ $attributes := "" }}
+{{ with $width }}
+    {{ $attributes = printf "%s width=%q" $attributes . }}
+{{ end }}
+{{ with $height }}
+    {{ $attributes = printf "%s height=%q" $attributes . }}
+{{ end }}
+{{ with $preload }}
+    {{ $attributes = printf "%s preload=%q" $attributes . }}
+{{ end }}
+{{ with $poster }}
+     {{ $attributes = printf "%s poster=%q" $attributes . }}
+{{ end }}
+{{ if $isControllable }}
+     {{ $attributes = printf "%s controls" $attributes }}
+{{ end }}
+{{ if $isAutoplay }}
+     {{ $attributes = printf "%s autoplay" $attributes }}
+{{ end }}
+{{ if $isLoop }}
+     {{ $attributes = printf "%s loop" $attributes }}
+{{ end }}
+{{ if $isMuted }}
+     {{ $attributes = printf "%s muted" $attributes }}
+{{ end }}
+
+{{ $source := "" }}
+{{ if ne $sourceURL "" }}
+    {{ $src := "" }}
+    {{ if hasPrefix $sourceURL "http" }}
+        {{ $src = $sourceURL }}
+    {{ else }}
+        {{ $resource := $shortcode.Page.Resources.GetMatch $sourceURL }}
+        {{ if not $resource }}
+            {{ $message := printf "shortcodes/video: file not found (sourceURL=%q) at %s" $sourceURL $shortcode.Position }}
+            {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ else }}
+            {{ $src = $resource.RelPermalink }}
+        {{ end }}
+    {{ end }}
+    {{ if ne $src "" }}
+        {{ $videoType := lower (strings.TrimPrefix "." (path.Ext $sourceURL)) }}
+        {{ $source = printf `<source src="%s" type="video/%s">` $src $videoType }}
+    {{ end }}
+{{ end }}
+
+{{ if and (eq $sourceURL "") (eq (len (findRE `<source.*>` $shortcode.Inner 1)) 0) }}
+    {{ $message := printf `shortcodes/video: missing children (video/source) at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <video {{ $attributes | safeHTMLAttr }}>
+        {{ with $source }}{{ . | safeHTML }}{{ end }}
+        {{ $shortcode.Inner }}
+    </video>
+{{ end }}

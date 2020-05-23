@@ -1,0 +1,20 @@
+{{ define "main" }}
+<main class="main" role="main">
+    <section class="section">
+        <div class="container content">
+            <h1>{{ i18n "page_not_found" }}</h1>
+            <p>{{ i18n "page_not_found_recommendations" }}</p>
+            {{ $query := .Site.RegularPages }}
+            {{ $count := len $query }}
+            {{ if gt $count 0 }}
+                <h2>{{ i18n "page_not_found_latest" }}</h2>
+                <ul>
+                    {{ range first 10 $query }}
+                        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                    {{ end }}
+                </ul>
+            {{ end }}
+        </div>
+    </section>
+</main>
+{{ end }}

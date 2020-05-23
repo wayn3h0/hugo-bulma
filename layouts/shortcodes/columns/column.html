@@ -1,0 +1,55 @@
+{{ $shortcode := . }}
+
+{{ $isNarrow := $shortcode.Get "isNarrow" | default false }}
+{{ $size := $shortcode.Get "size" | default "" }}
+{{ $offset := $shortcode.Get "offset" | default "" }}
+{{ $width := $shortcode.Get "width" | default "" }}
+
+{{ $sizes := slice "full" "four-fifths" "three-quarters" "two-thirds" "three-fifths" "half" "two-fifths" "one-third" "one-quarter" "one-fifth" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" }}
+
+{{ $class := "column" }} 
+
+{{ if $isNarrow }}
+    {{ $class = printf "%s is-narrow" $class }}
+{{ end }}
+
+{{ if ne $size "" }}
+    {{ if not (in $sizes $size) }}
+        {{ $message := printf "shortcodes/columns/column: invalid argument (size=%q) at %s" $size $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = printf "%s is-%s" $class $size }}
+    {{ end }}
+{{ end }}
+
+{{ if ne $offset "" }}
+    {{ if not (in $sizes $offset) }}
+        {{ $message := printf "shortcodes/columns/column: invalid argument (offset=%q) at %s" $offset $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = printf "%s is-offset-%s" $class $offset }}
+    {{ end}}
+{{ end }}
+
+{{ $style := "" }}
+
+{{ if ne $style "" }}
+    {{ if and (not (strings.HasSuffix $width "px")) (not (strings.HasSuffix $width "%")) }}
+        {{ $message := printf "shortcodes/columns/column: invalid argument (width=%q) at %s" $width $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $style = printf "width: %s;" $width }}
+    {{ end }}
+{{ end }}
+
+{{ if eq $shortcode.Parent nil }}
+    {{ $message := printf "shortcodes/columns/column: could not be used alone at %s" $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else if ne $shortcode.Parent.Name "columns" }}
+    {{ $message := printf "shortcodes/columns/column: could not be child of %q at %s" $shortcode.Parent.Name $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <div class="{{ $class }}"{{ with $style }} style="{{ . | safeCSS }}"{{ end }}>
+        {{ $shortcode.Inner }}
+    </div>
+{{ end }}
