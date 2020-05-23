@@ -1,0 +1,92 @@
+####################
+
+isQuirksMode = true     # set value to true will throw error as warning when building site, or as error
+
+dateFormat = "2006-01-02"
+
+[design]
+
+    isRadiusless = true             # disable radius if set to `true`
+
+    # custom SASS/SCSS/CSS/JS files, should put in `/assets/`
+    [design.styles.customCSS]
+    #   path = "styles/custom.css"
+    #   url = ""
+    #   sri = ""
+    [design.scripts.customJS]
+    #    path = "scripts/custom.js" # local
+    #    url = ""                   # cdn
+    #    sri = ""                   
+
+    # https://clrs.cc colors
+    [design.colors]
+        primary = "#0074D9"
+        link    = "#0074D9"
+        info    = "#0074D9"
+        success = "#3D9970"
+        warning = "#FF851B"
+        danger  = "#FF4136"
+        light   = ""
+        dark    = ""
+
+    [design.favicon]
+        path = "images/icon.png"     # favicon file should put in `/assets/`
+
+    [design.logo]
+        path = "images/logo.svg"        # logo file should put in `/assets/`
+
+    [design.footer]
+        isPaddingless = true
+
+        [design.footer.logo]
+            isHidden = false
+            width = ""
+            height = "50px"
+
+    [design.backToTop]
+        isDisabled = false
+        [design.backToTop.icon]
+            #pack = "fas"
+            #name = "chevron-up"
+            #color = "dark"
+
+    [design.navbar]
+        isFixedTop = true 
+        isSpaced = false                # enable paddings as 1rem (top and bottom) and 2rem (left and right) 
+        isTransparent = true            # enable navbar transparent
+        hasShadow = true                # enable navbar shadow (botoom line)
+        hasTextWeightBold = true        # enable text bold
+        backgroundColor = ""            # available values: `primary`,`link`,`info`,`success`,`warning`,`danger`,`black`,`dark`,`light`,`white`
+        [design.navbar.logo]
+            isHidden = false
+            text = ""
+            width = ""
+            height = "60px"             # unit: px
+            rightMargin = "1rem"        #
+    
+    [design.breadcrumb]
+        separator = ""                  # available values: `arrow`,`bullet`,`dot`,`succeeds`, default is `/`
+        alignment = ""                  # available values: `centered`,`right`, default show on left
+        size = ""                       # available values: `small`,`medium`,`large`
+
+    [design.pagination]
+        alignment = ""                  # available values: `centered`,`right`, default show on left
+        style = ""                      # available values: `rounded`
+        size = ""                       # available values: `small`,`medium`,`large` 
+
+    [design.tableOfContents]
+        top = "6rem"                    # value should >= design.navbar.height
+
+    # global table element settings
+    [design.table]
+        isScrollable = true
+        isBordered = true
+        isStriped = true
+        isNarrow = false
+        isHoverable = true
+        isFullwidth = false
+
+    [design.externalLink]
+        isOpenInNewTab = true
+        pre = ""
+        post = "<span class=\"icon\"><i class=\"fas fa-external-link-alt\"></i></span>"

@@ -1,0 +1,53 @@
+{{ $shortcode := . }}
+
+{{ $color := $shortcode.Get "color" }}
+{{ $size := $shortcode.Get "size" }}
+{{ $isLightColor := $shortcode.Get "isLightColor" | default false }}
+{{ $isRounded := $shortcode.Get "isRounded" | default false }}
+{{ $url := $shortcode.Get "url" }}
+{{ $target := $shortcode.Get "target" }}
+{{ $text := $shortcode.Get "text" }}
+
+{{ $class := "tag" }}
+{{ if $isRounded }}
+    {{ $class = printf "%s is-rounded" $class }}
+{{ end }}
+
+{{ if ne $color "" }}
+    {{ if not (in (slice "primary" "link" "info" "success" "warning" "danger" "black" "dark" "light" "white") $color) }}
+        {{ $message := printf "shortcodes/tag: invalid argument (color=%q) at %s" $color $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = printf "%s is-%s" $class $color }}
+    {{ end }}
+{{ end }}
+
+{{ if $isLightColor }}
+    {{ $class = printf "%s is-light" $class }}
+{{ end }}
+
+{{ if ne $size "" }}
+    {{ if not (in (slice "normal" "medium" "large") $size) }}
+        {{ $message := printf "shortcodes/tag: invalid argument (size=%q) at %s" $size $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = printf "%s is-%s" $class $size }}
+    {{ end }}
+{{ end }}
+
+{{ if not (in (slice "" "_blank" "_self") $target) }}
+    {{ $message := printf "shortcodes/tag: invalid argument (target=%q) at %s" $target $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ $target = "" }}
+{{ end }}
+
+{{ if eq $text "" }}
+    {{ $message := printf `shortcodes/tag: invalid argument (text="") at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    {{ if eq $url "" }}
+        <span class="{{ $class }}">{{ $text }}</span>
+    {{ else }}
+    <a class="{{ $class }}" href="{{ $url | safeURL | relLangURL }}"{{ with $target }} target="{{ . }}"{{ end }}>{{ $text }}</a>
+    {{ end }}
+{{ end }}

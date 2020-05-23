@@ -1,0 +1,21 @@
+{{ $shortcode := . }}
+
+{{ $content := $shortcode.Inner }}
+
+{{ if (eq (len (findRE `class="tag.*"` $content 1)) 0) }}
+    {{ $message := printf `shortcodes/tags: missing children (tag) at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    {{ $isGrouped := eq (len (findRE `<--group-->` $content 1)) 1 }}
+    {{ $content = replace $content `<--addons-->` `<div class="tags has-addons">` }}
+    {{ $content = replace $content `<--/addons-->` `</div>` }}
+    {{ $content = replace $content `<--group-->` `<div class="control">` }}
+    {{ $content = replace $content `<--/group-->` `</div>` }}
+    {{ if $isGrouped }}
+        <div class="field is-grouped is-grouped-multiline">
+            {{ $content | safeHTML }}
+        </div>
+    {{ else }}
+        {{ $content | safeHTML }}
+    {{ end }}
+{{ end }}

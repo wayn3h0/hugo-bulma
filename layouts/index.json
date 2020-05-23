@@ -1,0 +1,22 @@
+{{ $index := slice }}
+{{ $pages := site.RegularPages }}
+{{ range $pages }}
+  {{ if not .Draft }}
+
+    {{ $desc := "" }}
+    {{ if .Params.summary }}
+      {{ $desc = .Params.summary }}
+    {{ else }}
+      {{ $desc = .Summary }}
+    {{ end }}
+
+    {{ $title := .Title}}
+    {{ $relPermalink := .RelPermalink }}
+    {{ $permalink := .Permalink }}
+
+    {{ $index = $index | append (dict "objectID" .File.UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" $permalink "relpermalink" $relPermalink "title" $title "summary" (plainify $desc) "content" .Plain "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories) }}
+
+  {{ end }}
+{{ end }}
+
+{{ $index | jsonify }}

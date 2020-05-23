@@ -1,0 +1,49 @@
+{{ $shortcode := . }}
+
+{{ $title := $shortcode.Get "title" | default "" }}
+{{ $subtitle := $shortcode.Get "subtitle" | default "" }}
+{{ $size := $shortcode.Get "size" | default "" }}
+{{ $color := $shortcode.Get "color" | default "" }}
+{{ $isGradient := $shortcode.Get "isGradient" | default false }}
+{{ $isCentered := $shortcode.Get "isCentered" | default false }}
+
+{{ $class := "hero" }}
+
+{{ if ne $size "" }}
+    {{ if not (in (slice "medium" "large" "fullheight") $size) }}
+        {{ $message := printf "shortcodes/hero: invalid argument (size=%q) at %s" $size $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ if and (eq $size "fullheight") $shortcode.Page.Site.Params.design.navbar.isFixedTop }}
+            {{ $class = printf "%s is-fullheight-with-navbar" $class }}
+        {{ else }}
+            {{ $class = printf "%s is-%s" $class $size }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if ne $color "" }}
+    {{ if not (in (slice "primary" "link" "info" "success" "warning" "danger" "light" "dark") $color) }}
+        {{ $message := printf "shortcodes/hero: invalid argument (color=%q) at %s" $color $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = printf "%s is-%s" $class $color }}
+
+        {{ if $isGradient }}
+            {{ $class = printf "%s is-bold" $class }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if eq $shortcode.Inner "" }}
+    {{ $message := printf `shortcodes/hero: invalid argument (title="") at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <section class="{{ $class }}">
+        <div class="hero-body">
+            <div class="container{{ if $isCentered }} has-text-centered{{ end }}">
+                {{ $shortcode.Inner }}
+            </div>
+        </div>
+    </section>
+{{ end }}

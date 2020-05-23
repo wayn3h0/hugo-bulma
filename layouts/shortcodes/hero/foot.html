@@ -1,0 +1,16 @@
+{{ $shortcode := . }}
+
+{{ if eq $shortcode.Parent nil }}
+    {{ $message := printf "shortcodes/hero/foot: could not be used alone at %s" $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else if ne $shortcode.Parent.Name "hero" }}
+    {{ $message := printf "shortcodes/hero/foot: could not be child of %q at %s" $shortcode.Parent.Name $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else if eq $shortcode.Inner "" }}
+    {{ $message := printf `shortcodes/hero/foot: missing inner at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <div class="hero-foot">
+        {{ $shortcode.Inner }}
+    </div>
+{{ end }}

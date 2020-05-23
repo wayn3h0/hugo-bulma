@@ -1,0 +1,63 @@
+{{ $shortcode := . }}
+
+{{ $color := $shortcode.Get "color" | default "" }}
+{{ $isLightColor := $shortcode.Get "isLightColor" | default false }}
+{{ $styles := $shortcode.Get "styles" | default "" }}
+{{ $size := $shortcode.Get "size" | default "" }}
+{{ $url := $shortcode.Get "url" | default "" }}
+{{ $target := $shortcode.Get "target" | default "" }}
+{{ $text := $shortcode.Get "text" | default "" }}
+
+{{ $class := "button" }}
+
+{{ if ne $color "" }}
+    {{ if not (in (slice "primary" "link" "info" "success" "warning" "danger" "light" "dark" "black" "white") $color) }}
+        {{ $message := printf "shortcodes/linkbutton: invalid argument (color=%q) at %s" $color $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = printf "%s is-%s" $class $color }}
+        {{ if $isLightColor }}
+            {{ $class = printf "%s is-light" $class }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if ne $styles "" }}
+    {{ range $style := (split $styles "-and-") }}
+        {{ if not (in (slice "outlined" "inverted" "rounded" "outlined" "inverted" "rounded") $style)}}
+            {{ $message := printf "shortcodes/linkbutton: invalid argument (styles=%q) at %s" $styles $shortcode.Position }}
+            {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ else }}
+            {{ $class = printf "%s is-%s" $class $style }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if ne $size "" }}
+    {{ if not (in (slice "small" "medium" "large") $size) }}
+        {{ $message := printf "shortcodes/linkbutton: invalid argument (size=%q) at %s" $size $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = printf "%s is-%s" $class $size }}
+    {{ end }}
+{{ end }}
+
+{{ if eq $url "" }}
+    {{ $message := printf `shortcodes/linkbutton: invalid argument (url="") at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ end }}
+
+{{ if ne $target "" }}
+    {{ if not (in (slice "_blank" "_self") $target) }}
+        {{ $message := printf "shortcodes/linkbutton: invalid argument (target=%q) at %s" $target $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ $target = "" }}
+    {{ end }}
+{{ end }}
+
+{{ if eq $text "" }}
+    {{ $message := printf `shortcodes/linkbutton: invalid argument (text="") at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <a class="{{ $class }}"{{ with $url }} href="{{ . | safeURL }}"{{ end }}{{ with $target }} target="{{ . }}"{{ end }}>{{ $text }}</a>
+{{ end }}

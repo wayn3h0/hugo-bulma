@@ -1,0 +1,70 @@
+{{/* Function to get logo image (png)                                  */}}
+{{/* Input: context (.); width (int or string); height (int or string) */}}
+{{/* Output: resource (object)                                         */}}
+
+{{ $resource := false }}
+
+{{ $page := .context }}
+
+{{/* allow width and height passed as string with unit (px) */}}
+{{ $widthString := (string .width) }}
+{{ $widthString = trim (strings.TrimSuffix "px" $widthString) " " }}
+{{ if eq $widthString "" }}
+    {{ $widthString = "0" }}
+{{ end }}
+{{ $width := int $widthString }}
+
+{{ $heightString := (string .height) }}
+{{ $heightString = trim (strings.TrimSuffix "px" $heightString) " " }}
+{{ if eq $heightString "" }}
+    {{ $heightString = "0" }}
+{{ end }}
+{{ $height := int $heightString }}
+
+{{ $path := $page.Site.Params.design.logo.path | default "images/logo.png" | default "images/logo.svg" }}
+{{ $extension := lower (path.Ext $path) }}
+{{ $fullPath := printf "assets/%s" $path }}
+
+{{ if eq ".svg" $extension }} {{/* do not process for SVG */}}
+    {{ $resource = resources.GetMatch $path }}
+{{ else }}
+    {{ if not (in (slice ".png" ".jpg" ".jpeg") $extension) }}
+        {{ $message := printf "functions/logo: logo file type %q unaccepted: %s" $extension $fullPath }}
+        {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+    {{ else }}
+        {{ if not (fileExists $fullPath) }}
+            {{ $message := printf "partials/functions/logo: missing logo file: %s" $fullPath }}
+            {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+        {{ else }}
+            {{ $logo := resources.GetMatch $path }}
+
+            {{ if and (not (gt $width 0)) (not (gt $height 0)) }} {{/* invalid given size */}}
+                {{ $message := printf "partials/functions/logo: logo dimensions (width: %d, height: %d) are invalid: %s" $width $height $fullPath }}
+                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+                {{/* contiune if work on quirks mode */}}
+
+            {{ else }}
+                {{ if or (gt $width $logo.Width) (gt $height $logo.Height) }} {{/* zoom in */}}
+                    {{ $message := printf "partials/functions/logo: zooming in logo image causes blurred: %s (width:%d, height:%d -> width:%d, height:%d)" $fullPath $logo.Width $logo.Height $width $height }}
+                    {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+                    {{/* contiune if work on quirks mode */}}
+
+                    {{ $resource = $logo }}
+                {{ end }}
+
+                {{ $dimensions := "x" }}
+                {{ if gt $width 0 }}
+                    {{ $dimensions = printf "%d%s" $width $dimensions }}
+                {{ end }}
+                {{ if gt $height 0 }}
+                    {{ $dimensions = printf "%s%d" $dimensions $height }}
+                {{ end }}
+
+                {{ $logoResized := $logo.Resize (printf "%s Lanczos q100 png" $dimensions) }}
+                {{ $resource = $logoResized }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ return $resource }}

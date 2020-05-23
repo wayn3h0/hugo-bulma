@@ -1,0 +1,48 @@
+{{/* Function to get favicon image (png) */}}
+{{/* Input: context (.); size (int)      */}}
+{{/* Output: resource (object)           */}}
+
+{{ $resource := false }}
+
+{{ $page := .context }}
+{{ $size := .size }}
+{{ $path := $page.Site.Params.design.favicon.path | default "images/favicon.png" }}
+{{ $extension := lower (path.Ext $path) }}
+{{ $fullPath := printf "assets/%s" $path }}
+
+{{ if not (in (slice ".png" ".jpg" ".jpeg") $extension) }}
+    {{ $message := printf "partials/functions/favicon: favicon file type %q unaccepted: %s" $extension $fullPath }}
+    {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+{{ else }}
+    {{ if not (fileExists $fullPath) }}
+        {{ $message := printf "partials/functions/favicon: missing favicon file: %s" $fullPath }}
+        {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+    {{ else }}
+        {{ $icon := resources.GetMatch $path }}
+
+        {{ if not (gt $size 0) }} {{/* invalid given size */}}
+            {{ $message := printf "partials/functions/favicon: favicon size %q is invalid: %s" $fullPath $size }}
+            {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+            {{/* contiune if work on quirks mode */}}
+
+            {{ $resource = $icon }}
+        {{ else }} {{/* generate by given size */}}
+            {{ if ne $icon.Width $icon.Height }} {{/* image is not square */}}
+                {{ $message := printf "partials/functions/favicon: a square favicon image is expected: %s (width:%d, height:%d)" $fullPath $icon.Width $icon.Height }}
+                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+                {{/* contiune if work on quirks mode */}}
+            {{ end }}
+
+            {{ if or (gt $size $icon.Width) (gt $size $icon.Height) }} {{/* zoom in */}}
+                {{ $message := printf "partials/functions/favicon: zooming in favicon image causes blurred: %s (width:%d, height:%d -> width:%d, height:%d)" $fullPath $icon.Width $icon.Height $size $size }}
+                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+                {{/* contiune if work on quirks mode */}}
+            {{ end }}
+
+            {{ $iconResized := $icon.Resize (printf "%dx%d Lanczos q100 png" $size $size) }}
+            {{ $resource = $iconResized }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ return $resource }}

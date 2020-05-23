@@ -1,0 +1,32 @@
+{{ $shortcode := . }}
+
+{{ $url := $shortcode.Get "url" | default "" }}
+
+{{ $src := "" }}
+{{ if eq $url "" }}
+    {{ $message := printf `shortcodes/video/source: invalid argument (url="") at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    {{ if hasPrefix $url "http" }}
+        {{ $src = $url }}
+    {{ else }}
+        {{ $resource := $shortcode.Page.Resources.GetMatch $url }}
+        {{ if eq $resource nil }}
+            {{ $message := printf "shortcodes/video/source: file not found (url=%q) at %s" $url $shortcode.Position }}
+            {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ else }}
+            {{ $src = $resource.RelPermalink }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if eq $shortcode.Parent nil }}
+    {{ $message := printf "shortcodes/video/source: could not be used alone at %s" $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else if ne $shortcode.Parent.Name "video" }}
+    {{ $message := printf "shortcodes/video/source: could not be child of %q at %s" $shortcode.Parent.Name $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else if ne $src "" }}
+    {{ $videoType := lower (strings.TrimPrefix "." (path.Ext $url)) }}
+    <source src="{{ $src }}" type="video/{{ $videoType }}">
+{{ end }}

@@ -1,0 +1,12 @@
+{{ $page := . }}
+<!DOCTYPE html>
+<html lang="{{ .Language.Lang }}">
+    <head>
+        {{ partial "head.html" $page }}
+    </head>
+    <body{{ if $page.Site.Params.design.navbar.isFixedTop }} class="{{ if $page.Site.Params.design.navbar.isSpaced }}has-spaced-navbar-fixed-top{{ else }}has-navbar-fixed-top{{ end }}"{{ end }}>
+        {{ partial "header.html" $page }}
+        {{ block "main" $page }}{{ end }}
+        {{ partial "footer.html" $page }}
+    </body>
+</html>

@@ -1,0 +1,10 @@
+{{ $shortcode := . }}
+
+{{ if eq $shortcode.Inner "" }}
+    {{ $message := printf `shortcodes/content: missing inner at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    <div class="content">
+        {{ $shortcode.Inner }}
+    </div>
+{{ end }}

@@ -1,0 +1,45 @@
+{{ $shortcode := . }}
+
+{{ $isSub := $shortcode.Get "isSub" | default false }}
+{{ $level := $shortcode.Get "level" | default 1 }}
+{{ $size := $shortcode.Get "size" | default 0 }}
+{{ $isSpaced := $shortcode.Get "isSpaced" | default false }}
+
+
+{{ $class := "title" }}
+
+{{ if not (in (slice 1 2 3 4 5 6) $level) }}
+    {{ $message := printf "shortcodes/title: invalid argument (level=%q) at %s" $level $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ $level = 1 }}
+{{ end }}
+{{ if $isSub }}
+    {{ if eq $level 1 }}
+        {{ $message := printf "shortcodes/title: invalid argument (level=%q) for subtitle at %s" $level $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+    {{ else }}
+        {{ $class = "subtitle" }}
+    {{ end }}
+{{ end }}
+
+{{ if gt $size 0 }}
+    {{ if not (in (slice 1 2 3 4 5 6) $size) }}
+        {{ $message := printf "shortcodes/title: invalid argument (size=%q) at %s" $size $shortcode.Position }}
+        {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+        {{ $size = 0 }}
+    {{ else }}
+        {{ $class = printf "%s is-%d" $class $size }}
+    {{ end }}
+{{ end }}
+
+{{ if $isSpaced }}
+    {{ $class = printf "%s is-spaced" $class }}
+{{ end }}
+
+{{ if eq $shortcode.Inner "" }}
+    {{ $message := printf `shortcodes/title: missing inner at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    {{ $html := printf `<h%d class="%s">%s</h%d>` $level $class $shortcode.Inner $level }}
+    {{ $html | safeHTML }}
+{{ end }}
