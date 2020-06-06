@@ -1,9 +1,9 @@
 name = "Hugo Bulma"
 description = "Hugo theme based on Bulma"
-version = "0.1.1"
+version = "0.1.3"
 homepage = "https://github.com/wayn3h0/hugo-bulma"
-license = ""
-licenselink = ""
+license = "Apache-2.0"
+licenselink = "https://github.com/wayn3h0/hugo-bulma/blob/master/LICENSE.md"
 min_version = "0.71.0"
 
 [author]
