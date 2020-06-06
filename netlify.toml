@@ -1,6 +1,5 @@
 [build]
     command = "npm install -g @babel/cli @babel/core && npm install && hugo --gc -b $URL --source exampleSite --themesDir ../../"
-    base = "exampleSite"
     publish = "exampleSite/public"
 
 [build.environment]
