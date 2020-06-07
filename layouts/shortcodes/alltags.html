@@ -1,0 +1,14 @@
+{{ $shortcode := . }}
+{{ $tags := $shortcode.Page.Site.Taxonomies.tags }}
+{{ if gt (len $tags) 0 }}
+    <div class="field is-grouped is-grouped-multiline">
+    {{ range $tag := $tags }}
+        <div class="control">
+            <div class="tags has-addons">
+                <span class="tag is-link"><i class="fas fa-tag"></i></span>
+                <span class="tag"><a href="{{ $tag.Page.RelPermalink }}" title="{{ $tag.Page.LinkTitle }}">{{ $tag.Page.LinkTitle }}</a>&nbsp;[{{ $tag.Count }}]</span>
+            </div>
+        </div>
+    {{ end }}
+    </div>
+{{ end }}

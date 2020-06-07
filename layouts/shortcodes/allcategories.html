@@ -1,0 +1,14 @@
+{{ $shortcode := . }}
+{{ $categories := $shortcode.Page.Site.Taxonomies.categories }}
+{{ if gt (len $categories) 0 }}
+    <div class="field is-grouped is-grouped-multiline">
+    {{ range $category := $categories }}
+        <div class="control">
+            <div class="tags has-addons">
+                <span class="tag is-link"><i class="fas fa-dot-circle"></i></span>
+                <span class="tag"><a href="{{ $category.Page.RelPermalink }}" title="{{ $category.Page.LinkTitle }}">{{ $category.Page.LinkTitle }}</a>&nbsp;[{{ $category.Count }}]</span>
+            </div>
+        </div>
+    {{ end }}
+    </div>
+{{ end }}
