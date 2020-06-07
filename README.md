@@ -8,4 +8,4 @@ This ia a Hugo theme based on Bulma.
 
 **Hugo**: v0.71.0
 
-**Bluma**: v0.8.2
+**Bluma**: v0.9.0

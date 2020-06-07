@@ -18,7 +18,7 @@
     "shell-executor": "^6.0.1"
   },
   "dependencies": {
-    "bulma": "^0.8.2",
+    "bulma": "^0.9.0",
     "postcss-cli": "^7.1.1",
     "autoprefixer": "^9.8.0",
     "@babel/core": "^7.9.6",
