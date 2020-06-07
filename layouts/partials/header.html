@@ -49,7 +49,11 @@
                 </a>
             </div>
             <div class="navbar-menu" id="menu-navbar">
+                {{ if $page.Site.IsMultiLingual }}
                 <div class="navbar-start">
+                {{ else }}
+                <div class="navbar-end">
+                {{ end }}
                     {{ $baseURL := urls.Parse $page.Site.Params.baseURL }}
                     {{ range $page.Site.Menus.navbar }} 
                         {{ $item := . }}
