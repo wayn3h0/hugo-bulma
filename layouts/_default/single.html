@@ -2,13 +2,17 @@
 {{ $page := . }}
 <main class="main" role="main">
     {{ partial "breadcrumb.html" $page }}
-    <div class="section">
+    <section class="section">
         <div class="container">
             {{ if $page.Params.design.tableOfContents.isEnabled }}
                 <div class="columns">
-                    <div class="column is-three-quarters">
+                    <div class="column is-8">
                         <article class="content">
                             {{ $page.Content }}
+                            <footer>
+                                {{ partial "tags.html" $page }}
+                                {{ partial "categories.html" $page }}
+                            </footer>
                         </article>
                     </div>
                      <div class="column">
@@ -18,9 +22,18 @@
             {{ else }}
                 <article class="content">
                     {{ $page.Content }}
+                    <footer>
+                        {{ partial "tags.html" $page }}
+                        {{ partial "categories.html" $page }}
+                   </footer>
                 </article>
-            {{ end }}
+            {{ end }} 
         </div>
-    </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            {{ partial "related.html" $page }}
+        </div>
+    </section>
 </main>
 {{ end }}
