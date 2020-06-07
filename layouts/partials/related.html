@@ -1,0 +1,22 @@
+{{ $page := . }}
+<h6 class="title is-6">{{ i18n "related"}}</h6>
+<hr>
+{{ $query := $page.Site.RegularPages.Related $page  }}
+<div class="tile is-ancestor">
+    {{ range first ($page.Site.Params.design.related.count | default 5) $query }}
+        {{ $item := . }}
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                {{ if $item.Params.banner }}
+                    <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
+                        <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                    </a>
+                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
+                {{ else }}
+                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
+                    <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
+                {{ end }}
+            </article>
+        </div>
+    {{ end }}
+</div>
