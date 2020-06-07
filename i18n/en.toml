@@ -40,5 +40,11 @@ other = "Back to top"
 [table_of_contents]
 other = "On this page"
 
+[recently]
+other = "Recently"
+
+[related]
+other = "See also"
+
 [read_more]
 other = "Read more"

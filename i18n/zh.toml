@@ -37,6 +37,12 @@ other = "返回顶部"
 [breadcrumb_home]
 other = "主页"
 
+[recently]
+other = "最近"
+
+[related]
+other = "相关内容"
+
 [table_of_contents]
 other = "内容目录"
 
