@@ -16,7 +16,7 @@
 {{ with $keywords }}
     <meta name="keywords" content="{{ . }}">
 {{ end }}
-{{ $description := $page.Description | default ($page.Summary | default $page.Params.summary | default $page.Site.Params.description) }}
+{{ $description := $page.Description | default $page.Params.summary | default $page.Summary | default $page.Site.Params.description }}
 {{ with $description }}
     <meta name="description" content="{{ . }}">
 {{ end }}
@@ -45,6 +45,8 @@
 
 <!-- social begin -->
 <!-- Twitter Card and Open Graph -->
+{{ template "_internal/opengraph.html" $page }}
+{{ template "_internal/twitter_cards.html" $page }}
 <!-- social cards end -->
 
 <!-- favicon begin -->
@@ -193,5 +195,5 @@
 <!-- Scripts end -->
 
 <!-- google analytics script begin -->
-{{ template "_internal/google_analytics.html" . }}
+{{ template "_internal/google_analytics.html" $page }}
 <!-- google analytics script end -->
