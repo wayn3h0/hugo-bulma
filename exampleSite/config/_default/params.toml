@@ -3,17 +3,18 @@
 isQuirksMode = true     # set value to true will throw error as warning when building site, or as error
 
 dateFormat = "2006-01-02"
+timeFormat = "2006-01-02 15:04:05 +0800"
 
 [design]
 
     isRadiusless = true             # disable radius if set to `true`
 
     # custom SASS/SCSS/CSS/JS files, should put in `/assets/`
-    [design.styles.customCSS]
+    #[design.styles.customCSS]
     #   path = "styles/custom.css"
     #   url = ""
     #   sri = ""
-    [design.scripts.customJS]
+    #[design.scripts.customJS]
     #    path = "scripts/custom.js" # local
     #    url = ""                   # cdn
     #    sri = ""                   
@@ -76,17 +77,15 @@ dateFormat = "2006-01-02"
 
     [design.tableOfContents]
         top = "6rem"                    # value should >= design.navbar.height
-
-    # global table element settings
-    [design.table]
-        isScrollable = true
-        isBordered = true
-        isStriped = true
-        isNarrow = false
-        isHoverable = true
-        isFullwidth = false
-
+    
     [design.externalLink]
         isOpenInNewTab = true
         pre = ""
         post = "<span class=\"icon\"><i class=\"fas fa-external-link-alt\"></i></span>"
+
+    [design.recently]
+        sections = []   # available sections 
+        count = 5       # fetch records 
+
+    [design.related]
+        count = 5       # fetch records

@@ -36,6 +36,20 @@ paginate = 10
 # Listing summary length in words.
 summaryLength = 30  
 
+[related]
+    threshold = 80
+    includeNewer = true
+    toLower = false
+    [[related.indices]]
+        name = "tags"
+        weight = 100
+    [[related.indices]]
+        name = "categories"
+        weight = 80
+     [[related.indices]]
+        name = "date"
+        weight = 10
+
 # Markdown.
 [markup]
     [markup.goldmark]
