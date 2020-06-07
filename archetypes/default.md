@@ -1,27 +1,34 @@
 +++
 
-draft           = false
-date            = "{{ .Date }}"
-lastmod         = "{{ .Date }}"
-publishDate     = "{{ .Date }}"
-expiryDate      = ""
+draft       = true
+date        = "{{ .Date }}"
 
-isCJKLanguage   = false
-
-linkTitle   = "{{ replace .Name "-" " " | title }}"
-title       = "{{ replace .Name "-" " " | title }}"
-subtitle    = ""
+author      = ""
+keywords    = ""
 description = ""
+title       = "{{ replace .Name "-" " " | title }}"
+linkTitle   = "{{ replace .Name "-" " " | title }}"
+
+banner      = ""
 summary     = ""
 
-authors     = []
 tags        = []
 categories  = []
-series      = []
+
 images      = []
 audio       = []
 videos      = []
 
+[design]
+    [design.tableOfContents]
+        isEnabled = false
+
 +++
 
 #{{ replace .Name "-" " " | title }}
+
+---
+
+WRITE CONTENT HERE
+
+---
