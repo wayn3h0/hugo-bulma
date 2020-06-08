@@ -1,22 +1,26 @@
 {{ $shortcode := . }}
-{{ $count := $shortcode.Get "count" | default 0 }}
+{{ $totalCount := $shortcode.Get "totalCount" | default 0 }}
+{{ $countPerRow := $shortcode.Get "countPerRow" | default 3 }}
 {{ $sections := $shortcode.Get "sections" | default $shortcode.Page.Site.Params.design.recently.sections }}
 {{ $query := where $shortcode.Page.Site.RegularPages "Type" "in" $sections }}
-<div class="tile is-ancestor">
-    {{ range first $count $query }}
-        {{ $item := . }}
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                {{ if $item.Params.banner }}
-                    <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
-                        <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
-                    </a>
-                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
-                {{ else }}
-                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
-                    <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
-                {{ end }}
-            </article>
-        </div>
+{{ range $index, $item := first $totalCount $query }}
+    {{ if eq (mod $index $countPerRow) 0 }}
+    <div class="tile is-ancestor">
     {{ end }}
-</div>
+    <div class="tile is-parent">
+        <article class="tile is-child box">
+            {{ if $item.Params.banner }}
+                <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
+                    <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                </a>
+                <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
+            {{ else }}
+                <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
+                <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
+            {{ end }}
+        </article>
+    </div>
+    {{ if eq (mod (add $index 1) $countPerRow) 0 }}
+    </div>
+    {{ end }}
+{{ end }}
