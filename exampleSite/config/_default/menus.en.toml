@@ -13,20 +13,6 @@
     pre = "<span class=\"icon\"><i class=\"fas fa-book\"></i></span>"
 
 [[navbar]]
-    identifier = "backers"
-    weight = 3
-    name = "Backers"
-    url = "#"
-    pre = "<span class=\"icon\"><i class=\"fab fa-patreon\"></i></span>"
-
-[[navbar]]
-    identifier = "irc"
-    weight = 4
-    name = "IRC"
-    url = "irc://irc.org/#hugo-bulma"
-    pre = "<span class=\"icon\"><i class=\"fas fa-hashtag\"></i></span>"
-
-[[navbar]]
     identifier = "github"
     weight = 99
     name = "GitHub"
@@ -38,59 +24,44 @@
     identifier = "terms-of-use"
     weight = 1
     name = "Terms of Use"
-    url = "legal/terms-of-use/"
+    url = "/terms-of-use/"
 
 [[legal]]
     identifier = "terms-of-conditions"
     weight = 2
     name = "Terms of Conditions"
-    url = "legal/terms-of-conditions/"
+    url = "/terms-of-conditions/"
 
 [[legal]]
     identifier = "privacy-policy"
     weight = 3
     name = "Privacy Policy"
-    url = "legal/privacy-policy/"
+    url = "/privacy-policy/"
 
 
 [[quicklinks]]
-    identifier = "support"
-    weight = 1
-    name = "Support"
-    pre = "<span class=\"icon\"><i class=\"fas fa-heart\"></i></span>"
-
-[[quicklinks]]
-    identifier = "follow"
-    weight = 2
-    name = "Follow Us"
-
-[[quicklinks]]
-    parent = "support"
-    identifier = "about"
-    weight = 1
-    name = "About"
-    url = "/about/"
-
-[[quicklinks]]
-    parent = "support"
     identifier = "documentation"
-    weight = 2
-    name = "Documentation"
-    url = "/documentation/"
+    weight = 1
+    name = "DOCUMENTATION"
 
 [[quicklinks]]
-    parent = "follow"
+    identifier = "follow-us"
+    weight = 2
+    name = "FOLLOW US"
+
+[[quicklinks]]
+    identifier = "twitter"
+    parent = "follow-us"
     weight = 1
     name = "Twitter"
-    url = "https://twitter.com"
+    url = "#"
     pre = "<span class=\"icon\"><i class=\"fab fa-twitter\"></i></span>"
 
 [[quicklinks]]
-    parent = "follow"
+    identifier = "facebook"
+    parent = "follow-us"
     weight = 2
     name = "Facebook"
-    url = "https://facebook.com"
+    url = "#"
     pre = "<span class=\"icon\"><i class=\"fab fa-facebook\"></i></span>"
-
-
 

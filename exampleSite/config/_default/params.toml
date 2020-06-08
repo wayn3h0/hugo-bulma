@@ -84,8 +84,9 @@ timeFormat = "2006-01-02 15:04:05 +0800"
         post = "<span class=\"icon\"><i class=\"fas fa-external-link-alt\"></i></span>"
 
     [design.recently]
-        sections = []   # available sections 
-        count = 5       # fetch records 
+        sections = ["documentation"]
+        numberOfRecords = 5 
 
     [design.related]
-        count = 5       # fetch records
+        numberOfRecords = 4
+        numberOfRecordsPerRow = 4

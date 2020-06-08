@@ -1,29 +1,36 @@
 +++
 
-draft           = false
-date            = "2020-05-15 12:07"
-lastmod         = ""
-isCJKLanguage   = false
+draft       = false
+date        = "2020-06-08"
 
-linkTitle   = "Diagrams & Flowcharts"
-title       = "Diagrams & Flowcharts"
-subtitle    = "Generate Diagrams & Flowcharts from text by mermaid"
+author      = "Wayne Ho"
+keywords    = "mermaid, diagrams, flowcharts"
 description = "Generate Diagrams & Flowcharts from text by mermaid"
+title       = "Diagrams & Flowcharts"
+linkTitle   = "Diagrams & Flowcharts"
+
+banner      = ""
 summary     = "Generate Diagrams & Flowcharts from text by mermaid"
 
-authors     = []
 tags        = ["mermaid", "diagrams", "flowcharts"]
-categories  = []
-series      = []
+categories  = ["Documentation"]
+
 images      = []
 audio       = []
 videos      = []
 
+[design]
+    [design.tableOfContents]
+        isEnabled = false
 
 [extensions]
     KaTeX   = false
     mermaid = true
 
+[menu.quicklinks]
+    identifier = "diagrams-flowcharts"
+    parent = "documentation"
+    weight = 1
 
 +++
 
@@ -33,6 +40,39 @@ Generate Diagrams & Flowcharts from text by [mermaid](https://github.com/mermaid
 
 ---
 
+Front Matter:
+
+```toml
++++
+draft       = false
+date        = "2020-06-08"
+author      = "Wayne Ho"
+keywords    = "mermaid, diagrams, flowcharts"
+description = "Generate Diagrams & Flowcharts from text by mermaid"
+title       = "Diagrams & Flowcharts"
+linkTitle   = "Diagrams & Flowcharts"
+banner      = ""
+summary     = "Generate Diagrams & Flowcharts from text by mermaid"
+tags        = ["mermaid", "diagrams", "flowcharts"]
+categories  = ["Documentation"]
+images      = []
+audio       = []
+videos      = []
+[menu.quicklinks]
+    identifier = "diagrams-flowcharts"
+    parent = "documentation"
+    weight = 1
+[design]
+    [design.tableOfContents]
+        isEnabled = false
+[extensions]
+    KaTeX   = false
+    mermaid = true
++++
+```
+
+Shortcode:
+
 ```markdown
 {{</* diagram */>}}
 pie title NETFLIX
@@ -48,6 +88,8 @@ pie title NETFLIX
          "Time spent looking for movie" : 90
          "Time spent watching it" : 10
 {{< /diagram >}}
+
+Shortcode: 
 
 ```markdown
 {{</* diagram */>}}
@@ -76,3 +118,5 @@ sequenceDiagram
     Bob-->Alice: Checking with John...
     Alice->John: Yes... John, how are you?
 {{< /diagram >}}
+
+---

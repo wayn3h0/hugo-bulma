@@ -5,49 +5,12 @@
     url = "/"
     pre = "<span class=\"icon is-medium\"><i class=\"fas fa-home\"></i></span>"
 
+
 [[navbar]]
-    identifier = "documentation"
-    weight = 2
-    name = "文档"
-    url = "posts/"
+    identifier = "github"
+    weight = 99
+    name = "GitHub"
+    url = "https://github.com/wayn3h0/hugo-bulma"
+    pre = "<span class=\"icon\"><i class=\"fab fa-github\"></i></span>"
 
-[[quicklinks]]
-    identifier = "support"
-    weight = 1
-    name = "支持"
-
-[[quicklinks]]
-    identifier = "follow"
-    weight = 2
-    name = "社交网络"
-
-[[quicklinks]]
-    parent = "support"
-    identifier = "about"
-    weight = 1
-    name = "关于"
-    url = "/about/"
-
-[[quicklinks]]
-    parent = "support"
-    identifier = "documentation"
-    weight = 2
-    name = "文档"
-    url = "/documentation/"
-
-[[quicklinks]]
-    parent = "follow"
-    identifier = "twitter"
-    weight = 1
-    name = "Twitter"
-    url = "https://twitter.com"
-    pre = "<span class=\"icon is-medium\"><i class=\"fab fa-twitter\"></i></span>"
-
-[[quicklinks]]
-    parent = "follow"
-    identifier = "facebook"
-    weight = 2
-    name = "Facebook"
-    url = "https://facebook.com"
-    pre = "<span class=\"icon is-medium\"><i class=\"fab fa-facebook\"></i></span>"
 
