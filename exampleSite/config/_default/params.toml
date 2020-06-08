@@ -5,6 +5,14 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
 dateFormat = "2006-01-02"
 timeFormat = "2006-01-02 15:04:05 +0800"
 
+[marketing]
+    [marketing.googleAnalytics]
+        trackingID = ""
+        anonymizeIP = false
+
+    [marketing.googleTagManager]
+        containerID = ""
+
 [design]
 
     isRadiusless = true             # disable radius if set to `true`
