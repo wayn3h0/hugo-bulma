@@ -193,6 +193,7 @@
 <!--    cdn js end -->
 <!-- Scripts end -->
 
-<!-- google analytics script begin -->
-{{ template "_internal/google_analytics.html" $page }}
-<!-- google analytics script end -->
+<!-- google analytics/tag manager script begin -->
+{{ partial "google_analytics.html" $page }}
+{{ partial "google_tag_manager.html" $page }}
+<!-- google analytics/tag manager script end -->
