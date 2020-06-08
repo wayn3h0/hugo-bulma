@@ -48,40 +48,6 @@ $footer-padding: 0;
 
 @import "../../node_modules/bulma/bulma.sass";
 
-/*
-// fix anchor problem with fixed navbar 
-// ref: https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors
-// adding the 1rem is padding of navbar-item
-// **this NOT working well for footnote anthors**
-.has-navbar-fixed-top {
-  :target::before {
-    display: block;
-    content: " ";
-    margin-top: -$navbar-height;
-    padding-top: $navbar-height;
-    visibility: hidden;
-  }
-}
-.has-spaced-navbar-fixed-top {
-  :target::before {
-    display: block;
-    content: " ";
-    margin-top: -(($navbar-height + ($navbar-padding-vertical * 2)) + 1)rem;
-    padding-top: $navbar-height + ($navbar-padding-vertical * 2) + 1rem;
-    visibility: hidden;
-  }
-}
-*/
-
-// helpers
-.is-bottom-paddingless {
-  padding-bottom: 0 !important;
-}
-
-.is-top-paddingless {
-  padding-top: 0 !important;
-}
-
 // logo
 .logo {
   {{ with .Param "design.logo.width" }}

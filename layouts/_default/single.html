@@ -6,7 +6,7 @@
         <div class="container">
             {{ if $page.Params.design.tableOfContents.isEnabled }}
                 <div class="columns">
-                    <div class="column is-8">
+                    <div class="column">
                         <article class="content">
                             {{ $page.Content }}
                             <footer>
@@ -15,7 +15,7 @@
                             </footer>
                         </article>
                     </div>
-                     <div class="column">
+                     <div class="column is-3">
                         {{ partial "tableofcontents.html" $page }}
                     </div>
                 </div>
@@ -30,10 +30,6 @@
             {{ end }} 
         </div>
     </section>
-    <section class="section">
-        <div class="container">
-            {{ partial "related.html" $page }}
-        </div>
-    </section>
+    {{ partial "related.html" $page }}
 </main>
 {{ end }}
