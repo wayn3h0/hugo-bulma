@@ -23,6 +23,10 @@ videos      = []
     [design.tableOfContents]
         isEnabled = false
 
+[extensions]
+    math    = false
+    diagram = false
+
 +++
 
 #{{ replace .Name "-" " " | title }}

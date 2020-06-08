@@ -1,30 +1,36 @@
 +++
 
-draft           = false
-date            = "2020-05-15"
-lastmod         = "2020-05-15"
-publishDate     = "2020-05-15"
-expiryDate      = ""
+draft       = false
+date        = "2020-06-08"
 
-isCJKLanguage   = false
-
-linkTitle   = "KaTeX "
-title       = "KaTeX"
-subtitle    = "Render math expression with KaTeX"
+author      = "Wayne Ho"
+keywords    = "katex, math"
 description = "Render math expression with KaTeX"
+title       = "KaTeX"
+linkTitle   = "KaTeX"
+
+banner      = ""
 summary     = "Render math expression with KaTeX"
 
-authors     = []
 tags        = ["katex", "math"]
-categories  = []
-series      = []
+categories  = ["Documentation"]
+
 images      = []
 audio       = []
 videos      = []
 
+[design]
+    [design.tableOfContents]
+        isEnabled = false
+
 [extensions]
     math    = true
     diagram = false
+
+[menu.quicklinks]
+    identifier = "katex"
+    parent = "documentation"
+    weight = 2
 
 +++
 
@@ -33,6 +39,39 @@ videos      = []
 Render math expressions by [KaTeX](https://katex.org).
 
 ---
+
+Front Matter:
+
+```toml
++++
+draft       = true
+date        = "2020-06-08"
+author      = "Wayne Ho"
+keywords    = ""
+description = "Render math expression with KaTeX"
+title       = "KaTeX"
+linkTitle   = "KaTeX"
+banner      = ""
+summary     = ""
+tags        = ["katex", "math"]
+categories  = ["Documentation"]
+images      = []
+audio       = []
+videos      = []
+[menu.quicklinks]
+    identifier = "katex"
+    parent = "documentation"
+    weight = 2
+[design]
+    [design.tableOfContents]
+        isEnabled = false
+[extensions]
+    math    = true
+    diagram = false
++++
+```
+
+Mardown:
 
 ```markdown
 $$
@@ -48,6 +87,8 @@ $$
 
 ---
 
+Mardown:
+
 ```markdown
 $$\gamma_{n} = \frac{ 
 \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T 
@@ -62,3 +103,4 @@ $$\gamma_{n} = \frac{
 \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}
 {\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
 
+---
