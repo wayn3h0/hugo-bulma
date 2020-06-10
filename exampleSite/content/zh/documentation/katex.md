@@ -3,19 +3,19 @@
 draft       = false
 date        = "2020-06-08"
 
-hasCJKLanguage = false
+hasCJKLanguage = true
 
 author      = "Wayne Ho"
-keywords    = "katex, math"
-description = "Render math expression with KaTeX"
-title       = "KaTeX"
-linkTitle   = "KaTeX"
+keywords    = "katex,数学公式"
+description = "使用KaTeX呈现数学公式"
+title       = "数学公式"
+linkTitle   = "数学公式"
 
 banner      = ""
-summary     = "Render math expression with KaTeX"
+summary     = "使用KaTeX呈现数学公式"
 
-tags        = ["katex", "math"]
-categories  = ["Documentation"]
+tags        = ["katex", "数学公式"]
+categories  = ["文档"]
 
 images      = []
 audio       = []
@@ -38,9 +38,9 @@ videos      = []
 
 +++
 
-# KaTeX
+# 数学公式
 
-Render math expressions by [KaTeX](https://katex.org).
+使用[KaTeX](https://katex.org)呈现数学公式。
 
 ---
 
@@ -48,27 +48,30 @@ Front Matter:
 
 ```toml
 +++
-draft       = true
+draft       = false
 date        = "2020-06-08"
+hasCJKLanguage = true
 author      = "Wayne Ho"
-keywords    = ""
-description = "Render math expression with KaTeX"
-title       = "KaTeX"
-linkTitle   = "KaTeX"
+keywords    = "katex,数学公式"
+description = "使用KaTeX呈现数学公式"
+title       = "数学公式"
+linkTitle   = "数学公式"
 banner      = ""
-summary     = ""
-tags        = ["katex", "math"]
-categories  = ["Documentation"]
+summary     = "使用KaTeX呈现数学公式"
+tags        = ["katex", "数学公式"]
+categories  = ["文档"]
 images      = []
 audio       = []
 videos      = []
-[menu.quicklinks]
-    identifier = "katex"
+#[menus.navbar]
+#    weight = 1
+[menus.quicklinks]
+    weight = 1
     parent = "documentation"
-    weight = 2
-[design]
-    [design.tableOfContents]
-        isEnabled = false
+#[menus.legal]
+#    weight = 1
+[design.tableOfContents]
+    isEnabled = false
 [extensions]
     math    = true
     diagram = false

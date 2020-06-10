@@ -3,19 +3,19 @@
 draft       = false
 date        = "2020-06-08"
 
-hasCJKLanguage = false
+hasCJKLanguage = true
 
 author      = "Wayne Ho"
-keywords    = "mermaid, diagrams, flowcharts"
-description = "Generate Diagrams & Flowcharts from text by mermaid"
-title       = "Diagrams & Flowcharts"
-linkTitle   = "Diagrams & Flowcharts"
+keywords    = "mermaid, 图表, 流程图"
+description = "使用mermaid呈现图表和流程图"
+title       = "图表和流程图"
+linkTitle   = "图表和流程图"
 
 banner      = "images/mermaid.png"
-summary     = "Generate Diagrams & Flowcharts from text by mermaid"
+summary     = "使用mermaid呈现图表和流程图"
 
-tags        = ["mermaid", "diagrams", "flowcharts"]
-categories  = ["Documentation"]
+tags        = ["mermaid", "图表", "流程图"]
+categories  = ["文档"]
 
 images      = ["images/mermaid.png"]
 audio       = []
@@ -38,9 +38,9 @@ videos      = []
 
 +++
 
-# Diagrams & Flowcharts
+# 图表和流程图
 
-Generate Diagrams & Flowcharts from text by [mermaid](https://github.com/mermaid-js/mermaid).
+使用[mermaid](https://github.com/mermaid-js/mermaid)呈现图表和流程图。
 
 ---
 
@@ -50,25 +50,28 @@ Front Matter:
 +++
 draft       = false
 date        = "2020-06-08"
+hasCJKLanguage = true
 author      = "Wayne Ho"
-keywords    = "mermaid, diagrams, flowcharts"
-description = "Generate Diagrams & Flowcharts from text by mermaid"
-title       = "Diagrams & Flowcharts"
-linkTitle   = "Diagrams & Flowcharts"
-banner      = ""
-summary     = "Generate Diagrams & Flowcharts from text by mermaid"
-tags        = ["mermaid", "diagrams", "flowcharts"]
-categories  = ["Documentation"]
-images      = []
+keywords    = "mermaid, 图表, 流程图"
+description = "使用mermaid呈现图表和流程图"
+title       = "图表和流程图"
+linkTitle   = "图表和流程图"
+banner      = "images/mermaid.png"
+summary     = "使用mermaid呈现图表和流程图"
+tags        = ["mermaid", "图表", "流程图"]
+categories  = ["文档"]
+images      = ["images/mermaid.png"]
 audio       = []
 videos      = []
-[menu.quicklinks]
-    identifier = "diagrams-flowcharts"
+#[menus.navbar]
+#    weight = 1
+[menus.quicklinks]
+    weight = 2
     parent = "documentation"
-    weight = 1
-[design]
-    [design.tableOfContents]
-        isEnabled = false
+#[menus.legal]
+#    weight = 1
+[design.tableOfContents]
+    isEnabled = false
 [extensions]
     KaTeX   = false
     mermaid = true
