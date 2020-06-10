@@ -33,7 +33,7 @@
                                             {{ $name := safeHTML $item.Name }}
                                             <dd>
                                                 <a href="{{ $href }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}>
-                                                    {{ $pre }}<span>{{ $name }}</span>{{ $post}}
+                                                    {{ $pre }}{{ if or $pre $post }}<span>{{ $name }}</span>{{ else }}{{ $name }}{{ end }}{{ $post }}
                                                 </a>
                                             </dd>
                                         {{ end }}
@@ -70,7 +70,7 @@
                             {{ $name := safeHTML $item.Name }}
                             <div class="level-item">
                                 <a href="{{ $href }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}>
-                                    {{ $pre }}<span>{{ $name }}</span>{{ $post}}
+                                    {{ $pre }}{{ if or $pre $post }}<span>{{ $name }}</span>{{ else }}{{ $name }}{{ end }}{{ $post }}
                                 </a>
                             </div>
                         {{ end }}
