@@ -16,7 +16,7 @@
                             <div class="column">
                                 <nav>
                                     <dl>
-                                        <dt><h5 class="title is-6">{{ $pre }}<span>{{ $name }}</span>{{ $post }}</h5></dt>
+                                        <dt><h6 class="title is-6">{{ $pre }}{{ if or $pre $post }}<span>{{ $name }}</span>{{ else }}{{ $name }}{{ end }}{{ $post }}</h6></dt>
                                         {{ range $item.Children }}
                                             {{ $item := . }}
                                             {{ $currentURL := urls.Parse $item.URL }}
@@ -83,9 +83,13 @@
                     {{ with $logo }}
                         <div class="level-right">
                             <div class="level-item">
+                                {{ if $page.Site.Params.design.footer.logo.isLink }}
                                 <a href="{{ "/" | relLangURL }}">
+                                {{ end }}
                                     <img class="logo is-footer" src="{{ $logo.RelPermalink }}" alt="{{ $page.Site.Params.title | default $page.Site.Title }}">
+                                {{ if $page.Site.Params.design.footer.logo.isLink }}
                                 </a>
+                                {{ end }}
                             </div>
                         </div>
                     {{ end }}

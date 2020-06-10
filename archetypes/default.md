@@ -3,6 +3,8 @@
 draft       = true
 date        = "{{ .Date }}"
 
+hasCJKLanguage = false
+
 author      = ""
 keywords    = ""
 description = ""
@@ -19,9 +21,16 @@ images      = []
 audio       = []
 videos      = []
 
-[design]
-    [design.tableOfContents]
-        isEnabled = false
+#[menus.navbar]
+#    weight = 1
+#[menus.quicklinks]
+#    weight = 1
+#    parent = "PARENT"
+#[menus.legal]
+#    weight = 1
+
+[design.tableOfContents]
+    isEnabled = false
 
 [extensions]
     math    = false

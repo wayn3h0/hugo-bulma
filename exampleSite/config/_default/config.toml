@@ -22,7 +22,7 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 
 # Set `true` for Chinese/Japanese/Korean languages.
-hasCJKLanguage = true                   
+hasCJKLanguage = false
 
 # Workaround for https://github.com/gohugoio/hugo/issues/5687.
 removePathAccents = true                
@@ -34,7 +34,7 @@ enableEmoji = true
 paginate = 10
 
 # Listing summary length in words.
-summaryLength = 30  
+summaryLength = 70
 
 [related]
     threshold = 80
