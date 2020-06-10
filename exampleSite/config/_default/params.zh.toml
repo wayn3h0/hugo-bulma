@@ -46,7 +46,7 @@ timeFormat = "2006-01-02 15:04:05 +0800"
 
     [design.brand]
         title = "Hugo - Bulma"
-        tagline = "The Hugo theme based on Bulma"
+        tagline = "基于Bulma的Hugo主题"
 
     [design.footer]
         isPaddingless = true
@@ -108,4 +108,4 @@ timeFormat = "2006-01-02 15:04:05 +0800"
         numberOfRecordsPerRow = 4
 
     [design.page.list]
-        isBigBanner = true
+        isBigBanner = false

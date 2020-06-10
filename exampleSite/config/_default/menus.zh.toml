@@ -5,6 +5,13 @@
     url = "/"
     pre = "<span class=\"icon is-medium\"><i class=\"fas fa-home\"></i></span>"
 
+[[navbar]]
+    identifier = "documentation"
+    weight = 2
+    name = "文档"
+    url = "documentation/"
+    pre = "<span class=\"icon\"><i class=\"fas fa-book\"></i></span>"
+
 
 [[navbar]]
     identifier = "github"
@@ -12,5 +19,31 @@
     name = "GitHub"
     url = "https://github.com/wayn3h0/hugo-bulma"
     pre = "<span class=\"icon\"><i class=\"fab fa-github\"></i></span>"
+
+[[quicklinks]]
+    identifier = "documentation"
+    weight = 1
+    name = "文档"
+
+[[quicklinks]]
+    identifier = "follow-us"
+    weight = 99
+    name = "关注我们"
+
+[[quicklinks]]
+    identifier = "twitter"
+    parent = "follow-us"
+    weight = 1
+    name = "Twitter"
+    url = "#"
+    pre = "<span class=\"icon\"><i class=\"fab fa-twitter\"></i></span>"
+
+[[quicklinks]]
+    identifier = "facebook"
+    parent = "follow-us"
+    weight = 2
+    name = "Facebook"
+    url = "#"
+    pre = "<span class=\"icon\"><i class=\"fab fa-facebook\"></i></span>"
 
 
