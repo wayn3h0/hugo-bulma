@@ -20,25 +20,6 @@
     pre = "<span class=\"icon\"><i class=\"fab fa-github\"></i></span>"
 
 
-[[legal]]
-    identifier = "terms-of-use"
-    weight = 1
-    name = "Terms of Use"
-    url = "/terms-of-use/"
-
-[[legal]]
-    identifier = "terms-of-conditions"
-    weight = 2
-    name = "Terms of Conditions"
-    url = "/terms-of-conditions/"
-
-[[legal]]
-    identifier = "privacy-policy"
-    weight = 3
-    name = "Privacy Policy"
-    url = "/privacy-policy/"
-
-
 [[quicklinks]]
     identifier = "documentation"
     weight = 1
@@ -46,7 +27,7 @@
 
 [[quicklinks]]
     identifier = "follow-us"
-    weight = 2
+    weight = 99
     name = "FOLLOW US"
 
 [[quicklinks]]

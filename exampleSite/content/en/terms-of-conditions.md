@@ -3,6 +3,8 @@
 draft       = false
 date        = "2020-06-08"
 
+hasCJKLanguage = false
+
 author      = "Wayne Ho"
 keywords    = ""
 description = ""
@@ -19,9 +21,16 @@ images      = []
 audio       = []
 videos      = []
 
-[design]
-    [design.tableOfContents]
-        isEnabled = false
+#[menus.navbar]
+#    weight = 1
+#[menus.quicklinks]
+#    weight = 1
+#    parent = "PARENT"
+[menus.legal]
+    weight = 2
+
+[design.tableOfContents]
+    isEnabled = false
 
 [extensions]
     math    = false

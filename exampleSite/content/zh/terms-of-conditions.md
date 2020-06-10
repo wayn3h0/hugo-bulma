@@ -3,13 +3,13 @@
 draft       = false
 date        = "2020-06-08"
 
-hasCJKLanguage = false
+hasCJKLanguage = true
 
 author      = "Wayne Ho"
 keywords    = ""
 description = ""
-title       = "Privacy Policy"
-linkTitle   = "Privacy Policy"
+title       = "条款和条件"
+linkTitle   = "条款和条件"
 
 banner      = ""
 summary     = ""
@@ -27,7 +27,7 @@ videos      = []
 #    weight = 1
 #    parent = "PARENT"
 [menus.legal]
-    weight = 3
+    weight = 2
 
 [design.tableOfContents]
     isEnabled = false
@@ -38,6 +38,6 @@ videos      = []
 
 +++
 
-# Privacy Policy
+# 条款和条件
 
-*Last Updated: 2020-06-08*
+*最后更新: 2020-06-08*
