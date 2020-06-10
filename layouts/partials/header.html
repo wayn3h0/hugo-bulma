@@ -30,16 +30,22 @@
             <div class="navbar-brand">
                 {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
                     <a class="navbar-item" href="{{ "/" | relLangURL }}">
-                    {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
-                        {{ $width := $page.Site.Params.design.logo.width }}
-                        {{ $height := $page.Site.Params.design.logo.height }}
-                        {{ $logo := partial "functions/logo.html" (dict "context" $page "width" $width "height" $height) }}
-                        {{ with $logo }}
-                            <img class="logo is-header" src="{{ .RelPermalink }}" alt="{{ $page.Site.Params.title | default $page.Site.Title }}">
+                        {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
+                            {{ $width := $page.Site.Params.design.navbar.logo.width }}
+                            {{ $height := $page.Site.Params.design.navbar.logo.height }}
+                            {{ $logo := partial "functions/logo.html" (dict "context" $page "width" $width "height" $height) }}
+                            {{ with $logo }}
+                                <img class="logo is-header" src="{{ .RelPermalink }}" alt="{{ $page.Site.Params.title | default $page.Site.Title }}">
+                            {{ end }}
                         {{ end }}
-                    {{ else if ne $page.Site.Params.design.navbar.logo.text "" }}
-                        <span class="title">{{ $page.Site.Params.design.navbar.logo.text | safeHTML }}
-                    {{  end }}
+                        {{ if $page.Site.Params.design.brand.title }}
+                            <div class="brand">
+                                <div class="brand-title is-primary">{{ $page.Site.Params.design.brand.title | safeHTML }}</div>
+                                {{ if $page.Site.Params.design.brand.tagline }}
+                                    <div class="brand-tagline is-primary">{{ $page.Site.Params.design.brand.tagline | safeHTML }}</div>
+                                {{ end }}
+                            </div>
+                        {{  end }}
                     </a>
                 {{ end }}
                 <a role="button" class="navbar-burger" data-target="menu-navbar" aria-label="{{ i18n "menu" }}" aria-expanded="false">
