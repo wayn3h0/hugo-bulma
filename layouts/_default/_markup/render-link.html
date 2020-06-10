@@ -4,8 +4,12 @@
     {{ $isExternal = true }}
 {{ end }}
 {{ $isOpenInNewTab := $link.Page.Site.Params.design.externalLink.isOpenInNewTab }}
-{{ $pre := $link.Page.Site.Params.design.externalLink.pre | safeHTML | emojify }}
-{{ $post := $link.Page.Site.Params.design.externalLink.post | safeHTML | emojify }}
+{{ $pre := "" }}
+{{ $post := "" }}
+{{ if $isExternal }}
+    {{ $pre = $link.Page.Site.Params.design.externalLink.pre | safeHTML | emojify }}
+    {{ $post = $link.Page.Site.Params.design.externalLink.post | safeHTML | emojify }}
+{{ end }}
 {{ $text := $link.Text | safeHTML | emojify }}
 <a href="{{ $link.Destination }}"
     {{ with $link.Title}} title="{{ . }}"{{ end }}
