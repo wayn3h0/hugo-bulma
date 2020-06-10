@@ -50,12 +50,6 @@ $footer-padding: 0;
 
 // logo
 .logo {
-  {{ with .Param "design.logo.width" }}
-  width: {{ strings.TrimSuffix "px" . }}px;
-  {{ end }}
-  {{ with .Param "design.logo.height" }}
-  height: {{ strings.TrimSuffix "px" . }}px;
-  {{ end }}
   &.is-header {
     {{ with .Param "design.navbar.logo.width" }}
     width: {{ strings.TrimSuffix "px" . }}px;
@@ -63,25 +57,72 @@ $footer-padding: 0;
     {{ with .Param "design.navbar.logo.height" }}
     height: {{ strings.TrimSuffix "px" . }}px;
     {{ end }}
-    {{ with .Param "design.navbar.logo.rightMargin" }}
-    margin-right: {{ . }};
-    {{ end }}
   }
   &.is-footer {
-  {{ with .Param "design.footer.logo.width" }}
-  width: {{ strings.TrimSuffix "px" . }}px;
-  {{ end }}
-  {{ with .Param "design.footer.logo.height" }}
-  height: {{ strings.TrimSuffix "px" . }}px;
-  {{ end }}
+    {{ with .Param "design.footer.logo.width" }}
+    width: {{ strings.TrimSuffix "px" . }}px;
+    {{ end }}
+    {{ with .Param "design.footer.logo.height" }}
+    height: {{ strings.TrimSuffix "px" . }}px;
+    {{ end }}
+  }
+}
+
+.navbar-brand {
+  a {
+    color: $primary;
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+    }
+  }  
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  margin-left: 12px;
+  .brand-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1.125rem;
+    font-weight: 700; 
+  }
+  .brand-tagline {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 500; 
+  }
+}
+
+{{ if or (.Param "design.navbar.menu.leftMargin") (.Param "design.navbar.menu.leftMargin") }}
+.navbar-menu {
+{{ with .Param "design.navbar.menu.leftMargin" }}
+  margin-left: {{ . }};
+{{ end }}
+{{ with .Param "design.navbar.menu.leftMargin" }}
+  margin-right: {{ . }};
+{{ end }}
+}
+{{ end }}
+
+footer nav dl {
+  dt {
+    margin-bottom: 1rem; 
+  }
+  dd {
+    margin-bottom: 0.5rem; 
   }
 }
 
 // back to top
 .back-to-top {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: {{ .Param "design.backToTop.bottom" | default "1.5rem" }};
+  right: {{ .Param "design.backToTop.right" | default "1.5rem" }};
   z-index: 9999;
 }
   

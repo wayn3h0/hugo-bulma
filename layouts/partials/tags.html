@@ -5,7 +5,7 @@
     {{ range $tag := $tags }}
         <div class="control">
             <div class="tags has-addons">
-                <span class="tag is-link"><i class="fas fa-tag"></i></span>
+                <span class="tag is-primary"><i class="fas fa-tag"></i></span>
                 <span class="tag"><a href="{{ $tag.RelPermalink }}" title="{{ $tag.LinkTitle}}">{{ $tag.LinkTitle }}</a></span>
             </div>
         </div>
