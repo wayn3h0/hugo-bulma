@@ -75,7 +75,9 @@
                     {{ partial "pagination.html" $page }}
                 </div>
                 <div class="column is-3">
-                    {{ partial "recently.html" $page }}
+                    {{ $sections := $page.Site.Params.design.page.list.recently.sections }}
+                    {{ $numberOfRecords := $page.Site.Params.design.page.list.recently.numberOfRecords }}
+                    {{ partial "recently.html" (dict "context" $page "isVertical" true "sections" $sections "numberOfRecords" $numberOfRecords) }}
                 </div>
             </div>
         </div>

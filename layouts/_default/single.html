@@ -1,4 +1,5 @@
 {{ define "main" }}
+
 {{ $page := . }}
 <main class="main" role="main">
     {{ partial "breadcrumb.html" $page }}
@@ -30,6 +31,8 @@
             {{ end }} 
         </div>
     </section>
-    {{ partial "related.html" $page }}
+    {{ $numberOfRecords := $page.Site.Params.design.page.single.related.numberOfRecords }}
+    {{ $numberOfRecordsPerRow := $page.Site.Params.design.page.single.related.numberOfRecordsPerRow }}
+    {{ partial "related.html" (dict "context" $page "isVertical" false "numberOfRecords" $numberOfRecords "numberOfRecordsPerRow" $numberOfRecordsPerRow) }}
 </main>
 {{ end }}

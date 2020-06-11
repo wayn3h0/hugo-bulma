@@ -1,30 +1,63 @@
-{{ $page := . }}
-{{ $sections := $page.Site.Params.design.recently.sections }}
-{{ $numberOfRecords := $page.Site.Params.design.recently.numberOfRecords | default 5 }}
-{{ $pages := where $page.Site.RegularPages "Type" "in" $sections }}
+{{ $page := .context }}
+
+{{ $isVertical := .isVertical | default false }}
+{{ $sections := .sections | default $page.Site.Params.design.recently.sections | default slice }}
+{{ $numberOfRecords := .numberOfRecords | default $page.Site.Params.design.recently.numberOfRecords | default 0 }}
+{{ $numberOfRecordsPerRow := .numberOfRecordsPerRow | default $page.Site.Params.design.recently.numberOfRecordsPerRow | default 3 }}
+{{ if gt $numberOfRecordsPerRow $numberOfRecords }}
+    {{ $numberOfRecordsPerRow = $numberOfRecords}}
+{{  end }}
+{{ $pages := $page.Site.RegularPages }}
+{{ if gt (len $sections) 0 }}
+    {{ $pages = where $pages "Type" "in" $sections }}
+{{ end }}
+
 {{ if gt (len $pages) 0 }}
-    <section class="section is-paddingless">
+    <section class="section{{ if $isVertical }} pt-0 px-0{{ end }}">
         <div class="container">
             <h6 class="title is-6">{{ i18n "recently"}}</h6>
             <hr>
-            <div class="tile is-ancestor">
-                <div class="tile is-vertical is-parent">
-                {{ range first $numberOfRecords $pages }}
-                    {{ $item := . }}
-                    <article class="tile is-child box">
-                        {{ if $item.Params.banner }}
-                            <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
-                                <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
-                            </a>
-                            <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
-                        {{ else }}
-                            <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
-                            <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
+            {{ if $isVertical }}
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical is-parent">
+                        {{ range $item := first $numberOfRecords $pages }}
+                            <article class="tile is-child box">
+                                {{ if $item.Params.banner }}
+                                    <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
+                                        <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                                    </a>
+                                    <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
+                                {{ else }}
+                                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
+                                    <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
+                                {{ end }}
+                            </article>
                         {{ end }}
-                    </article>
-                {{ end }}
+                    </div>
                 </div>
-            </div>
+            {{ else }}
+                {{ range $index, $item := first $numberOfRecords $pages }}
+                    {{ if eq (mod $index $numberOfRecordsPerRow) 0 }}
+                        <div class="tile is-ancestor">
+                    {{ end }}
+                            <div class="tile is-parent">
+                                <article class="tile is-child box">
+                                    {{ if $item.Params.banner }}
+                                        <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
+                                            <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                                        </a>
+                                        <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
+                                    {{ else }}
+                                        <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
+                                        <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
+                                    {{ end }}
+                                </article>
+                            </div>
+                    {{ if eq (mod (add $index 1) $numberOfRecordsPerRow) 0 }}
+                        </div>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
         </div>
     </section>
 {{ end }}

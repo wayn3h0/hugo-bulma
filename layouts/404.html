@@ -1,20 +1,18 @@
 {{ define "main" }}
+{{ $page := . }}
+
 <main class="main" role="main">
-    <section class="section">
-        <div class="container content">
-            <h1>{{ i18n "page_not_found" }}</h1>
-            <p>{{ i18n "page_not_found_recommendations" }}</p>
-            {{ $query := .Site.RegularPages }}
-            {{ $count := len $query }}
-            {{ if gt $count 0 }}
-                <h2>{{ i18n "page_not_found_latest" }}</h2>
-                <ul>
-                    {{ range first 10 $query }}
-                        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-                    {{ end }}
-                </ul>
-            {{ end }}
+    <section class="hero is-primary is-medium">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-1">{{ i18n "page_not_found" }}</h1>
+                <h5 class="subtitle is-5">{{ i18n "page_not_found_recommendations" }}</h5>
+            </div>
         </div>
     </section>
+    {{ $sections := $page.Site.Params.design.page.error.recently.sections }}
+    {{ $numberOfRecords := $page.Site.Params.design.page.error.recently.numberOfRecords }}
+    {{ $numberOfRecordsPerRow := $page.Site.Params.design.page.error.recently.numberOfRecordsPerRow }}
+    {{ partial "recently.html" (dict "context" $page "isVertical" false "sections" $sections "numberOfRecords" $numberOfRecords "numberOfRecordsPerRow" $numberOfRecordsPerRow) }}
 </main>
 {{ end }}
