@@ -46,7 +46,7 @@ $navbar-height: {{ printf "%s * 0.0625 + 2" (strings.TrimSuffix "px" .) }}rem;
 $footer-padding: 0;
 {{ end }}
 
-@import "../../node_modules/bulma/bulma.sass";
+@import "vendors/bulma/bulma.sass";
 
 // logo
 .logo {
