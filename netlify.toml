@@ -1,5 +1,5 @@
 [build]
-    command = "npm install -g @babel/cli @babel/core && npm install && hugo --gc -b $URL --source exampleSite --themesDir ../../"
+    command = "hugo --gc -b $URL --source exampleSite --themesDir ../../"
     publish = "exampleSite/public"
 
 [build.environment]
@@ -11,7 +11,7 @@
     HUGO_ENV = "production"
 
 [context.deploy-preview]
-  command = "npm install -g @babel/cli @babel/core && npm install && hugo --gc --buildFuture -b $DEPLOY_PRIME_URL --source exampleSite --themesDir ../../"
+  command = "hugo --gc --buildFuture -b $DEPLOY_PRIME_URL --source exampleSite --themesDir ../../"
 
 [context.branch-deploy]
   command = "hugo --gc -b $DEPLOY_PRIME_URL --source exampleSite --themesDir ../../"
