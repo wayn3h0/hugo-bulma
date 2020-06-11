@@ -29,7 +29,7 @@ timeFormat = "2006-01-02 15:04:05 +0800"
 
     # https://clrs.cc colors
     [design.colors]
-        primary = "#111111"
+        primary = "#0074D9"
         link    = "#0074D9"
         info    = "#0074D9"
         success = "#3D9970"
