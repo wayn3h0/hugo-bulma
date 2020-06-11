@@ -100,12 +100,28 @@ timeFormat = "2006-01-02 15:04:05 +0800"
         post = "<span class=\"icon\"><i class=\"fas fa-external-link-alt\"></i></span>"
 
     [design.recently]
-        sections = ["documentation"]
-        numberOfRecords = 5 
+        sections = []
+        numberOfRecords = 5
+        numberOfRecordsPerRow = 4   # for horizontal view; the value should <= numberOfRecords
 
     [design.related]
         numberOfRecords = 4
         numberOfRecordsPerRow = 4
 
+    [design.page.single]
+        [design.page.single.related]
+            numberOfRecords = 6
+            numberOfRecordsPerRow = 3
+
     [design.page.list]
         isBigBanner = true
+        [design.page.list.recently]
+            sections = ["documentation"]
+            numberOfRecords = 10
+
+    [design.page.error]
+        [design.page.error.recently]
+            sections = ["documentation"]
+            numberOfRecords = 9
+            numberOfRecordsPerRow = 3
+
