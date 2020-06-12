@@ -11,7 +11,7 @@ description = ""
 title       = "Documentation"
 linkTitle   = "Documentation"
 
-banner      = ""
+#banner      = "images/mermaid.png"
 summary     = ""
 
 tags        = []
@@ -37,3 +37,7 @@ videos      = []
     diagram = false
 
 +++
+
+# Documentation
+{{< title isSub=true level=5 size=5 >}}Everything you need to create a website with Hugo-Bulma.{{< /title >}}
+
