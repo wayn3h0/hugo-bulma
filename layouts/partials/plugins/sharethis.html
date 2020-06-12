@@ -3,6 +3,6 @@
 {{ $propertyID := $page.Site.Params.plugins.sharethis.propertyID | default "" }}
 {{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and (ne $propertyID "") }}
     {{ if $page.Params.plugins.sharethis.isEnabled }}
-        <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property={{ $propertyID }}' async='async'></script>
+        <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property={{ $propertyID }}&product=sticky-share-buttons&cms=sop' async='async'></script>
     {{ end }}
 {{ end }}
