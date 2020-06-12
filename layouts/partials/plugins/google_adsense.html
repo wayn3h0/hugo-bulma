@@ -1,0 +1,6 @@
+{{ $page := . }}
+
+{{ $clientID := $page.Site.Params.plugins.googleAdSense.clientID | default "" }}
+{{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and (ne $clientID "") }}
+    <script data-ad-client="{{ $clientID }}" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+{{ end }}
