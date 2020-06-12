@@ -30,7 +30,10 @@ videos      = []
 #    weight = 1
 
 [design.tableOfContents]
-    isEnabled = false
+    isEnabled = true
+
+[plugins.sharethis]
+    isEnabled = true
 
 [extensions]
     math    = true
