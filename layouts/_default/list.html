@@ -2,6 +2,20 @@
 {{ $page := . }}
 <main class="main" role="main">
     {{ partial "breadcrumb.html" $page }}
+    {{ if $page.Params.banner }}
+        <section class="section pb-0">
+            <div class="container">
+                <img src="{{ $page.Params.banner | relURL }}" alt="{{ $page.Title}}">
+            </div>
+        </section>
+    {{ end }}
+    {{ if $page.Content }}
+        <section class="section pb-0">
+            <div class="container content">
+                {{ $page.Content }}
+            </div>
+        </section>
+    {{ end }}
     <section class="section">
         <div class="container">
             <div class="columns">

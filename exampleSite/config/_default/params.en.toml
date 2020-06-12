@@ -13,6 +13,9 @@ timeFormat = "2006-01-02 15:04:05 +0800"
     [plugins.googleTagManager]
         containerID = ""
 
+    [plugins.googleAdSense]
+        clientID = ""
+
     [plugins.sharethis]
         propertyID = "5ee3452c12347900125c8e96"
 

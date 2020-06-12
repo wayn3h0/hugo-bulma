@@ -6,7 +6,7 @@ date        = "{{ .Date }}"
 #hasCJKLanguage = false
 
 author      = ""
-keywords    = ""
+keywords    = []
 description = ""
 title       = "{{ replace .Name "-" " " | title }}"
 linkTitle   = "{{ replace .Name "-" " " | title }}"
@@ -14,8 +14,8 @@ linkTitle   = "{{ replace .Name "-" " " | title }}"
 #banner      = ""
 #summary     = ""
 
-#tags        = []
 #categories  = []
+#tags        = []
 
 #images      = []
 #audio       = []
@@ -41,7 +41,7 @@ linkTitle   = "{{ replace .Name "-" " " | title }}"
 
 +++
 
-#{{ replace .Name "-" " " | title }}
+# {{ replace .Name "-" " " | title }}
 
 ---
 
