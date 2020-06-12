@@ -3,7 +3,7 @@
 draft       = true
 date        = "{{ .Date }}"
 
-hasCJKLanguage = false
+#hasCJKLanguage = false
 
 author      = ""
 keywords    = ""
@@ -11,15 +11,15 @@ description = ""
 title       = "{{ replace .Name "-" " " | title }}"
 linkTitle   = "{{ replace .Name "-" " " | title }}"
 
-banner      = ""
-summary     = ""
+#banner      = ""
+#summary     = ""
 
-tags        = []
-categories  = []
+#tags        = []
+#categories  = []
 
-images      = []
-audio       = []
-videos      = []
+#images      = []
+#audio       = []
+#videos      = []
 
 #[menus.navbar]
 #    weight = 1
@@ -29,12 +29,15 @@ videos      = []
 #[menus.legal]
 #    weight = 1
 
-[design.tableOfContents]
-    isEnabled = false
+#[design.tableOfContents]
+#    isEnabled = false
 
-[extensions]
-    math    = false
-    diagram = false
+#[plugins.sharethis]
+#    isEnabled = true
+
+#[extensions]
+#    math    = false
+#    diagram = false
 
 +++
 

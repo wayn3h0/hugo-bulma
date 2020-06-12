@@ -1,9 +1,9 @@
 {{ $page := . }}
 
-{{ $gtmContainerID := $page.Site.Params.marketing.googleTagManager.containerID | default "" }}
+{{ $gtmContainerID := $page.Site.Params.plugins.googleTagManager.containerID | default "" }}
 {{ if eq $gtmContainerID "" }}
-    {{ $trackingID := $page.Site.Params.marketing.googleAnalytics.trackingID | default $page.Site.GoogleAnalytics | default "" }}
-    {{ $anonymizeIP := $page.Site.Params.marketing.googleAnalytics.anonymizeIP | default false }}
+    {{ $trackingID := $page.Site.Params.plugins.googleAnalytics.trackingID | default $page.Site.GoogleAnalytics | default "" }}
+    {{ $anonymizeIP := $page.Site.Params.plugins.googleAnalytics.anonymizeIP | default false }}
     {{ $config := cond $anonymizeIP "{ 'anonymize_ip': true }" "{}" }}
     {{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and (ne $trackingID "") }}
         <!-- Global site tag (gtag.js) - Google Analytics -->
