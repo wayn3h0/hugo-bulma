@@ -1,37 +1,12 @@
-####################
+#################### 
 
 isQuirksMode = true     # set value to true will throw error as warning when building site, or as error
 
-dateFormat = "2006-01-02"
-timeFormat = "2006-01-02 15:04:05 +0800"
 
-[plugins]
-    [plugins.googleAnalytics]
-        trackingID = ""
-        anonymizeIP = false
-
-    [plugins.googleTagManager]
-        containerID = ""
-
-    [plugins.googleAdSense]
-        clientID = ""
-
-    [plugins.sharethis]
-        propertyID = ""
+########## Design
 
 [design]
-
-    isRadiusless = true             # disable radius if set to `true`
-
-    # custom SASS/SCSS/CSS/JS files, should put in `/assets/`
-    #[design.styles.customCSS]
-    #   path = "styles/custom.css"
-    #   url = ""
-    #   sri = ""
-    #[design.scripts.customJS]
-    #    path = "scripts/custom.js" # local
-    #    url = ""                   # cdn
-    #    sri = ""                   
+    isRadiusless = true     # disable radius global if set to `true`
 
     # https://clrs.cc colors
     [design.colors]
@@ -45,89 +20,166 @@ timeFormat = "2006-01-02 15:04:05 +0800"
         dark    = ""
 
     [design.favicon]
-        path = "images/icon.png"     # favicon file should put in `/assets/`
+        path = "images/icon.png"    # favicon file should put in `/assets/`
 
     [design.logo]
-        path = "images/logo.svg"        # logo file should put in `/assets/`
+        path = "images/logo.svg"    # logo file should put in `/assets/`
 
     [design.brand]
         title = "Hugo - Bulma"
         tagline = "基于Bulma的Hugo主题"
 
-    [design.footer]
-        isPaddingless = true
+########## Plugins
 
-        [design.footer.logo]
-            isHidden = false
-            isLink = false
-            width = ""
-            height = "50px"
+[plugins]
+    [plugins.externalLink]
+        isEnabled       = true
+        isOpenInNewTab  = true
+        pre             = ""
+        post            = "<span class=\"icon\"><i class=\"fas fa-external-link-alt\"></i></span>"
 
-    [design.backToTop]
-        isDisabled = false
-        right = "2rem"
-        bottom = "2rem"
-        [design.backToTop.icon]
-            #pack = "fas"
-            #name = "chevron-up"
-            #color = "dark"
+    [plugins.googleAnalytics]
+        isEnabled   = true
+        trackingID  = "UA-169816164-1"
+        anonymizeIP = false
 
-    [design.navbar]
-        isFixedTop = true 
-        isSpaced = false                # enable paddings as 1rem (top and bottom) and 2rem (left and right) 
-        isTransparent = true            # enable navbar transparent
-        hasShadow = true                # enable navbar shadow (botoom line)
-        hasTextWeightBold = true        # enable text bold
-        backgroundColor = ""            # available values: `primary`,`link`,`info`,`success`,`warning`,`danger`,`black`,`dark`,`light`,`white`
-        [design.navbar.logo]
-            isHidden = false
-            width = ""
-            height = "60px"             # unit: px
-        [design.navbar.menu]
-            leftMargin = "2rem"
+    [plugins.googleTagManager]
+        isEnabled   = true
+        containerID = ""
+
+    [plugins.googleAdSense]
+        isEnabled   = true
+        clientID    = ""
+
+    [plugins.sharethis]
+        isEnabled   = true
+        propertyID  = ""
+
+
+########## Templates
+
+[templates]
+    [templates.list]
+        layout = 1  # available values: -1, 1, 2, 3, 4
+    [templates.single]
+        layout = 1  # available values: 1, 2, 3, 4
+    [templates.error404]
+    [templates.index.xml]
+        timeFormat = "2006-01-02 15:04:05 +0800"
+
+
+########## Widgets
+
+[widgets]
+    [widgets.head]
+        # multiple config sections allowed for multiple files
+        # custom SASS/SCSS/CSS file, should put in `/assets/`
+        #[widgets.head.styles.NAME]       # NAME: a unique name you given
+        #    path = "styles/custom.scss"  # for local file
+        #    url  = ""                    # for cdn file
+        #    sri  = ""                    # for cdn file
+
+        # multiple config sections allowed for multiple files
+        # custom JS file, should put in `/assets/`
+        #[widgets.head.scripts.NAME]      # NAME: a unique name you given
+        #    path = "scripts/custom.js"   # for local file 
+        #    url  = ""                    # for cdn file
+        #    sri  = ""                    # for cdn file
+
+    [widgets.header]
+        isEnabled           = true
+        isFixedTop          = true 
+        isSpaced            = false     # enable paddings as 1rem (top and bottom) and 2rem (left and right) 
+        isTransparent       = true      # enable navbar transparent
+        hasShadow           = true      # enable navbar shadow (botoom line)
+        hasTextWeightBold   = true      # enable text bold
+        backgroundColor     = ""        # available values: `primary`,`link`,`info`,`success`,`warning`,`danger`,`black`,`dark`,`light`,`white`
+
+        [widgets.header.logo]
+            isEnabled   =  true
+            width       = ""        # unit must be px
+            height      = "60px"    # width & height required one at least
+
+        [widgets.header.menu]
+            leftMargin  = "2rem"
             rightMargin = ""
-    
-    [design.breadcrumb]
-        separator = ""                  # available values: `arrow`,`bullet`,`dot`,`succeeds`, default is `/`
-        alignment = ""                  # available values: `centered`,`right`, default show on left
-        size = ""                       # available values: `small`,`medium`,`large`
 
-    [design.pagination]
-        alignment = ""                  # available values: `centered`,`right`, default show on left
-        style = ""                      # available values: `rounded`
-        size = ""                       # available values: `small`,`medium`,`large` 
+    [widgets.breadcrumb]
+        isEnabled = true
+        separator = ""      # available values: `arrow`,`bullet`,`dot`,`succeeds`, default is `/`
+        alignment = ""      # available values: `centered`,`right`, default show on left
+        size      = ""      # available values: `small`,`medium`,`large`
 
-    [design.tableOfContents]
-        top = "6rem"                    # value should >= design.navbar.height
-    
-    [design.externalLink]
-        isOpenInNewTab = true
-        pre = ""
-        post = "<span class=\"icon\"><i class=\"fas fa-external-link-alt\"></i></span>"
+    [widgets.footer]
+        isEnabled       = true
+        isPaddingless   = true
 
-    [design.recently]
-        sections = []
-        numberOfRecords = 5
-        numberOfRecordsPerRow = 4   # for horizontal view; the value should <= numberOfRecords
+        [widgets.footer.logo]
+            isEnabled   = true
+            isLink      = false
+            width       = ""        # unit must be px
+            height      = "50px"    # width & height required one at least
 
-    [design.related]
-        numberOfRecords = 4
-        numberOfRecordsPerRow = 4
+        [widgets.footer.backToTop]
+            isEnabled   = true 
+            [widgets.footer.backToTop.position]
+                right   = "2rem"
+                bottom  = "2rem"
+            [widgets.footer.backToTop.icon]
+                pack   = "fas"
+                name   = "chevron-circle-up"
+                color  = "primary"
 
-    [design.page.single]
-        [design.page.single.related]
-            numberOfRecords = 6
-            numberOfRecordsPerRow = 3
+    [widgets.content]
+        isEnabled       = true
+        [widgets.content.banner]
+            isEnabled   = true
 
-    [design.page.list]
-        isBigBanner = true
-        [design.page.list.recently]
-            sections = ["documentation"]
-            numberOfRecords = 10
+    [widgets.tableOfContents]
+        isEnabled   = true
+        isSticky    = true
+        top         = "3rem"    # used for sticky, unit must be rem, will calcuate "top" in main.scss by value + design.navbar.height
 
-    [design.page.error]
-        [design.page.error.recently]
-            sections = ["documentation"]
-            numberOfRecords = 9
-            numberOfRecordsPerRow = 3
+    [widgets.categories]
+        isEnabled       = true
+        [widgets.categories.icon]
+            isEnabled   = true
+            pack        = "fas"
+            name        = "dot-circle"
+            color       = "primary"
 
+    [widgets.tags]
+        isEnabled       = true
+        [widgets.tags.icon]
+            isEnabled   = true
+            pack        = "fas"
+            name        = "tag"
+            color       = "primary"
+
+    [widgets.children]
+        isEnabled       = true
+        pageSize        = 10            # overwrite params.paginate
+        dateFormat      = "2006-01-02"  # checkout golang time format
+        hasBigBanner    = false         # layout
+
+    [widgets.pagination]
+        alignment   = ""    # available values: `centered`,`right`, default show on left
+        style       = ""    # available values: `rounded`
+        size        = ""    # available values: `small`,`medium`,`large` 
+
+    [widgets.recently]
+        isEnabled               = true
+        sections                = ["documentation"]
+        numberOfRecords         = 6
+        isVertical              = false
+        numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
+
+    [widgets.related]
+        isEnabled               = true
+        sections                = []
+        numberOfRecords         = 6
+        isVertical              = true
+        numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
+
+
+#################### 

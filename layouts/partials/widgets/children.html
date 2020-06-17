@@ -1,0 +1,86 @@
+{{ $page := . }}
+
+{{ $isEnabled := $page.Params.widgets.children.isEnabled | default $page.Site.Params.widgets.children.isEnabled | default false }}
+{{ $pageSize := $page.Params.widgets.children.pageSize | default $page.Site.Params.widgets.children.pageSize | default $page.Site.Params.paginate }}
+{{ $dateFormat := $page.Params.widgets.children.dateFormat | default $page.Site.Params.widgets.children.dateFormat | default "2006-01-02" }}
+{{ $hasBigBanner := $page.Params.widgets.children.hasBigBanner | default $page.Site.Params.widgets.children.hasBigBanner | default false }}
+
+{{ $tagsIsEnabled := $page.Params.widgets.tags.isEnabled | default $page.Site.Params.widgets.tags.isEnabled | default false }}
+{{ $categoriesIsEnabled := $page.Params.widgets.categories.isEnabled | default $page.Site.Params.widgets.categories.isEnabled | default false }}
+
+{{ if $isEnabled }}
+    <section class="section widget-children">
+        <div class="container">
+        {{ range $item := ($page.Paginator $pageSize).Pages }}
+            <article class="box">
+                <header>
+                    <h1 class="title"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
+                    <div class="field is-grouped is-grouped-multiline">
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag is-primary"><i class="fas fa-calendar-day"></i></span>
+                                <span class="tag"><time pubdate>{{ $item.Date.Format $dateFormat }}</time></span>
+                            </div>
+                        </div>
+                        {{ with $item.Params.author }}
+                            <div class="control">
+                                <div class="tags has-addons">
+                                    <span class="tag is-primary"><i class="fas fa-user"></i></span>
+                                    <span class="tag">{{ . }}</span>
+                                </div>
+                            </div>
+                        {{ end }}
+                        {{ if $categoriesIsEnabled }}
+                            {{ partial "widgets/categories.html" $item }}
+                        {{ end }}
+                    </div>
+                </header>
+                <hr>
+                <div class="my-5">
+                    {{ if $item.Params.banner }}
+                        {{ if $hasBigBanner}}
+                            <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
+                                <img src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                            </a>
+                            <div class="is-clearfix">
+                                <p class="pt-2">{{ $item.Params.summary | default $item.Summary }}</p>
+                                <div class="is-pulled-right pt-4">
+                                    <a class="button is-link is-outlined" title="{{ i18n "read_more" }}" href="{{ $item.Params.externalLink | default $item.RelPermalink }}">{{ i18n "read_more" }}</a>
+                                </div>
+                            </div>
+                        {{ else }}
+                            <div class="columns">
+                                <div class="column is-4">
+                                    <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
+                                        <img src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                                    </a>
+                                </div>
+                                <div class="column is-clearfix">
+                                    <p>{{ $item.Params.summary | default $item.Summary }}</p>
+                                    <div class="is-pulled-right pt-4">
+                                        <a class="button is-link is-outlined" title="{{ i18n "read_more" }}" href="{{ $item.Params.externalLink | default $item.RelPermalink }}">{{ i18n "read_more" }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ end }}
+                    {{ else }}
+                        <div class="is-clearfix">
+                            <p>{{ $item.Params.summary | default $item.Summary }}</p>
+                            <div class="is-pulled-right">
+                                <a class="button is-link is-outlined" title="{{ i18n "read_more" }}" href="{{ $item.Params.externalLink | default $item.RelPermalink }}">{{ i18n "read_more" }}</a>
+                            </div>
+                        </div>
+                    {{ end }}
+                </div>
+                {{ if $tagsIsEnabled }}
+                    <footer>
+                        <hr >
+                        {{ partial "widgets/tags.html" $item }}
+                    </footer>
+                {{ end }}
+            </article>
+        {{ end }}
+        {{ partial "widgets/pagination.html" $page }}
+        </div>
+    </section>
+{{ end }}

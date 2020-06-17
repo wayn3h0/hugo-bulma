@@ -1,3 +1,56 @@
++++
+
+draft       = false
+date        = "2020-06-16"
+
+hasCJKLanguage = false
+
+author      = "Wayne Ho"
+keywords    = ["configuration", "config", "documentation", "docs"]
+description = ""
+title       = "Configuration"
+linkTitle   = "Configuration"
+
+banner      = "/images/configuration.jpg"
+
+categories  = ["Documentation"]
+tags        = ["Documentation", "Configuration", "Config"]
+
+images      = ["/images/configuration.jpg"]
+
+[menus.quicklinks]
+    weight = 1
+    parent = "documentation"
+
+[templates.single]
+    layout = 1
+
+[widgets.content]
+    [widgets.content.banner]
+        isEnabled = false
+
+[widgets.tableOfContents]
+     isEnabled   = false
+
+[widgets.related]
+    isEnabled               = true
+    sections                = ["documentation"]
+    numberOfRecords         = 4
+    isVertical              = true
+    numberOfRecordsPerRow   = 4
+
+[widgets.recently]
+    isEnabled               = false
+
++++
+
+# Configuration
+
+---
+
+How to configure your Hugo-Bulma site. Check the follow example configuration settings.
+
+```toml
 #################### 
 
 isQuirksMode = true     # set value to true will throw error as warning when building site, or as error
@@ -41,11 +94,11 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
 
     [plugins.googleAnalytics]
         isEnabled   = true
-        trackingID  = "UA-169816164-1"
+        trackingID  = ""
         anonymizeIP = false
 
     [plugins.googleTagManager]
-        isEnabled   = false
+        isEnabled   = true
         containerID = ""
 
     [plugins.googleAdSense]
@@ -75,17 +128,17 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
     [widgets.head]
         # multiple config sections allowed for multiple files
         # custom SASS/SCSS/CSS file, should put in `/assets/`
-        #[widgets.head.styles.NAME]       # NAME: a unique name you given
-        #    path = "styles/custom.scss"  # for local file
-        #    url  = ""                    # for cdn file
-        #    sri  = ""                    # for cdn file
+        [widgets.head.styles.NAME]       # NAME: a unique name you given
+            path = "styles/custom.scss"  # for local file
+            url  = ""                    # for cdn file
+            sri  = ""                    # for cdn file
 
         # multiple config sections allowed for multiple files
         # custom JS file, should put in `/assets/`
-        #[widgets.head.scripts.NAME]      # NAME: a unique name you given
-        #    path = "scripts/custom.js"   # for local file 
-        #    url  = ""                    # for cdn file
-        #    sri  = ""                    # for cdn file
+        [widgets.head.scripts.NAME]      # NAME: a unique name you given
+            path = "scripts/custom.js"   # for local file 
+            url  = ""                    # for cdn file
+            sri  = ""                    # for cdn file
 
     [widgets.header]
         isEnabled           = true
@@ -141,6 +194,7 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         isSticky    = true
         top         = "3rem"    # used for sticky, unit must be rem, will calcuate "top" in main.scss by value + design.navbar.height
 
+
     [widgets.categories]
         isEnabled       = true
         [widgets.categories.icon]
@@ -182,5 +236,7 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         isVertical              = true
         numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
 
-
 #################### 
+```
+
+---
