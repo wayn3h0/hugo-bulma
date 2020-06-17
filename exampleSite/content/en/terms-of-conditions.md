@@ -29,12 +29,17 @@ videos      = []
 [menus.legal]
     weight = 2
 
-[design.tableOfContents]
-    isEnabled = false
+[templates.single]
+    layout = 1
 
-[extensions]
-    math    = false
-    diagram = false
+[widgets.tableOfContents]
+    isEnabled               = false
+
+[widgets.related]
+    isEnabled               = false
+
+[widgets.recently]
+    isEnabled               = false
 
 +++
 
