@@ -1,5 +1,6 @@
 {{ define "main" }}
+{{ $page := . }}
 <main class="main" role="main">
-    {{ .Content }}
+    {{ $page.Content }}
 </main>
 {{ end }}

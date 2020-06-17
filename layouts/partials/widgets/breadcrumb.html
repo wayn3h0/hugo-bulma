@@ -1,0 +1,65 @@
+{{ $page := . }}
+
+{{ $isEnabled := $page.Params.widgets.breadcrumb.isEnabled | default $page.Site.Params.widgets.breadcrumb.isEnabled | default false }}
+{{ $separator := $page.Params.widgets.breadcrumb.separator | default $page.Site.Params.widgets.breadcrumb.separator | default "" }}
+{{ $alignment := $page.Params.widgets.breadcrumb.alignment | default $page.Site.Params.widgets.breadcrumb.alignment | default ""}}
+{{ $size := $page.Params.widgets.breadcrumb.size | default $page.Site.Params.widgets.breadcrumb.size | default ""}}
+
+{{ if $isEnabled }}
+    {{ if in (slice "page" "section") $page.Kind }}
+        {{ $pagePath := $page.RelPermalink }}
+        {{ $class := "" }}
+
+        {{ with $separator }}
+            {{ if not (in (slice "arrow" "bullet" "dot" "succeeds") .) }}
+                {{ $message := printf "partials/breadcrumb: invalid argument (separator=%q) at config [params.design.breadcrumb]" . }}
+                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+            {{ else }}
+                {{ $class = printf "%s has-%s-separator" $class . }}
+            {{ end }}
+        {{ end }}
+
+        {{ with $alignment }}
+            {{ if not (in (slice "centered" "right") .) }}
+                {{ $message := printf "partials/breadcrumb: invalid argument (alignment=%q) at config [params.design.breadcrumb]" . }}
+                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+            {{ else }}
+                {{ $class = printf "%s is-%s" $class . }}
+            {{ end }}
+        {{ end }}
+
+        {{ with $size }}
+            {{ if not (in (slice "small" "medium" "large") .) }}
+                {{ $message := printf "partials/breadcrumb: invalid argument (size=%q) at config [params.design.breadcrumb]" . }}
+                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+            {{ else }}
+                {{ $class = printf "%s is-%s" $class . }}
+            {{ end }}
+        {{ end }}
+
+        <section class="section widget-breadcrumb">
+            <div class="container">
+                <nav class="breadcrumb{{ with $class }} {{ . }}{{ end }}" aria-label="{{ i18n "breadcrumb" }}">
+                    <ul>
+                        <li><a href="/">{{ i18n "breadcrumb_home" }}</a></li>
+                        {{ $path := ""}}
+                        {{ range (split $pagePath "/") }}
+                            {{ if gt (len . ) 0 }}
+                                {{ if ne $page.Language.Lang . }}
+                                    {{ $path = printf "%s/%s" $path . }}
+                                    {{ with $page.Site.GetPage $path }}
+                                        {{ if ne $pagePath .RelPermalink }}
+                                            <li><a href="{{ .RelPermalink }}">{{ .LinkTitle | default .Title }}</a></li>
+                                        {{ end }}
+                                    {{ end }}
+                                {{ end }}
+                            {{ end }}
+                        {{ end }}
+                        <li class="is-active"><a aria-current="page" href="{{ $page.RelPermalink }}">{{ $page.LinkTitle | default $page.Title }}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+    {{ end }}
+{{ end }}

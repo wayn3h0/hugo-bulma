@@ -1,13 +1,6 @@
 [[navbar]]
-    identifier = "home"
-    weight = 1
-    name = "Home"
-    url = "/"
-    pre = "<span class=\"icon\"><i class=\"fas fa-home\"></i></span>"
-
-[[navbar]]
     identifier = "documentation"
-    weight = 2
+    weight = 1
     name = "Documentation"
     url = "documentation/"
     pre = "<span class=\"icon\"><i class=\"fas fa-book\"></i></span>"
@@ -26,13 +19,13 @@
     name = "DOCUMENTATION"
 
 [[quicklinks]]
-    identifier = "follow-us"
+    identifier = "follow"
     weight = 99
-    name = "FOLLOW US"
+    name = "FOLLOW"
 
 [[quicklinks]]
     identifier = "twitter"
-    parent = "follow-us"
+    parent = "follow"
     weight = 1
     name = "Twitter"
     url = "#"
@@ -40,7 +33,7 @@
 
 [[quicklinks]]
     identifier = "facebook"
-    parent = "follow-us"
+    parent = "follow"
     weight = 2
     name = "Facebook"
     url = "#"

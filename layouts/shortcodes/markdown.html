@@ -1,0 +1,8 @@
+{{ $shortcode := . }}
+
+{{ if eq $shortcode.Inner "" }}
+    {{ $message := printf `shortcodes/markdown: missing inner at %s` $shortcode.Position }}
+    {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
+{{ else }}
+    {{ $shortcode.Inner | markdownify }}
+{{ end }}

@@ -1,10 +1,15 @@
 {{ $page := . }}
+
+{{ $alignment := $page.Params.widgets.pagination.alignment | default $page.Site.Params.widgets.pagination.alignment | default "" }}
+{{ $style := $page.Params.widgets.pagination.style | default $page.Site.Params.widgets.pagination.style | default "" }}
+{{ $size := $page.Params.widgets.pagination.size | default $page.Site.Params.widgets.pagination.size | default "" }}
+
 {{ $paginator := $page.Paginator }}
 {{ if gt $paginator.TotalPages 1 }}
 
     {{ $class := "" }}
 
-    {{ with $page.Site.Params.design.pagination.alignment }}
+    {{ with $alignment }}
         {{ if not (in (slice "centered" "right")) . }}
             {{ $message := printf "partials/pagination: invalid argument (alignment=%q) at config [params.design.pagination]" . }}
             {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
@@ -13,7 +18,7 @@
         {{ end }}
     {{ end }}
 
-    {{ with $page.Site.Params.design.pagination.style }}
+    {{ with $style }}
         {{ if not (in (slice "rounded") .) }}
             {{ $message := printf "partials/pagination: invalid argument (style=%q) at config [params.design.pagination]" . }}
             {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
@@ -22,7 +27,7 @@
         {{ end }}
     {{ end }}
 
-    {{ with $page.Site.Params.design.pagination.size }}
+    {{ with $size }}
         {{ if not (in (slice "small" "medium" "large") .) }}
             {{ $message := printf "partials/pagination: invalid argument (size=%q) at config [params.design.pagination]" . }}
             {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
@@ -30,7 +35,8 @@
             {{ $class = printf "%s is-%s" $class . }}
         {{ end }}
     {{ end }}
-    <section class="section is-paddingless">
+
+    <section class="section widget-pagination">
         <div class="container">
             <nav class="pagination{{ with $class }} {{ . }}{{ end }} mt-6" role="navigation" aria-label="{{ i18n "pagination" }}">
                 <a class="pagination-previous"{{ if $paginator.HasPrev }} href="{{ $paginator.Prev.URL }}"{{ else }} disabled{{ end }}>{{ i18n "pagination_previous" }}</a>
@@ -79,4 +85,5 @@
             </nav>
         </div>
     </section>
+
 {{ end }}

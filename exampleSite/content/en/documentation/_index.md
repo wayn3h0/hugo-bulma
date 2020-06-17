@@ -1,43 +1,75 @@
 +++
 
 draft       = false
-date        = "2020-06-08"
+date        = "2020-06-16"
 
 hasCJKLanguage = false
 
 author      = "Wayne Ho"
-keywords    = "documentation, doc"
+keywords    = ["documentation"]
 description = ""
 title       = "Documentation"
 linkTitle   = "Documentation"
 
-#banner      = "images/mermaid.png"
-summary     = ""
+tags        = ["Documentation"]
+categories  = ["Documentation"]
 
-tags        = []
-categories  = []
+[templates.list]
+    layout = -1
 
-images      = []
-audio       = []
-videos      = []
-
-#[menus.navbar]
-#    weight = 1
-#[menus.quicklinks]
-#    weight = 1
-#    parent = "PARENT"
-#[menus.legal]
-#    weight = 1
-
-[design.tableOfContents]
+[widgets.tags]
     isEnabled = false
 
-[extensions]
-    math    = false
-    diagram = false
+[widgets.categories]
+    isEnabled = false
 
 +++
 
 # Documentation
-{{< title isSub=true level=5 size=5 >}}Everything you need to create a website with Hugo-Bulma.{{< /title >}}
 
+Everything you need to create a website with Hugo-Bulma.
+
+
+{{< columns >}}
+
+{{< columns/column >}}{{< box >}}{{< markdown >}}
+![Configuration](/images/configuration.jpg)
+## [Configuration]({{< relref "configuration.md" >}})
+
+Configure your Hugo-Bulma site.
+{{< /markdown >}}{{< /box >}}{{< /columns/column >}}
+
+{{< columns/column >}}{{< box >}}{{< markdown >}}
+![Layouts](/images/layouts.jpg)
+## [Layouts]({{< relref "layouts.md" >}})
+
+Built-in page layouts.
+{{< /markdown >}}{{< /box >}}{{< /columns/column >}}
+
+{{< /columns >}}
+
+
+{{< columns >}}
+
+{{< columns/column >}}{{< box >}}{{< markdown >}}
+![Widgets](/images/widgets.jpg)
+## [Widgets]({{< relref "widgets.md" >}})
+
+Build pages by widgets.
+{{< /markdown >}}{{< /box >}}{{< /columns/column >}}
+
+{{< columns/column >}}{{< box >}}{{< markdown >}}
+![Plugins](/images/plugins.jpg)
+## [Plugins]({{< relref "plugins.md" >}})
+
+Third-party services or Hugo's hooks.
+{{< /markdown >}}{{< /box >}}{{< /columns/column >}}
+
+{{< columns/column >}}{{< box >}}{{< markdown >}}
+![Extensions](/images/extensions.jpg)
+## [Extensions]({{< relref "extensions.md" >}})
+
+Third-party libraries.
+{{< /markdown >}}{{< /box >}}{{< /columns/column >}}
+
+{{< /columns >}}

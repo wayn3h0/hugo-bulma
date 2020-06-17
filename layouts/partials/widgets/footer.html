@@ -1,0 +1,124 @@
+{{ $page := . }}
+
+{{ $isEnabled := $page.Params.widgets.footer.isEnabled | default $page.Site.Params.widgets.footer.isEnabled | default false }}
+{{ $isPaddingless := $page.Params.widgets.footer.isPaddingless | default $page.Site.Params.widgets.footer.isPaddingless | default false }}
+{{ $logoIsEnabled := $page.Params.widgets.footer.logo.isEnabled | default $page.Site.Params.widgets.footer.logo.isEnabled | default false }}
+{{ $logoIsLink := $page.Params.widgets.footer.logo.isLink | default $page.Site.Params.widgets.footer.logo.isLink | default false }}
+{{ $logoWidth := strings.TrimSuffix "px" ($page.Params.widgets.footer.logo.width | default $page.Site.Params.widgets.footer.logo.width) | default "" }}
+{{ $logoHeight := strings.TrimSuffix "px" ($page.Params.widgets.footer.logo.height | default $page.Site.Params.widgets.footer.logo.height) | default "" }}
+{{ if and (eq $logoWidth "") (eq $logoHeight "") }}
+    {{ $logoIsEnabled = false }}
+{{ end }}
+{{ $logoTitle := $page.Site.Params.title | default $page.Site.Title }}
+{{ $backToTopIsEnabled := $page.Params.widgets.footer.backToTop.isEnabled | default $page.Site.Params.widgets.footer.backToTop.isEnabled | default false }}
+{{ $backToTopIconPack := $page.Params.widgets.backToTop.icon.pack | default $page.Site.Params.widgets.backToTop.icon.pack | default "fas" }}
+{{ $backToTopIconName := $page.Params.widgets.backToTop.icon.name | default $page.Site.Params.widgets.backToTop.icon.name | default "chevron-circle-up" }}
+{{ $backToTopIconColor := $page.Params.widgets.backToTop.icon.color | default $page.Site.Params.widgets.backToTop.icon.color | default "primary" }}
+
+{{ $host := (urls.Parse $page.Site.Params.baseURL).Host }}
+{{ $copyright := replace $page.Site.Copyright "{year}" now.Year | safeHTML | markdownify | emojify }}
+
+{{ if $isEnabled }}
+    <footer class="footer widget-footer">
+        {{ if $backToTopIsEnabled }}
+            <a class="back-to-top is-hidden" title="{{ i18n "back_to_top" }}">
+                <span class="icon is-medium{{ with $backToTopIconColor }} has-text-{{ . }}{{ end }}">
+                    <i class="{{ $backToTopIconPack }} fa-{{ $backToTopIconName }} fa-2x"></i>
+                </span>
+            </a>
+        {{ end }}
+        {{ if $page.Site.Menus.quicklinks }}
+            <section class="section">
+                <div class="container">
+                    <div class="columns">
+                        {{ range $page.Site.Menus.quicklinks }}
+                            {{ if .HasChildren}}
+                                {{ $item := . }}
+                                {{ $pre := safeHTML $item.Pre }}
+                                {{ $post := safeHTML $item.Post }}
+                                {{ $name := safeHTML $item.Name }}
+                                <div class="column">
+                                    <nav class="quick-links">
+                                        <dl>
+                                            <dt><h6 class="title is-6">{{ $pre }}{{ if or $pre $post }}<span>{{ $name }}</span>{{ else }}{{ $name }}{{ end }}{{ $post }}</h6></dt>
+                                            {{ range $item.Children }}
+                                                {{ $item := . }}
+                                                {{ $currentURL := urls.Parse $item.URL }}
+                                                {{ $isExternal := false }}
+                                                {{ if ne $currentURL.Host $host }}
+                                                    {{ $isExternal = true }}
+                                                {{ end }}
+                                                {{ $href := relLangURL $item.URL }}
+                                                {{ if not (hasPrefix $item.URL "http") }}
+                                                    {{ $href = safeURL $item.URL }}
+                                                {{ end }}
+                                                {{ $pre := safeHTML $item.Pre }}
+                                                {{ $post := safeHTML $item.Post }}
+                                                {{ $name := safeHTML $item.Name }}
+                                                <dd>
+                                                    <a href="{{ $href }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}>
+                                                        {{ $pre }}{{ if or $pre $post }}<span>{{ $name }}</span>{{ else }}{{ $name }}{{ end }}{{ $post }}
+                                                    </a>
+                                                </dd>
+                                            {{ end }}
+                                        </dl>
+                                    </nav>
+                                </div>
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                </div>
+            </section>
+        {{ end }}
+
+        <section class="section">
+            <div class="container">
+                <div class="level legal">
+                    <div class="level-left">
+                        <div class="level-item">{{ $copyright }}</div>
+
+                        {{ with $page.Site.Menus.legal }}
+                            {{ range $page.Site.Menus.legal }}
+                                {{ $item := . }}
+                                {{ $currentURL := urls.Parse $item.URL }}
+                                {{ $isExternal := false }}
+                                {{ if ne $currentURL.Host $host }}
+                                    {{ $isExternal = true }}
+                                {{ end }}
+                                {{ $href := relLangURL $item.URL }}
+                                {{ if not (hasPrefix $item.URL "http") }}
+                                    {{ $href = safeURL $item.URL }}
+                                {{ end }}
+                                {{ $pre := safeHTML $item.Pre }}
+                                {{ $post := safeHTML $item.Post }}
+                                {{ $name := safeHTML $item.Name }}
+                                <div class="level-item">
+                                    <a href="{{ $href }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}>
+                                        {{ $pre }}{{ if or $pre $post }}<span>{{ $name }}</span>{{ else }}{{ $name }}{{ end }}{{ $post }}
+                                    </a>
+                                </div>
+                            {{ end }}
+                        {{ end }}
+
+                    </div>
+                    {{ if $logoIsEnabled }}
+                        {{ $logo := partial "functions/logo.html" (dict "context" $page "width" $logoWidth "height" $logoHeight) }}
+                        {{ with $logo }}
+                            <div class="level-right">
+                                <div class="level-item">
+                                    {{ if $logoIsLink }}
+                                        <a href="{{ "/" | relLangURL }}">
+                                    {{ end }}
+                                            <img class="logo is-footer" src="{{ $logo.RelPermalink }}" alt="{{ $logoTitle }}">
+                                    {{ if $logoIsLink }}
+                                        </a>
+                                    {{ end }}
+                                </div>
+                            </div>
+                        {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+        </section>
+    </footer>
+{{ end }}

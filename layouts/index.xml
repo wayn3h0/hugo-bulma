@@ -29,7 +29,7 @@
             <item>
                 <title>{{ .Title }}</title>
                 <link>{{ .Permalink }}</link>
-                <pubDate>{{ .Date.Format (site.Params.timeFormat | default "2006-01-02 15:04:05 +0800") | safeHTML }}</pubDate>
+                <pubDate>{{ .Date.Format (site.Params.templates.index.xml.timeFormat | default "2006-01-02 15:04:05 +0800") | safeHTML }}</pubDate>
                 <guid>{{ .Permalink }}</guid>
                 <description>{{ .Params.summary | default .Summary }}</description>
             </item>
