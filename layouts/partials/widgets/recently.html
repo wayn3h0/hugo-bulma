@@ -1,21 +1,23 @@
-{{ $page := .context }}
+{{ $page := . }}
 
-{{ $isVertical := .isVertical | default false }}
-{{ $numberOfRecords := .numberOfRecords | default $page.Site.Params.design.related.numberOfRecords | default 0 }}
-{{ $numberOfRecordsPerRow := .numberOfRecordsPerRow | default $page.Site.Params.design.related.numberOfRecordsPerRow | default 3 }}
+{{ $isEnabled := $page.Params.widgets.recently.isEnabled | default $page.Site.Params.widgets.recently.isEnabled | default false }}
+{{ $sections := $page.Params.widgets.recently.sections | default $page.Site.Params.widgets.recently.sections | default slice }}
+{{ $numberOfRecords := $page.Params.widgets.recently.numberOfRecords | default $page.Site.Params.widgets.recently.numberOfRecords | default 6 }}
+{{ $isVertical := $page.Params.widgets.recently.isVertical | default $page.Site.Params.widgets.recently.isVertical | default false }}
+{{ $numberOfRecordsPerRow := $page.Params.widgets.recently.numberOfRecordsPerRow | default $page.Site.Params.widgets.recently.numberOfRecordsPerRow | default 3 }}
 {{ if gt $numberOfRecordsPerRow $numberOfRecords }}
     {{ $numberOfRecordsPerRow = $numberOfRecords}}
 {{  end }}
 
-{{ $pages := $page.Site.RegularPages.Related $page  }}
+{{ $pages := $page.Site.RegularPages }}
+{{ if gt (len $sections) 0 }}
+    {{ $pages = where $pages "Type" "in" $sections }}
+{{ end }}
 
-
-
-
-{{ if gt (len $pages) 0 }}
-    <section class="section pt-0{{ if $isVertical }} px-0{{ end }}">
+{{ if and $isEnabled (gt (len $pages) 0) }}
+    <section class="section widget-recently{{ if $isVertical }} is-vertical{{ end }}">
         <div class="container">
-            <h6 class="title is-6">{{ i18n "related"}}</h6>
+            <h6 class="title is-6">{{ i18n "recently"}}</h6>
             <hr>
             {{ if $isVertical }}
                 <div class="tile is-ancestor">

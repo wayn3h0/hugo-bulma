@@ -1,11 +1,14 @@
 {{ $page := . }}
 
-{{ $gtmContainerID := $page.Site.Params.plugins.googleTagManager.containerID | default "" }}
-{{ if eq $gtmContainerID "" }}
-    {{ $trackingID := $page.Site.Params.plugins.googleAnalytics.trackingID | default $page.Site.GoogleAnalytics | default "" }}
-    {{ $anonymizeIP := $page.Site.Params.plugins.googleAnalytics.anonymizeIP | default false }}
-    {{ $config := cond $anonymizeIP "{ 'anonymize_ip': true }" "{}" }}
+{{ $isEnabled := $page.Params.plugins.googleAnalytics.isEnabled | default $page.Site.Params.plugins.googleAnalytics.isEnabled | default false }}
+{{ $trackingID :=  $page.Params.plugins.googleAnalytics.trackingID | default $page.Site.Params.plugins.googleAnalytics.trackingID | default $page.Site.GoogleAnalytics | default "" }}
+{{ $anonymizeIP := $page.Params.plugins.googleAnalytics.anonymizeIP | default $page.Site.Params.plugins.googleAnalytics.anonymizeIP | default false }}
+{{ $gtmIsEnabled := $page.Params.plugins.googleTagManager.isEnabled | default $page.Site.Params.plugins.googleTagManager.isEnabled | default false }}
+
+{{ if and $isEnabled (not $gtmIsEnabled) }}
     {{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and (ne $trackingID "") }}
+        {{ $config := cond $anonymizeIP "{ 'anonymize_ip': true }" "{}" }}
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ $trackingID }}"></script>
         <script>
@@ -39,5 +42,6 @@
             // Outbound link tracking.
             document.addEventListener('click', onClickCallback, false);
         </script>
+
     {{ end }}
 {{ end }}

@@ -1,4 +1,5 @@
 {{ define "main" }}
+
 {{ $page := . }}
 
 <main class="main" role="main">
@@ -10,9 +11,7 @@
             </div>
         </div>
     </section>
-    {{ $sections := $page.Site.Params.design.page.error.recently.sections }}
-    {{ $numberOfRecords := $page.Site.Params.design.page.error.recently.numberOfRecords }}
-    {{ $numberOfRecordsPerRow := $page.Site.Params.design.page.error.recently.numberOfRecordsPerRow }}
-    {{ partial "recently.html" (dict "context" $page "isVertical" false "sections" $sections "numberOfRecords" $numberOfRecords "numberOfRecordsPerRow" $numberOfRecordsPerRow) }}
+    {{ partial "widgets/recently.html" $page }}
 </main>
+
 {{ end }}

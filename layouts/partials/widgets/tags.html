@@ -1,0 +1,34 @@
+{{ $page := . }}
+
+{{ $isEnabled := $page.Params.widgets.tags.isEnabled | default $page.Site.Params.widgets.tags.isEnabled | default false }}
+{{ $iconIsEnabled := $page.Params.widgets.tags.icon.isEnabled | default $page.Site.Params.widgets.tags.icon.isEnabled | default false }}
+{{ $iconPack := $page.Params.widgets.tags.icon.pack | default $page.Site.Params.widgets.tags.icon.pack | default "fas" }}
+{{ $iconName := $page.Params.widgets.tags.icon.name | default $page.Site.Params.widgets.tags.icon.name | default "tag" }}
+{{ $iconColor := $page.Params.widgets.tags.icon.color | default $page.Site.Params.widgets.tags.icon.color | default "primary" }}
+
+{{ if $isEnabled }}
+    {{ $tags := $page.GetTerms "tags" }}
+    {{ if gt (len $tags) 0 }}
+        {{ if $iconIsEnabled }}
+            <div class="field is-grouped is-grouped-multiline widget-tags">
+            {{ range $tag := $tags }}
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag{{ with $iconColor }} is-{{ . }}{{ end }}"><i class="{{ with $iconPack }}{{ . }}{{ end }}{{ with $iconName }} fa-{{ . }}{{ end }}"></i></span>
+                        <span class="tag"><a href="{{ $tag.RelPermalink }}" title="{{ $tag.LinkTitle }}">{{ $tag.LinkTitle }}</a></span>
+                    </div>
+                </div>
+            {{ end }}
+            </div>
+        {{ else }}
+            <div class="widget-tags">
+                {{ range $index, $tag := $tags }}
+                    <span><a href="{{ $tag.RelPermalink }}" title="{{ $tag.LinkTitle }}">{{ $tag.LinkTitle }}</a></span>
+                    {{ if ne (add $index 1) (len $tags) }}
+                    &nbsp;|&nbsp;
+                    {{ end }}
+                {{ end }}
+            </div>
+        {{ end }}
+    {{ end }}
+{{ end }}

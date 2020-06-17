@@ -32,18 +32,13 @@ $radius-large: 0px;
 {{ end }}
 
 // navbar height
-{{ with .Param "design.navbar.logo.height" }}
+{{ with .Param "widgets.header.logo.height" }}
 $navbar-item-img-max-height: {{ printf "%s * 0.0625" (strings.TrimSuffix "px" .) }}rem;
-{{ if not ($.Param "design.navbar.isSpaced") }}
+{{ if not ($.Param "widgets.header.isSpaced") }}
 $navbar-height: {{ printf "%s * 0.0625 + 1" (strings.TrimSuffix "px" .) }}rem;
 {{ else }}
 $navbar-height: {{ printf "%s * 0.0625 + 2" (strings.TrimSuffix "px" .) }}rem;
 {{ end }}
-{{ end }}
-
-
-{{ with .Param "design.footer.isPaddingless" }}
-$footer-padding: 0;
 {{ end }}
 
 @import "vendors/bulma/bulma.sass";
@@ -51,94 +46,143 @@ $footer-padding: 0;
 // logo
 .logo {
   &.is-header {
-    {{ with .Param "design.navbar.logo.width" }}
+    {{ with .Param "widgets.header.logo.width" }}
     width: {{ strings.TrimSuffix "px" . }}px;
     {{ end }}
-    {{ with .Param "design.navbar.logo.height" }}
+    {{ with .Param "widgets.header.logo.height" }}
     height: {{ strings.TrimSuffix "px" . }}px;
     {{ end }}
   }
   &.is-footer {
-    {{ with .Param "design.footer.logo.width" }}
+    {{ with .Param "widgets.footer.logo.width" }}
     width: {{ strings.TrimSuffix "px" . }}px;
     {{ end }}
-    {{ with .Param "design.footer.logo.height" }}
+    {{ with .Param "widgets.footer.logo.height" }}
     height: {{ strings.TrimSuffix "px" . }}px;
     {{ end }}
   }
 }
 
-.navbar-brand {
-  a {
-    color: $primary;
-    cursor: pointer;
-    &:hover {
-      color: $primary;
-      text-decoration: none;
+.widget-header {
+    .navbar-brand {
+        a {
+            color: $primary;
+            cursor: pointer;
+            &:hover {
+              color: $primary;
+              text-decoration: none;
+            }
+        }     
     }
-  }  
 }
 
 .brand {
-  display: flex;
-  flex-direction: column;
-  white-space: nowrap;
-  margin-left: 12px;
-  .brand-title {
-    margin: 0;
-    padding: 0;
-    font-size: 1.125rem;
-    font-weight: 700; 
-  }
-  .brand-tagline {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    font-weight: 500; 
-  }
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    margin-left: 12px;
+    .brand-title {
+        margin: 0;
+        padding: 0;
+        font-size: 1.125rem;
+        font-weight: 700; 
+    }
+    .brand-tagline {
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+        font-weight: 500; 
+    }
 }
 
-{{ if or (.Param "design.navbar.menu.leftMargin") (.Param "design.navbar.menu.leftMargin") }}
+{{ if or (.Param "widgets.header.menu.leftMargin") (.Param "widgets.header.menu.leftMargin") }}
 .navbar-menu {
-{{ with .Param "design.navbar.menu.leftMargin" }}
+{{ with .Param "widgets.header.menu.leftMargin" }}
   margin-left: {{ . }};
 {{ end }}
-{{ with .Param "design.navbar.menu.leftMargin" }}
+{{ with .Param "widgets.header.menu.leftMargin" }}
   margin-right: {{ . }};
 {{ end }}
 }
 {{ end }}
 
-footer nav dl {
-  dt {
-    margin-bottom: 1rem; 
-  }
-  dd {
-    margin-bottom: 0.5rem; 
-  }
+.widget-footer {
+    {{ with .Param "widgets.footer.isPaddingless" }}
+    padding: 0;
+    {{ end }}
+    nav dl {
+        dt {
+            margin-bottom: 1rem; 
+        }
+        dd {
+            margin-bottom: 0.5rem; 
+        }
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: {{ .Param "widgets.footer.backToTop.position.bottom" | default "1.5rem" }};
+      right: {{ .Param "widgets.footer.backToTop.position.right" | default "1.5rem" }};
+      z-index: 9999;
+    }
 }
 
-// back to top
-.back-to-top {
-  position: fixed;
-  bottom: {{ .Param "design.backToTop.bottom" | default "1.5rem" }};
-  right: {{ .Param "design.backToTop.right" | default "1.5rem" }};
-  z-index: 9999;
+.widget-pagination {
+    padding: 0;
 }
-  
-// table of contents
-.table-of-contents {
-  margin-left: 1rem;
-  padding-left: 1rem;
-  border-left: 1px solid $light;
-  ul {
-    margin-left: 0.5rem;
-    li {
-      list-style-type: none;
+
+.widget-table-of-contents {
+    .table-of-contents {
+        padding: 1rem;
+        border-left: 0.25rem solid $primary;
+        background-color: $light;
+    }   
+    ul {
+        margin-left: 0.5rem;
+        padding-left: 1rem;
+        li {
+            list-style-type: disc;
+            font-weight: bold;
+            ul {
+                li {
+                  font-weight:normal; 
+                }
+            }
+        }
     }
-  }
-  &.is-sticky {
-    position: sticky;
-    top: {{ .Param "design.tableOfContents.top" | default "$navbar-height" }};
-  }
+    &.is-sticky {
+        z-index: 999;
+        position: sticky;
+        {{ if .Param "widgets.tableOfContents.top" }}
+        top: {{ printf "%s +" (.Param "widgets.tableOfContents.top" | default "0rem") }} $navbar-height;
+        {{ else }}
+        top: $navbar-height;
+        {{ end }}
+    }
+}
+
+.section {
+    padding-left:0; 
+    padding-right:0; 
+    &:not(:last-child):not(:only-child) {
+        padding-bottom: 0;
+    }
+    .columns {
+        .column {  
+            .section {
+                &:first-child {
+                    padding-top: 0;
+                }
+                &:last-child {
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+.columns {
+    ~.section {
+        padding-top: 0;
+    }
 }

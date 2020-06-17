@@ -39,7 +39,7 @@ summaryLength = 70
 [related]
     threshold = 80
     includeNewer = true
-    toLower = false
+    toLower = true
     [[related.indices]]
         name = "tags"
         weight = 100
@@ -49,13 +49,6 @@ summaryLength = 70
      [[related.indices]]
         name = "date"
         weight = 10
-
-# Markdown.
-[markup]
-    [markup.goldmark]
-        [markup.goldmark.renderer]
-            # Enable user to embed HTML snippets in Markdown content.
-            unsafe = true
 
 [outputs]
     home = [ "HTML", "RSS", "JSON", "MANIFEST" ]

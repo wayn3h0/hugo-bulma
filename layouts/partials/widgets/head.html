@@ -99,46 +99,49 @@
 <!-- Extensions end -->
 
 <!-- Styles begin -->
+{{ $customStyles := $page.Params.widgets.head.styles | default $page.Site.Params.widgets.head.styles | default slice }}
+
 <!--    check config error begin -->
-{{ range $key, $style := $page.Site.Params.design.styles }}
+{{ range $key, $style := $customStyles }}
     {{ if and (not $style.path) (not $style.url) }}
-        {{ $message := printf `partials/head: invalid argument (path="" and url="") at config [params.design.styles.%s]` $key }}
+        {{ $message := printf `partials/head: invalid argument (path="" and url="") at config [params.widgets.head.styles.%s]` $key }}
         {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
     {{ end }}
 {{ end }}
 <!--    check config error end -->
+
 <!--    all.css begin : combine all local style files into one file (styles/all.css) -->
-{{ $allCSS := slice }}
-{{ $allCSSTarget := "styles/all.css" }}
+{{ $localCSS := slice }}
+{{ $localCSSTarget := "styles/all.css" }}
 
 <!-- prepared for more theme styles future -->
-{{ $styles := slice "styles/main.scss" }}
-{{ range $styles }}
-    {{ $path := . }}
+{{ $themeStyles := slice "styles/main.scss" }}
+
+{{ range $path := $themeStyles }}
     {{ $css := resources.Get $path  | resources.ExecuteAsTemplate $path $page | resources.ToCSS | resources.PostCSS }}
-    {{ $allCSS = $allCSS | append $css }}
+    {{ $localCSS = $localCSS | append $css }}
 {{ end }}
 
-{{ range $key, $style := $page.Site.Params.design.styles }}
+{{ range $key, $style := $customStyles }}
     {{ if $style.path }} {{/* local */}}
         {{ $fullPath := printf "assets/%s" $style.path }} 
         {{ if not (fileExists $fullPath) }}
-            {{ $message := printf "partials/head: file not found (path=%q) at config [params.design.styles.local.%s]" $style.path $key }}
+            {{ $message := printf "partials/head: file not found (path=%q) at config [params.widgets.head.styles.%s]" $style.path $key }}
             {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
         {{ else }}
             {{ $css := resources.Get $style.path  | resources.ExecuteAsTemplate $style.path $page | resources.ToCSS | resources.PostCSS }}
-            {{ $allCSS = $allCSS | append $css }}
+            {{ $localCSS = $localCSS | append $css }}
         {{ end }}
     {{ end }}
 {{ end }}
-{{ $localCSS := $allCSS | resources.Concat $allCSSTarget }}
+{{ $allCSS := $localCSS | resources.Concat $localCSSTarget }}
 {{ if hugo.IsProduction }}
-    {{ $localCSS = $localCSS | resources.Minify | resources.Fingerprint | resources.PostProcess }}
+    {{ $allCSS = $allCSS | resources.Minify | resources.Fingerprint | resources.PostProcess }}
 {{ end }}
-<link rel="stylesheet" href="{{ $localCSS.RelPermalink }}">
+<link rel="stylesheet" href="{{ $allCSS.RelPermalink }}">
 <!--    all.css end -->
 <!--    cdn css begin -->
-{{ range $key, $style := $page.Site.Params.design.styles }}
+{{ range $key, $style := $customStyles }}
     {{ if $style.url }}
         <link rel="stylesheet" href="{{ $style.url }}"{{ with $style.sri }} integrity="{{ . }}" crossorigin="anonymous"{{ end }}>
     {{ end }}
@@ -147,45 +150,48 @@
 <!-- Styles end -->
 
 <!-- Scripts begin -->
+{{ $customScripts := $page.Params.widgets.head.scripts | default $page.Site.Params.widgets.head.scripts | default slice }}
+
 <!--    check config error begin -->
-{{ range $key, $script := $page.Site.Params.design.scripts }}
+{{ range $key, $script := $customScripts }}
     {{ if and (not $script.path) (not $script.url) }}
-        {{ $message := printf `partials/head: invalid argument (path="" and url="") at config [params.design.scripts.%s]` $key }}
+        {{ $message := printf `partials/head: invalid argument (path="" and url="") at config [params.widgets.head.scripts.%s]` $key }}
         {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
     {{ end }}
 {{ end }}
 <!--    check config error end -->
+
 <!--    all.js begin : combine all local script files into one file (scripts/all.js) -->
-{{ $allJS := slice }}
-{{ $allJSTarget := "scripts/all.js" }}
+{{ $localJS := slice }}
+{{ $localJSTarget := "scripts/all.js" }}
 
 <!-- prepared for more theme scripts future -->
-{{ $scripts := slice "scripts/main.jquery.js" }}
-{{ range $scripts }}
-    {{ $path := . }}
+{{ $themeScripts := slice "scripts/main.jquery.js" }}
+
+{{ range $path := $themeScripts }}
     {{ $js := resources.Get $path  | resources.ExecuteAsTemplate $path $page }}
-    {{ $allJS = $allJS | append $js }}
+    {{ $localJS = $localJS | append $js }}
 {{ end }}
-{{ range $key, $script := $page.Site.Params.design.scripts.local }}
+{{ range $key, $script := $customScripts }}
     {{ if $script.path }}
         {{ $fullPath := printf "assets/%s" $script.path }} 
         {{ if not (fileExists $fullPath) }}
-            {{ $message := printf "partials/head: file not found (path=%q) at config [params.design.scripts.%s]" $script.path $key }}
+            {{ $message := printf "partials/head: file not found (path=%q) at config [params.widgets.head.scripts.%s]" $script.path $key }}
             {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
         {{ else }}
             {{ $js := resources.Get $script.path | resources.ExecuteAsTemplate $script.path $page }}
-            {{ $allJS = $allJS | append $js }}
+            {{ $localJS = $localJS | append $js }}
         {{ end }}
     {{ end }}
 {{ end }}
-{{ $localJS := $allJS | resources.Concat $allJSTarget }}
+{{ $allJS := $localJS | resources.Concat $localJSTarget }}
 {{ if hugo.IsProduction }}
-    {{ $localJS = $localJS | resources.Babel | resources.Minify | resources.Fingerprint }}
+    {{ $allJS = $allJS | resources.Babel | resources.Minify | resources.Fingerprint }}
 {{ end }}
-<script defer src="{{ $localJS.RelPermalink }}"></script>
+<script defer src="{{ $allJS.RelPermalink }}"></script>
 <!--    all.js end -->
 <!--    cdn js begin -->
-{{ range $key, $script := $page.Site.Params.design.scripts.cdn }}
+{{ range $key, $script := $customScripts }}
     {{ if $script.url }}
         <script defer src="{{ $script.url }}"{{ with $script.sri }} integrity="{{ . }}" crossorigin="anonymous"{{ end }}></script>
     {{ end }}

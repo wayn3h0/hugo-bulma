@@ -1,100 +1,59 @@
 {{ define "main" }}
+
 {{ $page := . }}
+
+{{ $recentlyIsEnabled := $page.Params.widgets.recently.isEnabled | default $page.Site.Params.widgets.recently.isEnabled | default false }}
+
+{{ $layout := $page.Params.templates.list.layout | default $page.Site.Params.templates.list.layout | default 0 }}
+
 <main class="main" role="main">
-    {{ partial "breadcrumb.html" $page }}
-    {{ if $page.Params.banner }}
-        <section class="section pb-0">
-            <div class="container">
-                <img src="{{ $page.Params.banner | relURL }}" alt="{{ $page.Title}}">
-            </div>
-        </section>
-    {{ end }}
-    {{ if $page.Content }}
-        <section class="section pb-0">
-            <div class="container content">
-                {{ $page.Content }}
-            </div>
-        </section>
-    {{ end }}
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column">
-                    {{ range $page.Paginator.Pages }}
-                        {{ $item := . }}
-                        <article class="box">
-                            <header>
-                                <h1 class="title"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
-                                <div class="field is-grouped is-grouped-multiline">
-                                    <div class="control">
-                                        <div class="tags has-addons">
-                                            <span class="tag is-primary"><i class="fas fa-calendar-day"></i></span>
-                                            <span class="tag"><time pubdate>{{ $item.Date.Format ($item.Site.Params.dateFormat | default "2006-01-02" ) }}</time></span>
-                                        </div>
-                                    </div>
-                                    {{ with $item.Params.author }}
-                                        <div class="control">
-                                            <div class="tags has-addons">
-                                                <span class="tag is-primary"><i class="fas fa-user"></i></span>
-                                                <span class="tag">{{ . }}</span>
-                                            </div>
-                                        </div>
-                                    {{ end }}
-                                    {{ partial "categories.html" $item }}
-                                </div>
-                            </header>
-                            <hr>
-                            <div class="my-5">
-                                {{ if $item.Params.banner }}
-                                {{ if $page.Site.Params.design.page.list.isBigBanner}}
-                                    <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
-                                        <img src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
-                                    </a>
-                                    <div class="is-clearfix">
-                                        <p class="pt-2">{{ $item.Params.summary | default $item.Summary }}</p>
-                                        <div class="is-pulled-right pt-4">
-                                            <a class="button is-link is-outlined" title="{{ i18n "read_more" }}" href="{{ $item.Params.externalLink | default $item.RelPermalink }}">{{ i18n "read_more" }}</a>
-                                        </div>
-                                    </div>
-                                {{ else }}
-                                <div class="columns">
-                                    <div class="column is-4">
-                                        <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
-                                            <img src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
-                                        </a>
-                                    </div>
-                                    <div class="column is-clearfix">
-                                        <p>{{ $item.Params.summary | default $item.Summary }}</p>
-                                        <div class="is-pulled-right pt-4">
-                                            <a class="button is-link is-outlined" title="{{ i18n "read_more" }}" href="{{ $item.Params.externalLink | default $item.RelPermalink }}">{{ i18n "read_more" }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{ end }}
-                                {{ else }}
-                                    <div class="is-clearfix">
-                                        <p>{{ $item.Params.summary | default $item.Summary }}</p>
-                                        <div class="is-pulled-right">
-                                            <a class="button is-link is-outlined" title="{{ i18n "read_more" }}" href="{{ $item.Params.externalLink | default $item.RelPermalink }}">{{ i18n "read_more" }}</a>
-                                        </div>
-                                    </div>
-                                {{ end }}
-                            </div>
-                            <hr >
-                            <footer>
-                                {{ partial "tags.html" $item }}
-                            </footer>
-                        </article>
-                    {{ end }}
-                    {{ partial "pagination.html" $page }}
+
+    {{ partial "widgets/breadcrumb.html" $page }}
+
+    {{ partial "widgets/content.html" $page }}
+
+    {{ if eq $layout 1 }}
+        <div class="container list-layout-1">
+            {{ if $recentlyIsEnabled }}
+                <div class="columns">
+                    <div class="column is-9">
+                        {{ partial "widgets/children.html" $page }}
+                    </div>
+                    <div class="column is-3">
+                        {{ partial "widgets/recently.html" $page }}
+                    </div>
                 </div>
-                <div class="column is-3">
-                    {{ $sections := $page.Site.Params.design.page.list.recently.sections }}
-                    {{ $numberOfRecords := $page.Site.Params.design.page.list.recently.numberOfRecords }}
-                    {{ partial "recently.html" (dict "context" $page "isVertical" true "sections" $sections "numberOfRecords" $numberOfRecords) }}
-                </div>
-            </div>
+            {{ else }}
+                {{ partial "widgets/children.html" $page }}
+            {{ end }}
         </div>
-    </section>
+    {{ else if eq $layout 2 }}
+        <div class="container list-layout-2">
+            {{ if $recentlyIsEnabled }}
+                <div class="columns">
+                    <div class="column is-3">
+                        {{ partial "widgets/recently.html" $page }}
+                    </div>
+                    <div class="column is-9">
+                        {{ partial "widgets/children.html" $page }}
+                    </div>
+                </div>
+            {{ else }}
+                {{ partial "widgets/children.html" $page }}
+            {{ end }}
+        </div>
+    {{ else if eq $layout 3 }}
+        <div class="container list-layout-3">
+            {{ partial "widgets/children.html" $page }}
+            {{ partial "widgets/recently.html" $page }}
+        </div>
+    {{ else if eq $layout 4 }}
+        <div class="container list-layout-4">
+            {{ partial "widgets/recently.html" $page }}
+            {{ partial "widgets/children.html" $page }}
+        </div>
+    {{ end }}
+
 </main>
+
 {{ end }}

@@ -1,12 +1,16 @@
 {{ $page := . }}
+{{ $headerIsEnabled := $page.Params.widgets.header.isEnabled | default $page.Site.Params.widgets.header.isEnabled | default false }}
+{{ $headerIsFixedTop := $page.Params.widgets.header.isFixedTop | default $page.Site.Params.widgets.header.isFixedTop | default false }}
+{{ $headerIsSpaced := $page.Params.widgets.header.isSpaced | default $page.Site.Params.widgets.header.isSpaced | default false }}
+
 <!DOCTYPE html>
 <html lang="{{ .Language.Lang }}">
     <head>
-        {{ partial "head.html" $page }}
+        {{ partial "widgets/head.html" $page }}
     </head>
-    <body{{ if $page.Site.Params.design.navbar.isFixedTop }} class="{{ if $page.Site.Params.design.navbar.isSpaced }}has-spaced-navbar-fixed-top{{ else }}has-navbar-fixed-top{{ end }}"{{ end }}>
-        {{ partial "header.html" $page }}
+    <body{{ if and $headerIsEnabled $headerIsFixedTop }} class="{{ if $headerIsSpaced }}has-spaced-navbar-fixed-top{{ else }}has-navbar-fixed-top{{ end }}"{{ end }}>
+        {{ partial "widgets/header.html" $page }}
         {{ block "main" $page }}{{ end }}
-        {{ partial "footer.html" $page }}
+        {{ partial "widgets/footer.html" $page }}
     </body>
 </html>

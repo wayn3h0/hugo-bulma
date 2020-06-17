@@ -1,21 +1,35 @@
 {{ $page := . }}
 
+{{ $isEnabled := $page.Params.widgets.header.isEnabled | default $page.Site.Params.widgets.header.isEnabled | default false }}
+{{ $isFixedTop := $page.Params.widgets.header.isFixedTop | default $page.Site.Params.widgets.header.isFixedTop | default false }}
+{{ $isTransparent := $page.Params.widgets.header.isTransparent | default $page.Site.Params.widgets.header.isTransparent | default false }}
+{{ $isSpaced := $page.Params.widgets.header.isSpaced | default $page.Site.Params.widgets.header.isSpaced | default false }}
+{{ $hasShadow := $page.Params.widgets.header.hasShadow | default $page.Site.Params.widgets.header.hasShadow | default false }}
+{{ $hasTextWeightBold := $page.Params.widgets.header.hasTextWeightBold | default $page.Site.Params.widgets.header.hasTextWeightBold | default false }}
+{{ $backgroundColor := $page.Params.widgets.header.backgroundColor | default $page.Site.Params.widgets.header.backgroundColor | default "" }}
+{{ $logoIsEnabled := $page.Params.widgets.header.logo.isEnabled | default $page.Site.Params.widgets.header.logo.isEnabled | default false }}
+{{ $logoWidth := strings.TrimSuffix "px" ($page.Params.widgets.header.logo.width | default $page.Site.Params.widgets.header.logo.width) | default "" }}
+{{ $logoHeight := strings.TrimSuffix "px" ($page.Params.widgets.header.logo.height | default $page.Site.Params.widgets.header.logo.height) | default "" }}
+{{ if and (eq $logoWidth "") (eq $logoHeight "") }}
+    {{ $logoIsEnabled = false }}
+{{ end }}
+
 {{ $class := "" }}
-{{ if $page.Site.Params.design.navbar.isFixedTop }}
+{{ if $isFixedTop }}
     {{ $class = printf "%s %s" $class "is-fixed-top" }}
 {{ end }}
 {{ $isBoxed := false }}
-{{ if $page.Site.Params.design.navbar.isTransparent }}
+{{ if $isTransparent }}
     {{ $class = printf "%s %s" $class "is-transparent" }}
     {{ $isBoxed = true }}
 {{ end }}
-{{ if $page.Site.Params.design.navbar.isSpaced }}
+{{ if $isSpaced }}
     {{ $class = printf "%s %s" $class "is-spaced" }}
 {{ end }}
-{{ if $page.Site.Params.design.navbar.hasShadow }}
+{{ if $hasShadow }}
     {{ $class = printf "%s %s" $class "has-shadow" }}
 {{ end }}
-{{ with $page.Site.Params.design.navbar.backgroundColor }}
+{{ with $backgroundColor }}
     {{ if in (slice "primary" "link" "info" "success" "warning" "danger" "black" "dark" "light" "white") . }}
         {{ $class = printf "%s is-%s" $class . }}
     {{ else }}
@@ -23,12 +37,12 @@
         {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
     {{ end }}
 {{ end }}
-{{ $hasTextWeightBold := $page.Site.Params.design.navbar.hasTextWeightBold }}
-<header class="header">
+
+<header class="header widget-header">
     <nav class="navbar{{ with $class }} {{ . }}{{ end }}" role="navigation" aria-label="{{ i18n "navigation" }}">
         <div class="container">
             <div class="navbar-brand">
-                {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
+                {{ if $logoIsEnabled }}
                     <a class="navbar-item" href="{{ "/" | relLangURL }}">
                         {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
                             {{ $width := $page.Site.Params.design.navbar.logo.width }}

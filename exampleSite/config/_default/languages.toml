@@ -26,6 +26,6 @@
     title           = "Hugo-Bulma主题"
 
     [zh.params]
-        author = "玮"
+        author = "Wayne Ho"
         keywords = "Hugo-Bulma, Hugo, Bulma, 主题"
         description = "Hugo-Bulma是一个基于Bulma的Hugo主题，并且完全开源、免费。"

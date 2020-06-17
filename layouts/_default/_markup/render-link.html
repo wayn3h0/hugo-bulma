@@ -1,23 +1,27 @@
 {{ $link := . }}
+
+{{ $isEnabled  := $link.Page.Params.plugins.externalLink.isEnabled | default $link.Page.Site.Params.plugins.externalLink.isEnabled | default false}}
+{{ $isOpenInNewTab := $link.Page.Params.plugins.externalLink.isOpenInNewTab | default $link.Page.Site.Params.plugins.externalLink.isOpenInNewTab | default false }}
+{{ $pre := $link.Page.Params.plugins.externalLink.pre | default $link.Page.Site.Params.plugins.externalLink.pre | default "" }}
+{{ $post := $link.Page.Params.plugins.externalLink.post | default $link.Page.Site.Params.plugins.externalLink.post | default "" }}
+{{ $pre = $pre | safeHTML | emojify }}
+{{ $post = $post | safeHTML | emojify }}
+
 {{ $isExternal := false }}
 {{ if strings.HasPrefix $link.Destination "http" }}
     {{ $isExternal = true }}
 {{ end }}
-{{ $isOpenInNewTab := $link.Page.Site.Params.design.externalLink.isOpenInNewTab }}
-{{ $pre := "" }}
-{{ $post := "" }}
-{{ if $isExternal }}
-    {{ $pre = $link.Page.Site.Params.design.externalLink.pre | safeHTML | emojify }}
-    {{ $post = $link.Page.Site.Params.design.externalLink.post | safeHTML | emojify }}
-{{ end }}
+
 {{ $text := $link.Text | safeHTML | emojify }}
-<a href="{{ $link.Destination }}"
-    {{ with $link.Title}} title="{{ . }}"{{ end }}
-    {{ if and $isExternal $isOpenInNewTab }} target="_blank" rel="noopener"{{ end }}
-    >
-    {{ if and (eq $pre "") (eq $post "") }}
-        {{ $text }}
-    {{ else }}
-        {{ $pre }}<span>{{ $text }}</span>{{ $post }}
-    {{ end }}
-</a>
+
+{{ if and $isEnabled $isExternal }}
+    <a href="{{ $link.Destination }}"{{ with $link.Title}} title="{{ . }}"{{ end }}{{ if $isOpenInNewTab }} target="_blank" rel="noopener"{{ end }}>
+        {{ if and (eq $pre "") (eq $post "") }}
+            {{ $text }}
+        {{ else }}
+            {{ $pre }}<span>{{ $text }}</span>{{ $post }}
+        {{ end }}
+    </a>
+{{ else }}
+    <a href="{{ $link.Destination }}"{{ with $link.Title}} title="{{ . }}"{{ end }}>{{ $text }}</a>
+{{ end }}
