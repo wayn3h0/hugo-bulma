@@ -167,16 +167,12 @@ $navbar-height: {{ printf "%s * 0.0625 + 2" (strings.TrimSuffix "px" .) }}rem;
     &:not(:last-child):not(:only-child) {
         padding-bottom: 0;
     }
-    .columns {
-        .column {  
-            .section {
-                &:first-child {
-                    padding-top: 0;
-                }
-                &:last-child {
-                    padding-bottom: 0;
-                }
-            }
+    .section {
+        &:first-child {
+            padding-top: 0;
+        }
+        &:last-child {
+            padding-bottom: 0;
         }
     }
 }
