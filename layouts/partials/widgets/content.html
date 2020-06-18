@@ -4,20 +4,22 @@
 {{ $bannerIsEnabled := $page.Params.widgets.content.banner.isEnabled | default $page.Site.Params.widgets.content.banner.isEnabled | default false }}
 
 {{ if $isEnabled }}
-    <section class="section widget-content">
-        <div class="container">
-            <article class="content">
-                {{ if and $bannerIsEnabled $page.Params.banner }}
-                    <img src="{{ $page.Params.banner | relURL }}" alt="{{ $page.Title }}">
-                {{ end }}
-                {{ if $page.Content }}
-                    {{ $page.Content }}
-                {{ end }}
-                <footer>
-                    {{ partial "widgets/tags.html" $page }}
-                    {{ partial "widgets/categories.html" $page }}
-                </footer>
-            </article>
-        </div>
-    </section>
+    {{ if or (and $bannerIsEnabled $page.Params.banner) $page.Content }}
+        <section class="section widget-content">
+            <div class="container">
+                <article class="content">
+                    {{ if and $bannerIsEnabled $page.Params.banner }}
+                        <img src="{{ $page.Params.banner | relURL }}" alt="{{ $page.Title }}">
+                    {{ end }}
+                    {{ if $page.Content }}
+                        {{ $page.Content }}
+                    {{ end }}
+                    <footer>
+                        {{ partial "widgets/tags.html" $page }}
+                        {{ partial "widgets/categories.html" $page }}
+                    </footer>
+                </article>
+            </div>
+        </section>
+    {{ end }}
 {{ end }}
