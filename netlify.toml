@@ -25,3 +25,13 @@
   for = "index.xml"
   [headers.values]
     Content-Type = "application/rss+xml"
+
+[[redirects]]
+    from = "/en/*"
+    to = "/en/404.html"
+    status = 404
+
+[[redirects]]
+    from = "/zh/*"
+    to = "/zh/404.html"
+    status = 404
