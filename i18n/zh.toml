@@ -1,50 +1,57 @@
-[navigation]
+[widget_header_navigation]
 other = "导航"
 
-[menu]
+[widget_header_menu]
 other = "菜单"
 
-[breadcrumb]
+[widget_breadcrumb]
 other = "位置导航"
 
-[pagination]
-other = "分页"
-
-[pagination_previous]
-other = "上一页"
-
-[pagination_next]
-other = "下一页"
-
-[pagination_goto]
-other = "跳转至第{{ .PageNumber }}页"
-
-[pagination_current]
-other = "第{{ .PageNumber }}页"
-
-[page_not_found]
-other = "找不到该页面" 
-
-[page_not_found_recommendations]
-other = "也许您对这些感兴趣?"
-
-[page_not_found_latest]
-other = "最新的"
-
-[back_to_top]
-other = "返回顶部"
-
-[breadcrumb_home]
+[widget_breadcrumb_home]
 other = "主页"
 
-[recently]
-other = "最近"
+[widget_pagination]
+other = "分页"
 
-[related]
-other = "相关内容"
+[widget_pagination_previous]
+other = "上一页"
 
-[table_of_contents]
+[widget_pagination_next]
+other = "下一页"
+
+[widget_pagination_go_to_page]
+other = "跳转至第{{ .PageNumber }}页"
+
+[widget_pagination_current]
+other = "第{{ .PageNumber }}页"
+
+[widget_footer_back_to_top]
+other = "返回顶部"
+
+[widget_table_of_contents]
 other = "内容目录"
 
-[read_more]
+[widget_recently]
+other = "最近内容"
+
+[widget_related]
+other = "相关内容"
+
+[widget_children_read_more]
 other = "阅读全文"
+
+[widget_all_categories]
+other = "全部目录"
+
+[widget_all_tags]
+other = "全部标签"
+
+
+[template_error_404]
+other = "抱歉，找不到该页面" 
+
+[template_error_404_subtitle]
+other = "您正在寻找的页面可能已被删除，或它的名称被更改或暂时不可用。"
+
+[template_error_404_go_to_homepage]
+other = "返回主页"

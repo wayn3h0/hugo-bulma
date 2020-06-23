@@ -215,7 +215,12 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         isEnabled       = true
         pageSize        = 10            # overwrite params.paginate
         dateFormat      = "2006-01-02"  # checkout golang time format
-        hasBigBanner    = false         # layout
+        style           = "3"           # available values: 1, 2, 3
+        numberOfRecordsPerRow = 3       # for style="3"
+        [widgets.children.categories]
+            isEnabled = true
+        [widgets.children.tags]
+            isEnabled = true
 
     [widgets.pagination]
         alignment   = ""    # available values: `centered`,`right`, default show on left
@@ -235,6 +240,19 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         numberOfRecords         = 6
         isVertical              = true
         numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
+
+    [widgets.allCategories]
+        isEnabled = true
+        [widgets.allCategories.count]
+            isEnabled = false
+            color = "primary"
+
+    [widgets.allTags]
+        isEnabled = true
+        [widgets.allTags.count]
+            isEnabled = true
+            color = "primary"
+
 
 #################### 
 ```

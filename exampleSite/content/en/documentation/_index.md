@@ -15,13 +15,26 @@ tags        = ["Documentation"]
 categories  = ["Documentation"]
 
 [templates.list]
-    layout = -1
+    layout = 3
+
+[widgets.content]
+    isEnabled = false
+
+[widgets.children]
+    isEnabled = true
+    pageSize = 4
+    style = "3"
+    numberOfRecordsPerRow = 3
+    [widgets.children.categories]
+        isEnabled = true
+    [widgets.children.tags]
+        isEnabled = true
 
 [widgets.tags]
-    isEnabled = false
+    isEnabled = true
 
 [widgets.categories]
-    isEnabled = false
+    isEnabled       = false
 
 +++
 

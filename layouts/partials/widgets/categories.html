@@ -10,7 +10,7 @@
     {{ $categories := $page.GetTerms "categories" }}
     {{ if gt (len $categories) 0 }}
         {{ if $iconIsEnabled }}
-            <div class="field is-grouped is-grouped-multiline">
+            <div class="field is-grouped is-grouped-multiline widget-categories">
             {{ range $category := $categories }}
                 <div class="control">
                     <div class="tags has-addons">
@@ -21,12 +21,14 @@
             {{ end }}
             </div>
         {{ else }}
-            {{ range $index, $category := $categories }}
-                <span class="category"><a href="{{ $category.RelPermalink }}" title="{{ $category.LinkTitle }}">{{ $category.LinkTitle }}</a></span>
-                {{ if ne (add $index 1) (len $categories) }}
-                &nbsp;|&nbsp;
+            <div class="widget-categories">
+                {{ range $index, $category := $categories }}
+                    <span class="category"><a href="{{ $category.RelPermalink }}" title="{{ $category.LinkTitle }}">{{ $category.LinkTitle }}</a></span>
+                    {{ if ne (add $index 1) (len $categories) }}
+                    &nbsp;|&nbsp;
+                    {{ end }}
                 {{ end }}
-            {{ end }}
+            </div>
         {{ end }}
     {{ end }}
 {{ end }}

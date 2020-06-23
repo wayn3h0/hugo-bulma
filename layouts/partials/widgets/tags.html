@@ -10,7 +10,7 @@
     {{ $tags := $page.GetTerms "tags" }}
     {{ if gt (len $tags) 0 }}
         {{ if $iconIsEnabled }}
-            <div class="field is-grouped is-grouped-multiline widget-tags">
+            <div class="field is-grouped is-grouped-multiline widget-tags widget-tags">
             {{ range $tag := $tags }}
                 <div class="control">
                     <div class="tags has-addons">

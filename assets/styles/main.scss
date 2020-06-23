@@ -127,10 +127,6 @@ $navbar-height: {{ printf "%s * 0.0625 + 2" (strings.TrimSuffix "px" .) }}rem;
     }
 }
 
-.widget-pagination {
-    padding: 0;
-}
-
 .widget-table-of-contents {
     .table-of-contents {
         padding: 1rem;

@@ -1,0 +1,34 @@
+{{ $page := . }}
+
+{{ $isEnabled := $page.Params.widgets.allTags.isEnabled | default $page.Site.Params.widgets.allTags.isEnabled | default false }}
+{{ $countIsEnabled := $page.Params.widgets.allTags.count.isEnabled | default $page.Site.Params.widgets.allTags.count.isEnabled | default false }}
+{{ $countColor := $page.Params.widgets.allTags.count.color | default $page.Site.Params.widgets.allTags.count.color | default "primary" }}
+
+{{ if $isEnabled }}
+    {{ $tags := $page.Site.Taxonomies.tags }}
+    {{ if gt (len $tags) 0 }}
+        <div class="widget-all-tags">
+            <h6 class="title is-6">{{ i18n "widget_all_tags" }}</h6>
+            <hr>
+
+            {{ if $countIsEnabled }}
+                <div class="field is-grouped is-grouped-multiline">
+                {{ range $tag := $tags }}
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <span class="tag"><a href="{{ $tag.Page.RelPermalink }}" title="{{ $tag.Page.LinkTitle }}">{{ $tag.Page.LinkTitle }}</a></span>
+                            <span class="tag{{ with $countColor }} is-{{ . }}{{ end }}">{{ $tag.Count }}</span>
+                        </div>
+                    </div>
+                {{ end }}
+                </div>
+            {{ else }}
+                <div class="tags">
+                    {{ range $tag := $tags }}
+                        <span class="tag"><a href="{{ $tag.Page.RelPermalink }}" title="{{ $tag.Page.LinkTitle }}">{{ $tag.Page.LinkTitle }}</a></span>
+                    {{ end }}
+                </div>
+            {{ end }}
+        </div>
+    {{ end }}
+{{ end }}

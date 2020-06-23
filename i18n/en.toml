@@ -1,50 +1,57 @@
-[navigation]
+[widget_header_navigation]
 other = "Navigation"
 
-[menu]
+[widget_header_menu]
 other = "Menu"
 
-[breadcrumb]
-other = "breadcrumbs"
+[widget_breadcrumb]
+other = "Breadcrumbs"
 
-[breadcrumb_home]
+[widget_breadcrumb_home]
 other = "Home"
 
-[pagination]
+[widget_pagination]
 other = "Pagination"
 
-[pagination_previous]
+[widget_pagination_previous]
 other = "Previous"
 
-[pagination_next]
+[widget_pagination_next]
 other = "Next"
 
-[pagination_goto]
-other = "Goto page {{ .PageNumber }}"
+[widget_pagination_go_to_page]
+other = "Go To Page {{ .PageNumber }}"
 
-[pagination_current]
+[widget_pagination_current]
 other = "Page {{ .PageNumber }}"
 
-[page_not_found]
-other = "Page not found" 
+[widget_footer_back_to_top]
+other = "Back To Top"
 
-[page_not_found_recommendations]
-other = "Perhaps you were looking for one of these?"
+[widget_table_of_contents]
+other = "On This Page"
 
-[page_not_found_latest]
-other = "Latest"
-
-[back_to_top]
-other = "Back to top"
-
-[table_of_contents]
-other = "On this page"
-
-[recently]
+[widget_recently]
 other = "Recently"
 
-[related]
-other = "See also"
+[widget_related]
+other = "See Also"
 
-[read_more]
-other = "Read more"
+[widget_children_read_more]
+other = "Read More"
+
+[widget_all_categories]
+other = "All Categories"
+
+[widget_all_tags]
+other = "All Tags"
+
+
+[template_error_404]
+other = "Oops! Page Not Found" 
+
+[template_error_404_subtitle]
+other = "The page you are looking for might have been removed had it's name changed or is temporarily unavailable."
+
+[template_error_404_go_to_homepage]
+other = "Go To Homepage"
