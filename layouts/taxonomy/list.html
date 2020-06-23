@@ -1,0 +1,29 @@
+{{ define "main" }}
+
+{{ $page := . }}
+{{ $categories := $page.Site.Taxonomies.categories }}
+{{ $tags := $page.Site.Taxonomies.tags }}
+
+<main class="main" role="main">
+    {{ partial "widgets/breadcrumb.html" $page }}
+
+    {{ if and (gt (len $categories) 0) (gt (len $tags) 0) }}
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        {{ partial "widgets/allcategories.html" $page }}
+                    </div>
+                    <div class="column">
+                        {{ partial "widgets/alltags.html" $page }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {{ end  }}
+    {{ if in (slice "taxonomy") $page.Kind }}
+        {{ partial "widgets/children.html" $page }}
+    {{ end }}
+</main>
+
+{{ end }}

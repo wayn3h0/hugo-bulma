@@ -39,11 +39,11 @@
 {{ end }}
 
 <header class="header widget-header">
-    <nav class="navbar{{ with $class }} {{ . }}{{ end }}" role="navigation" aria-label="{{ i18n "navigation" }}">
+    <nav class="navbar{{ with $class }}{{ . }}{{ end }}" role="navigation" aria-label="{{ i18n "widget_header_navigation" }}">
         <div class="container">
             <div class="navbar-brand">
                 {{ if $logoIsEnabled }}
-                    <a class="navbar-item" href="{{ "/" | relLangURL }}">
+                    <a class="navbar-item" href="{{ "/" | relLangURL }}" title="{{ $page.Site.Params.title | default $page.Site.Title }}">
                         {{ if not $page.Site.Params.design.navbar.logo.isHidden }}
                             {{ $width := $page.Site.Params.design.navbar.logo.width }}
                             {{ $height := $page.Site.Params.design.navbar.logo.height }}
@@ -62,7 +62,7 @@
                         {{  end }}
                     </a>
                 {{ end }}
-                <a role="button" class="navbar-burger" data-target="menu-navbar" aria-label="{{ i18n "menu" }}" aria-expanded="false">
+                <a role="button" class="navbar-burger" data-target="menu-navbar" aria-label="{{ i18n "widget_header_menu" }}" aria-expanded="false">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>

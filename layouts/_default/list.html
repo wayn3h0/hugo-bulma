@@ -4,7 +4,7 @@
 
 {{ $recentlyIsEnabled := $page.Params.widgets.recently.isEnabled | default $page.Site.Params.widgets.recently.isEnabled | default false }}
 
-{{ $layout := $page.Params.templates.list.layout | default $page.Site.Params.templates.list.layout | default 0 }}
+{{ $layout := $page.Params.templates.list.layout | default $page.Site.Params.templates.list.layout | default -1 }}
 
 <main class="main" role="main">
 
@@ -12,48 +12,45 @@
 
     {{ partial "widgets/content.html" $page }}
 
-    {{ if eq $layout 1 }}
-        <div class="container list-layout-1">
-            {{ if $recentlyIsEnabled }}
-                <div class="columns">
-                    <div class="column is-9">
+    {{ if in (slice 1 2 3 4) $layout }}
+        <section class="section template-list">
+            <div class="container">
+                {{ if eq $layout 1 }}
+                    {{ if $recentlyIsEnabled }}
+                        <div class="columns">
+                            <div class="column is-9">
+                                {{ partial "widgets/children.html" $page }}
+                            </div>
+                            <div class="column is-3">
+                                {{ partial "widgets/recently.html" $page }}
+                            </div>
+                        </div>
+                    {{ else }}
                         {{ partial "widgets/children.html" $page }}
-                    </div>
-                    <div class="column is-3">
-                        {{ partial "widgets/recently.html" $page }}
-                    </div>
-                </div>
-            {{ else }}
-                {{ partial "widgets/children.html" $page }}
-            {{ end }}
-        </div>
-    {{ else if eq $layout 2 }}
-        <div class="container list-layout-2">
-            {{ if $recentlyIsEnabled }}
-                <div class="columns">
-                    <div class="column is-3">
-                        {{ partial "widgets/recently.html" $page }}
-                    </div>
-                    <div class="column is-9">
+                    {{ end }}
+                {{ else if eq $layout 2 }}
+                    {{ if $recentlyIsEnabled }}
+                        <div class="columns">
+                            <div class="column is-3">
+                                {{ partial "widgets/recently.html" $page }}
+                            </div>
+                            <div class="column is-9">
+                                {{ partial "widgets/children.html" $page }}
+                            </div>
+                        </div>
+                    {{ else }}
                         {{ partial "widgets/children.html" $page }}
-                    </div>
-                </div>
-            {{ else }}
-                {{ partial "widgets/children.html" $page }}
-            {{ end }}
-        </div>
-    {{ else if eq $layout 3 }}
-        <div class="container list-layout-3">
-            {{ partial "widgets/children.html" $page }}
-            {{ partial "widgets/recently.html" $page }}
-        </div>
-    {{ else if eq $layout 4 }}
-        <div class="container list-layout-4">
-            {{ partial "widgets/recently.html" $page }}
-            {{ partial "widgets/children.html" $page }}
-        </div>
+                    {{ end }}
+                {{ else if eq $layout 3 }}
+                    {{ partial "widgets/children.html" $page }}
+                    {{ partial "widgets/recently.html" $page }}
+                {{ else if eq $layout 4 }}
+                    {{ partial "widgets/recently.html" $page }}
+                    {{ partial "widgets/children.html" $page }}
+                {{ end }}
+            </div>
+        </section>
     {{ end }}
-
 </main>
 
 {{ end }}
