@@ -14,7 +14,6 @@
         {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
     {{ end }}
 
-    {{ $class = printf "%s is-%s" $class $color }}
     {{ if $isLightColor }}
         {{ $class = printf "%s is-light" $class }}
     {{ end }}
