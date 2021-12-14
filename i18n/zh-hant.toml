@@ -1,0 +1,57 @@
+[widget_header_navigation]
+other = "導航"
+
+[widget_header_menu]
+other = "菜單"
+
+[widget_breadcrumb]
+other = "位置導航"
+
+[widget_breadcrumb_home]
+other = "主頁"
+
+[widget_pagination]
+other = "分頁"
+
+[widget_pagination_previous]
+other = "上一頁"
+
+[widget_pagination_next]
+other = "下一頁"
+
+[widget_pagination_go_to_page]
+other = "跳轉至第{{ .PageNumber }}頁"
+
+[widget_pagination_current]
+other = "第{{ .PageNumber }}頁"
+
+[widget_footer_back_to_top]
+other = "返回頂部"
+
+[widget_table_of_contents]
+other = "內容目錄"
+
+[widget_recently]
+other = "最近內容"
+
+[widget_related]
+other = "相關內容"
+
+[widget_children_read_more]
+other = "閱讀全文"
+
+[widget_all_categories]
+other = "目錄"
+
+[widget_all_tags]
+other = "標籤"
+
+
+[template_error_404]
+other = "抱歉，找不到該頁面" 
+
+[template_error_404_subtitle]
+other = "您正在尋找的頁面可能已被刪除，或它的名稱被更改或暫時不可用。"
+
+[template_error_404_go_to_homepage]
+other = "返回主頁"

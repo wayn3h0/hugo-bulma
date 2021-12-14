@@ -41,10 +41,10 @@ other = "相关内容"
 other = "阅读全文"
 
 [widget_all_categories]
-other = "全部目录"
+other = "目录"
 
 [widget_all_tags]
-other = "全部标签"
+other = "标签"
 
 
 [template_error_404]
