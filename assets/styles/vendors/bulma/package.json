@@ -1,32 +1,28 @@
 {
-  "_args": [
-    [
-      "bulma@0.9.0",
-      "/Users/wayn3h0/Projects/wayn3h0/hugo-bulma"
-    ]
-  ],
-  "_from": "bulma@0.9.0",
-  "_id": "bulma@0.9.0",
+  "_from": "bulma@0.9.3",
+  "_id": "bulma@0.9.3",
   "_inBundle": false,
-  "_integrity": "sha512-rV75CJkubNUroAt0qCRkjznZLoaXq/ctfMXsMvKSL84UetbSyx5REl96e8GoQ04G4Tkw0XF3STECffTOQrbzOQ==",
+  "_integrity": "sha512-0d7GNW1PY4ud8TWxdNcP6Cc8Bu7MxcntD/RRLGWuiw/s0a9P+XlH/6QoOIrmbj6o8WWJzJYhytiu9nFjTszk1g==",
   "_location": "/bulma",
   "_phantomChildren": {},
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "bulma@0.9.0",
+    "raw": "bulma@0.9.3",
     "name": "bulma",
     "escapedName": "bulma",
-    "rawSpec": "0.9.0",
+    "rawSpec": "0.9.3",
     "saveSpec": null,
-    "fetchSpec": "0.9.0"
+    "fetchSpec": "0.9.3"
   },
   "_requiredBy": [
+    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/bulma/-/bulma-0.9.0.tgz",
-  "_spec": "0.9.0",
-  "_where": "/Users/wayn3h0/Projects/wayn3h0/hugo-bulma",
+  "_resolved": "https://registry.npmjs.org/bulma/-/bulma-0.9.3.tgz",
+  "_shasum": "ddccb7436ebe3e21bf47afe01d3c43a296b70243",
+  "_spec": "bulma@0.9.3",
+  "_where": "/Users/jthomas/Desktop",
   "author": {
     "name": "Jeremy Thomas",
     "email": "bbxdesign@gmail.com",
@@ -35,12 +31,14 @@
   "bugs": {
     "url": "https://github.com/jgthms/bulma/issues"
   },
+  "bundleDependencies": false,
+  "deprecated": false,
   "description": "Modern CSS framework based on Flexbox",
   "devDependencies": {
-    "autoprefixer": "^9.8.0",
+    "autoprefixer": "^9.8.6",
     "clean-css-cli": "^4.3.0",
     "node-sass": "^4.14.1",
-    "postcss-cli": "^7.1.1",
+    "postcss-cli": "^7.1.2",
     "rimraf": "^3.0.2"
   },
   "files": [
@@ -80,5 +78,5 @@
   },
   "style": "bulma/css/bulma.min.css",
   "unpkg": "css/bulma.css",
-  "version": "0.9.0"
+  "version": "0.9.3"
 }
