@@ -1,0 +1,43 @@
+{{ define "main" }}
+
+{{ $page := . }}
+
+{{ $rows := $page.Params.templates.taxonomy.rows | default $page.Site.Params.templates.taxonomy.rows | default slice }}
+
+<main class="main" role="main">
+    {{ if gt (len $rows) 0 }}
+        <section class="section template-list">
+            <div class="container">
+                {{ range $row := $rows }}
+                    <div class="columns">
+                    {{ range $column := $row.columns }}
+                        {{ $width := $column.width | default 0 }}
+                        {{ $offset := $column.offset | default 0 }}
+                        {{ $class := "column" }}
+                        {{ if ne $width 0 }}
+                            {{ $class = printf "%s is-%d" $class $width }}
+                        {{ end }}
+                        {{ if ne $offset 0 }}
+                            {{ $class = printf "%s is-offset-%d" $class $offset}}
+                        {{ end }}
+                        <div class="{{ $class }}">
+                        {{ range $widget := $column.widgets }}
+                            {{ $path := printf "widgets/%s.html" $widget}} 
+                            {{ $fullPath := printf "partials/%s" $path }}
+                            {{ if templates.Exists $fullPath }}
+                                {{ partial $path $page }}
+                            {{ else }}
+                                {{ $message := printf `templates/taxonomy: widget "%s" (%s) not found` $widget $fullPath }}
+                                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+                            {{ end }}
+                        {{ end }}
+                        </div>
+                    {{ end }}
+                    </div>
+                {{ end }}
+            </div>
+        </section>
+    {{ end }}
+</main>
+
+{{ end }}

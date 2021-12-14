@@ -1,0 +1,15 @@
+ {{ $page := . }}
+
+{{ $isEnabled := $page.Params.widgets.error404.isEnabled | default $page.Site.Params.widgets.error404.isEnabled | default false }}
+
+{{ if $isEnabled }}
+<section class="section widget-404 hero is-medium has-text-centered">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-1">{{ i18n "template_error_404" }}</h1>
+            <h5 class="subtitle is-5">{{ i18n "template_error_404_subtitle" }}</h5>
+            <a class="button" href="{{ "/" | relLangURL }}" title="{{ i18n "template_error_404_go_to_homepage" }}">{{ i18n "template_error_404_go_to_homepage" }}</a>
+        </div>
+    </div>
+</section>
+{{ end }}

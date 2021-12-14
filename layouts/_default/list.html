@@ -2,51 +2,38 @@
 
 {{ $page := . }}
 
-{{ $recentlyIsEnabled := $page.Params.widgets.recently.isEnabled | default $page.Site.Params.widgets.recently.isEnabled | default false }}
-
-{{ $layout := $page.Params.templates.list.layout | default $page.Site.Params.templates.list.layout | default -1 }}
+{{ $rows := $page.Params.templates.list.rows | default $page.Site.Params.templates.list.rows | default slice }}
 
 <main class="main" role="main">
-
-    {{ partial "widgets/breadcrumb.html" $page }}
-
-    {{ partial "widgets/content.html" $page }}
-
-    {{ if in (slice 1 2 3 4) $layout }}
+    {{ if gt (len $rows) 0 }}
         <section class="section template-list">
             <div class="container">
-                {{ if eq $layout 1 }}
-                    {{ if $recentlyIsEnabled }}
-                        <div class="columns">
-                            <div class="column is-9">
-                                {{ partial "widgets/children.html" $page }}
-                            </div>
-                            <div class="column is-3">
-                                {{ partial "widgets/recently.html" $page }}
-                            </div>
+                {{ range $row := $rows }}
+                    <div class="columns">
+                    {{ range $column := $row.columns }}
+                        {{ $width := $column.width | default 0 }}
+                        {{ $offset := $column.offset | default 0 }}
+                        {{ $class := "column" }}
+                        {{ if ne $width 0 }}
+                            {{ $class = printf "%s is-%d" $class $width }}
+                        {{ end }}
+                        {{ if ne $offset 0 }}
+                            {{ $class = printf "%s is-offset-%d" $class $offset}}
+                        {{ end }}
+                        <div class="{{ $class }}">
+                        {{ range $widget := $column.widgets }}
+                            {{ $path := printf "widgets/%s.html" $widget}} 
+                            {{ $fullPath := printf "partials/%s" $path }}
+                            {{ if templates.Exists $fullPath }}
+                                {{ partial $path $page }}
+                            {{ else }}
+                                {{ $message := printf `templates/list: widget "%s" (%s) not found` $widget $fullPath }}
+                                {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
+                            {{ end }}
+                        {{ end }}
                         </div>
-                    {{ else }}
-                        {{ partial "widgets/children.html" $page }}
                     {{ end }}
-                {{ else if eq $layout 2 }}
-                    {{ if $recentlyIsEnabled }}
-                        <div class="columns">
-                            <div class="column is-3">
-                                {{ partial "widgets/recently.html" $page }}
-                            </div>
-                            <div class="column is-9">
-                                {{ partial "widgets/children.html" $page }}
-                            </div>
-                        </div>
-                    {{ else }}
-                        {{ partial "widgets/children.html" $page }}
-                    {{ end }}
-                {{ else if eq $layout 3 }}
-                    {{ partial "widgets/children.html" $page }}
-                    {{ partial "widgets/recently.html" $page }}
-                {{ else if eq $layout 4 }}
-                    {{ partial "widgets/recently.html" $page }}
-                    {{ partial "widgets/children.html" $page }}
+                    </div>
                 {{ end }}
             </div>
         </section>

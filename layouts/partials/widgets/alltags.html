@@ -7,28 +7,30 @@
 {{ if $isEnabled }}
     {{ $tags := $page.Site.Taxonomies.tags }}
     {{ if gt (len $tags) 0 }}
-        <div class="widget-all-tags">
-            <h6 class="title is-6">{{ i18n "widget_all_tags" }}</h6>
-            <hr>
+        <section class="section widget-all-tags">
+            <div class="container">
+                <h6 class="title is-6">{{ i18n "widget_all_tags" }}</h6>
+                <hr>
 
-            {{ if $countIsEnabled }}
-                <div class="field is-grouped is-grouped-multiline">
-                {{ range $tag := $tags }}
-                    <div class="control">
-                        <div class="tags has-addons">
-                            <span class="tag"><a href="{{ $tag.Page.RelPermalink }}" title="{{ $tag.Page.LinkTitle }}">{{ $tag.Page.LinkTitle }}</a></span>
-                            <span class="tag{{ with $countColor }} is-{{ . }}{{ end }}">{{ $tag.Count }}</span>
+                {{ if $countIsEnabled }}
+                    <div class="field is-grouped is-grouped-multiline">
+                    {{ range $tag := $tags }}
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag"><a href="{{ $tag.Page.RelPermalink }}" title="{{ $tag.Page.LinkTitle }}">{{ $tag.Page.LinkTitle }}</a></span>
+                                <span class="tag{{ with $countColor }} is-{{ . }}{{ end }}">{{ $tag.Count }}</span>
+                            </div>
                         </div>
+                    {{ end }}
+                    </div>
+                {{ else }}
+                    <div class="tags">
+                        {{ range $tag := $tags }}
+                            <span class="tag"><a href="{{ $tag.Page.RelPermalink }}" title="{{ $tag.Page.LinkTitle }}">{{ $tag.Page.LinkTitle }}</a></span>
+                        {{ end }}
                     </div>
                 {{ end }}
-                </div>
-            {{ else }}
-                <div class="tags">
-                    {{ range $tag := $tags }}
-                        <span class="tag"><a href="{{ $tag.Page.RelPermalink }}" title="{{ $tag.Page.LinkTitle }}">{{ $tag.Page.LinkTitle }}</a></span>
-                    {{ end }}
-                </div>
-            {{ end }}
-        </div>
+            </div>
+        </section>
     {{ end }}
 {{ end }}

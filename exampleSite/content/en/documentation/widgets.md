@@ -118,16 +118,17 @@ The `footer` in HTML. Ref: [Bulma Layout: Footer](https://bulma.io/documentation
             right   = "2rem"
             bottom  = "2rem"
         [widgets.footer.backToTop.icon]
-            #pack   = "fas"
-            #name   = "chevron-up"
-            #color  = "dark"
+            pack   = "fas"
+            name   = "chevron-up"
+            color  = "dark"
 ```
 
 ## Widget `breadcrumb`
 
-The breadcrub nav.
+The breadcrub nav. Ref: [Bulma Breadcrumb](https://bulma.io/documentation/components/breadcrumb/).
 
 ### Configuration
+
 ```toml
     [widgets.breadcrumb]
         isEnabled = true
@@ -136,77 +137,143 @@ The breadcrub nav.
         size      = ""      # available values: `small`,`medium`,`large`
 ```
 
+## Widget `content`
+
+### Configuration
+
 ```toml
-[widgets.footer]
-    isEnabled       = true
-    isPaddingless   = true
+    [widgets.content]
+        isEnabled           = true
+        isBannerEnabled     = false
+        isCategoriesEnabled =  true
+        isTagsEnabled       = true
+```
 
-    [widgets.footer.logo]
+## Widget `tableofcontents`
+
+### Configuration
+
+```toml
+    [widgets.tableOfContents]
         isEnabled   = true
-        isLink      = false
-        width       = ""        # unit must be px
-        height      = "50px"    # width & height required one at least
+        isSticky    = true
+        top         = "3rem"    # used for sticky, unit must be rem, will calcuate "top" in main.scss by value + design.navbar.height
+```
 
-    [widgets.footer.backToTop]
-        isEnabled   = true 
-        [widgets.footer.backToTop.position]
-            right   = "2rem"
-            bottom  = "2rem"
-        [widgets.footer.backToTop.icon]
-            pack   = "fas"
-            name   = "chevron-circle-up"
-            color  = "primary"
+## Widget `categories`
 
-[widgets.content]
-    isEnabled       = true
-    [widgets.content.banner]
-        isEnabled   = true
+### Configuration
 
-[widgets.tableOfContents]
-    isEnabled   = true
-    isSticky    = true
-    top         = "3rem"    # used for sticky, unit must be rem, will calcuate "top" in main.scss by value + design.navbar.height
+```toml
+    [widgets.categories]
+        isEnabled       = true
+        [widgets.categories.icon]
+            isEnabled   = true
+            pack        = "fas"
+            name        = "folder"
+            color       = "primary"
+```
 
-[widgets.categories]
-    isEnabled       = true
-    [widgets.categories.icon]
-        isEnabled   = true
-        pack        = "fas"
-        name        = "dot-circle"
-        color       = "primary"
+## Widget `tags`
 
-[widgets.tags]
+### Configuration
+
+```toml
+    [widgets.tags]
     isEnabled       = true
     [widgets.tags.icon]
         isEnabled   = true
         pack        = "fas"
         name        = "tag"
         color       = "primary"
+```
 
-[widgets.children]
-    isEnabled       = true
-    pageSize        = 10            # overwrite params.paginate
-    dateFormat      = "2006-01-02"  # checkout golang time format
-    hasBigBanner    = false         # layout
 
-[widgets.pagination]
-    alignment   = ""    # available values: `centered`,`right`, default show on left
-    style       = ""    # available values: `rounded`
-    size        = ""    # available values: `small`,`medium`,`large` 
+## Widget `children`
 
-[widgets.recently]
-    isEnabled               = true
-    sections                = ["documentation"]
-    numberOfRecords         = 6
-    isVertical              = false
-    numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
+### Configuration
 
-[widgets.related]
-    isEnabled               = true
-    sections                = []
-    numberOfRecords         = 6
-    isVertical              = true
-    numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
+```toml
+    [widgets.children]
+        isEnabled               = true
+        style                   = 3             # available values: 1, 2, 3
+        dateFormat              = "2006-01-02"  # checkout golang time format
+        pageSize                = 12            # overwrite params.paginate
+        numberOfRecordsPerRow   = 3             # for style=3
+        isAuthorEnabled         = true
+        isDateEnabled           = true
+        isCategoriesEnabled     = true
+        isTagsEnabled           = true
 
 ```
 
+## Widget `pagination`
+
+### Configuration
+
+```toml
+    [widgets.pagination]
+    alignment   = ""    # available values: `centered`,`right`, default show on left
+    style       = ""    # available values: `rounded`
+    size        = ""    # available values: `small`,`medium`,`large` 
+```
+
+## Widget `allcategories`
+
+### Configuration
+
+```toml
+    [widgets.allCategories]
+        isEnabled = true
+        [widgets.allCategories.count]
+            isEnabled = false
+            color = "info"
+```
+
+## Widget `alltags`
+
+### Configuration
+
+```toml
+    [widgets.allTags]
+        isEnabled = true
+        [widgets.allTags.count]
+            isEnabled = true
+            color = "info"
+```
+
+## Widget `recently`
+
+### Configuration
+
+```toml
+    [widgets.recently]
+        isEnabled               = true
+        sections                = ["documentation"]
+        numberOfRecords         = 6
+        isVertical              = false
+        numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
+```
+
+## Widget `related`
+
+### Configuration
+
+```toml
+    [widgets.related]
+        isEnabled               = true
+        sections                = ["documentation"]
+        numberOfRecords         = 6
+        isVertical              = true
+        numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
+```
+
+## Widget `error404`
+
+### Configuration
+
+```toml
+    [widgets.error404]
+        isEnabled = true
+
+```

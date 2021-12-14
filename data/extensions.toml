@@ -5,8 +5,8 @@
 
 [2-FontAwesome]
     [2-FontAwesome.styles.main]
-        url = "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
-        sri = "sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ="
+        url = "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"
+        sri = "sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4="
 
 [KaTeX]
     switches = ["extensions.KaTeX", "extensions.math"]

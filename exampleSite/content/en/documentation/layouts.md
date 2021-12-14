@@ -46,365 +46,146 @@ images      = ["/images/layouts.jpg"]
 
 ## Layouts of List Page Template
 
-**Ref**: [`Hugo List Page Template`](https://gohugo.io/templates/lists/)
+**Ref**: [`Hugo List Page Template`](https://gohugo.io/templates/lists/), [`Bulma Grid System`](https://bulma.io/documentation/columns/basics/)
 
 
-### Configuration `layout = -1`
-
-```toml
-[templates.list]
-    layout = -1
-```
-
-**Set layout as -1 if you does not use any widgets in content block.**
-
-**View**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-
-
-### Configuration `layout = 1`
-
+### Configuration Example 1
 
 ```toml
 [templates.list]
-    layout = 1
+    [templates.list.rows.1]
+        [templates.list.rows.1.columns.full]
+            widgets = ["breadcrumb"]
+    [templates.list.rows.2]
+        [templates.list.rows.2.columns.full]
+            offset = 0
+            width = 12
+            widgets = ["content"]
+    [templates.list.rows.3]
+        [templates.list.rows.3.columns.left]
+            width = 8
+            widgets = ["children"]
+        [templates.list.rows.3.columns.right]
+            width = 4
+            widgets = ["recently", "allcategories", "alltags"]
 ```
 
 **View**:
 
 ```html
 |-------------------------------------------|
-| widget:header                             |
+| widget:header (fixed)                     |
 |-------------------------------------------|
 | widget:breadcrumb                         |
 |-------------------------------------------|
 | widget:content                            |
 |-------------------------------------------|
 | widget:children   |   widget:recently     |
-|                   |                       |
-|                   |                       |
+|                   |   widget:allcategories|
+|                   |   widget:alltags      |
 |-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-**View (recently widget is disabled)**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children                           |
-|                                           |
-|                                           |
-|-------------------------------------------|
-| widget:footer                             |
+| widget:footer (fixed)                     |
 |-------------------------------------------|
 ```
 
-### Configuration `layout = 2`
+### Configuration Example 2
 
 ```toml
 [templates.list]
-    layout = 2
+    [templates.list.rows.1]
+        [templates.list.rows.1.columns.full]
+            widgets = ["breadcrumb"]
+    [templates.list.rows.2]
+        [templates.list.rows.2.columns.left]
+            width = 6
+            widgets = ["allcategories"]
+        [templates.list.rows.2.columns.right]
+            width = 6
+            widgets = ["alltags"]
+    [templates.list.rows.3]
+        [templates.list.rows.3.columns.full]
+            widgets = ["content"]
+    [templates.list.rows.4]
+        [templates.list.rows.4.columns.full]
+            widgets = ["children"]
+    [templates.list.rows.5]
+        [templates.list.rows.5.columns.full]
+            widgets = ["recently"]
 ```
 
 **View**:
 
 ```html
 |-------------------------------------------|
-| widget:header                             |
+| widget:header (fixed)                     |
 |-------------------------------------------|
 | widget:breadcrumb                         |
 |-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:recently   |   widget:children     |
-|                   |                       |
-|                   |                       |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-**View (recently widget is disabled)**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
+| widget:allcategories  | widget:alltags    |
 |-------------------------------------------|
 | widget:content                            |
 |-------------------------------------------|
 | widget:children                           |
-|                                           |
-|                                           |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-### Configuration `layout = 3`
-
-```toml
-[templates.list]
-    layout = 3
-```
-
-**View**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children                           |
-|                                           |
-|                                           |
 |-------------------------------------------|
 | widget:recently                           |
 |-------------------------------------------|
-| widget:footer                             |
+| widget:footer (fixed)                     |
 |-------------------------------------------|
 ```
 
-### Configuration `layout = 4`
+## Layouts of Taxonomy Page Template
+
+Same as Above (List Page Template).
+
+### Configuration Example
 
 ```toml
-[templates.list]
-    layout = 4
+[templates.taxonomy]
+        [templates.taxonomy.rows.1]
+            [templates.taxonomy.rows.1.columns.full]
+                widgets = ["breadcrumb"]
+        [templates.taxonomy.rows.2]
+            [templates.taxonomy.rows.2.columns.left]
+                width = 8
+                widgets = ["children"]
+            [templates.taxonomy.rows.2.columns.right]
+                width = 4
+                widgets = ["allcategories", "alltags", "recently"]
+
 ```
-
-**View**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:recently                           |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children                           |
-|                                           |
-|                                           |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
 
 ## Layouts of Signle Page Template
 
-> **Ref**: [`Hugo Single Page Template`](https://gohugo.io/templates/single-page-templates/)
+Same as Above (List Page Template).
 
-### Configuration `layout = 1`
-
-```toml
-[templates.single]
-    layout = 1
-```
-
-**View:**
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children   | widget:tableofcontents|
-|                   | widget:related        |
-|                   | widget:recently       |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-**View (tableofcontents, related and recently widgets are all disabled)**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children                           |
-|                                           |
-|                                           |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-### Configuration `layout = 2`
+### Configuration Example
 
 ```toml
 [templates.single]
-    layout = 2
+    [templates.single.rows.1]
+        [templates.single.rows.1.columns.full]
+            widgets = ["breadcrumb"]
+    [templates.single.rows.2]
+        [templates.single.rows.2.columns.left]
+            width = 8
+            widgets = ["content"]
+        [templates.single.rows.2.columns.right]
+            width = 4
+            widgets = ["tableofcontents", "related", "recently"]
+
 ```
 
-**View:**
+## Layouts of Error 404 Page Template
 
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:tableofcontents | widget:children  |
-| widget:related         |                  |
-| widget:recently        |                  |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
+Same as Above (List Page Template).
 
-**View (tableofcontents, related and recently widgets are all disabled)**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children                           |
-|                                           |
-|                                           |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-### Configuration `layout = 3`
+### Configuration Example
 
 ```toml
-[templates.single]
-    layout = 3
-```
-**View:**
+[templates.error404]
+    [templates.error404.rows.1]
+        [templates.error404.rows.1.columns.full]
+            widgets = ["error404", "recently"]
 
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children   | widget:tableofcontents|
-|                   |                       |
-|                   |                       |
-|-------------------------------------------|
-| widget:related                            |
-|-------------------------------------------|
-| widget:recently                           |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
 ```
 
-**View (tableofcontents widget is disabled)**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children                           |
-|                                           |
-|                                           |
-|-------------------------------------------|
-| widget:related                            |
-|-------------------------------------------|
-| widget:recently                           |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-### Configuration `layout = 4`
-
-```toml
-[templates.single]
-    layout = 4
-```
-**View:**
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:related                            |
-|-------------------------------------------|
-| widget:recently                           |
-|-------------------------------------------|
-| widget:children   | widget:tableofcontents|
-|                   |                       |
-|                   |                       |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-**View (tableofcontents widget is disabled)**:
-
-```html
-|-------------------------------------------|
-| widget:header                             |
-|-------------------------------------------|
-| widget:breadcrumb                         |
-|-------------------------------------------|
-| widget:content                            |
-|-------------------------------------------|
-| widget:children                           |
-|                                           |
-|                                           |
-|-------------------------------------------|
-| widget:related                            |
-|-------------------------------------------|
-| widget:recently                           |
-|-------------------------------------------|
-| widget:footer                             |
-|-------------------------------------------|
-```
-
-
-
----

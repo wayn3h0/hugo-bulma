@@ -1,23 +1,32 @@
 {{ $page := . }}
 
 {{ $isEnabled := $page.Params.widgets.content.isEnabled | default $page.Site.Params.widgets.content.isEnabled | default false }}
-{{ $bannerIsEnabled := $page.Params.widgets.content.banner.isEnabled | default $page.Site.Params.widgets.content.banner.isEnabled | default false }}
+{{ $isBannerEnabled := $page.Params.widgets.content.isBannerEnabled | default $page.Site.Params.widgets.content.isBannerEnabled | default false }}
+{{ $isCategoriesEnabled := $page.Params.widgets.content.isCategoriesEnabled | default $page.Site.Params.widgets.content.isCategoriesEnabled | default false }}
+{{ $isTagsEnabled := $page.Params.widgets.content.isTagsEnabled | default $page.Site.Params.widgets.content.isTagsEnabled | default false }}
 
 {{ if $isEnabled }}
-    {{ if or (and $bannerIsEnabled $page.Params.banner) $page.Content }}
+    {{ if or (and $isBannerEnabled $page.Params.banner) $page.Content }}
         <section class="section widget-content">
             <div class="container">
                 <article class="content">
-                    {{ if and $bannerIsEnabled $page.Params.banner }}
+                    {{ if and $isBannerEnabled $page.Params.banner }}
                         <img src="{{ $page.Params.banner | relURL }}" alt="{{ $page.Title }}">
                     {{ end }}
                     {{ if $page.Content }}
                         {{ $page.Content }}
                     {{ end }}
-                    <footer>
-                        {{ partial "widgets/tags.html" $page }}
-                        {{ partial "widgets/categories.html" $page }}
-                    </footer>
+                    {{ if or $isCategoriesEnabled $isTagsEnabled }}
+                        <hr />
+                        <footer>
+                            {{ if $isCategoriesEnabled }}
+                                {{ partial "widgets/categories.html" $page }}
+                            {{ end }}
+                            {{ if $isTagsEnabled }}
+                                {{ partial "widgets/tags.html" $page }}
+                            {{ end }}
+                        </footer>
+                    {{ end }}
                 </article>
             </div>
         </section>

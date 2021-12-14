@@ -3,7 +3,7 @@
 {{ $isEnabled := $page.Params.widgets.categories.isEnabled | default $page.Site.Params.widgets.categories.isEnabled | default false }}
 {{ $iconIsEnabled := $page.Params.widgets.categories.icon.isEnabled | default $page.Site.Params.widgets.categories.icon.isEnabled | default false }}
 {{ $iconPack := $page.Params.widgets.categories.icon.pack | default $page.Site.Params.widgets.categories.icon.pack | default "fas" }}
-{{ $iconName := $page.Params.widgets.categories.icon.name | default $page.Site.Params.widgets.categories.icon.name | default "dot-circle" }}
+{{ $iconName := $page.Params.widgets.categories.icon.name | default $page.Site.Params.widgets.categories.icon.name | default "folder" }}
 {{ $iconColor := $page.Params.widgets.categories.icon.color | default $page.Site.Params.widgets.categories.icon.color | default "primary" }}
 
 {{ if $isEnabled }}

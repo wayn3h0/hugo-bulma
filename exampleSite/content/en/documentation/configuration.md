@@ -8,7 +8,7 @@ hasCJKLanguage = false
 author      = "Wayne Ho"
 keywords    = ["configuration", "config", "documentation", "docs"]
 description = ""
-title       = "Configuration"
+title       = "Configuration of Theme"
 linkTitle   = "Configuration"
 
 banner      = "/images/configuration.jpg"
@@ -21,9 +21,6 @@ images      = ["/images/configuration.jpg"]
 [menus.quicklinks]
     weight = 1
     parent = "documentation"
-
-[templates.single]
-    layout = 1
 
 [widgets.content]
     [widgets.content.banner]
@@ -94,11 +91,11 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
 
     [plugins.googleAnalytics]
         isEnabled   = true
-        trackingID  = ""
+        trackingID  = "UA-169816164-1"
         anonymizeIP = false
 
     [plugins.googleTagManager]
-        isEnabled   = true
+        isEnabled   = false
         containerID = ""
 
     [plugins.googleAdSense]
@@ -109,36 +106,23 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         isEnabled   = true
         propertyID  = ""
 
-
-########## Templates
-
-[templates]
-    [templates.list]
-        layout = 1  # available values: -1, 1, 2, 3, 4
-    [templates.single]
-        layout = 1  # available values: 1, 2, 3, 4
-    [templates.error404]
-    [templates.index.xml]
-        timeFormat = "2006-01-02 15:04:05 +0800"
-
-
 ########## Widgets
 
 [widgets]
     [widgets.head]
         # multiple config sections allowed for multiple files
         # custom SASS/SCSS/CSS file, should put in `/assets/`
-        [widgets.head.styles.NAME]       # NAME: a unique name you given
-            path = "styles/custom.scss"  # for local file
-            url  = ""                    # for cdn file
-            sri  = ""                    # for cdn file
+        #[widgets.head.styles.NAME]       # NAME: a unique name you given
+        #    path = "styles/custom.scss"  # for local file
+        #    url  = ""                    # for cdn file
+        #    sri  = ""                    # for cdn file
 
         # multiple config sections allowed for multiple files
         # custom JS file, should put in `/assets/`
-        [widgets.head.scripts.NAME]      # NAME: a unique name you given
-            path = "scripts/custom.js"   # for local file 
-            url  = ""                    # for cdn file
-            sri  = ""                    # for cdn file
+        #[widgets.head.scripts.NAME]      # NAME: a unique name you given
+        #    path = "scripts/custom.js"   # for local file 
+        #    url  = ""                    # for cdn file
+        #    sri  = ""                    # for cdn file
 
     [widgets.header]
         isEnabled           = true
@@ -185,22 +169,22 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
                 color  = "primary"
 
     [widgets.content]
-        isEnabled       = true
-        [widgets.content.banner]
-            isEnabled   = true
+        isEnabled           = true
+        isBannerEnabled     = false
+        isCategoriesEnabled =  true
+        isTagsEnabled       = true
 
     [widgets.tableOfContents]
         isEnabled   = true
         isSticky    = true
         top         = "3rem"    # used for sticky, unit must be rem, will calcuate "top" in main.scss by value + design.navbar.height
 
-
     [widgets.categories]
         isEnabled       = true
         [widgets.categories.icon]
             isEnabled   = true
             pack        = "fas"
-            name        = "dot-circle"
+            name        = "folder"
             color       = "primary"
 
     [widgets.tags]
@@ -212,15 +196,16 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
             color       = "primary"
 
     [widgets.children]
-        isEnabled       = true
-        pageSize        = 10            # overwrite params.paginate
-        dateFormat      = "2006-01-02"  # checkout golang time format
-        style           = "3"           # available values: 1, 2, 3
-        numberOfRecordsPerRow = 3       # for style="3"
-        [widgets.children.categories]
-            isEnabled = true
-        [widgets.children.tags]
-            isEnabled = true
+        isEnabled               = true
+        style                   = 3             # available values: 1, 2, 3
+        dateFormat              = "2006-01-02"  # checkout golang time format
+        pageSize                = 12            # overwrite params.paginate
+        numberOfRecordsPerRow   = 3             # for style=3
+        isAuthorEnabled         = true
+        isDateEnabled           = true
+        isCategoriesEnabled     = true
+        isTagsEnabled           = true
+
 
     [widgets.pagination]
         alignment   = ""    # available values: `centered`,`right`, default show on left
@@ -236,7 +221,7 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
 
     [widgets.related]
         isEnabled               = true
-        sections                = []
+        sections                = ["documentation"]
         numberOfRecords         = 6
         isVertical              = true
         numberOfRecordsPerRow   = 3     # for horizontal view; the value should <= numberOfRecords
@@ -245,16 +230,65 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         isEnabled = true
         [widgets.allCategories.count]
             isEnabled = false
-            color = "primary"
+            color = "info"
 
     [widgets.allTags]
         isEnabled = true
         [widgets.allTags.count]
             isEnabled = true
-            color = "primary"
+            color = "info"
 
+    [widgets.error404]
+        isEnabled = true
+
+
+########## Templates
+
+[templates]
+    [templates.list]
+        [templates.list.rows.1]
+            [templates.list.rows.1.columns.full]
+                widgets = ["breadcrumb"]
+        [templates.list.rows.2]
+            [templates.list.rows.2.columns.full]
+                offset = 0
+                width = 12
+                widgets = ["content"]
+        [templates.list.rows.3]
+            [templates.list.rows.3.columns.left]
+                width = 8
+                widgets = ["children"]
+            [templates.list.rows.3.columns.right]
+                width = 4
+                widgets = ["recently", "allcategories", "alltags"]
+    [templates.taxonomy]
+        [templates.taxonomy.rows.1]
+            [templates.taxonomy.rows.1.columns.full]
+                widgets = ["breadcrumb"]
+        [templates.taxonomy.rows.2]
+            [templates.taxonomy.rows.2.columns.left]
+                width = 8
+                widgets = ["children"]
+            [templates.taxonomy.rows.2.columns.right]
+                width = 4
+                widgets = ["allcategories", "alltags", "recently"]
+    [templates.single]
+        [templates.single.rows.1]
+            [templates.single.rows.1.columns.full]
+                widgets = ["breadcrumb"]
+        [templates.single.rows.2]
+            [templates.single.rows.2.columns.left]
+                width = 8
+                widgets = ["content"]
+            [templates.single.rows.2.columns.right]
+                width = 4
+                widgets = ["tableofcontents", "related", "recently"]
+    [templates.error404]
+    [templates.error404.rows.1]
+            [templates.error404.rows.1.columns.full]
+                widgets = ["error404", "recently"]
+    [templates.index.xml]
+        timeFormat = "2006-01-02 15:04:05 +0800"
 
 #################### 
 ```
-
----

@@ -6,7 +6,7 @@
 {{ $size := $page.Params.widgets.breadcrumb.size | default $page.Site.Params.widgets.breadcrumb.size | default ""}}
 
 {{ if $isEnabled }}
-    {{ if in (slice "page" "section" "taxonomy" "taxonomyTerm") $page.Kind }}
+    {{ if in (slice "page" "section" "taxonomy" "term") $page.Kind }}
         {{ $pagePath := $page.RelPermalink }}
         {{ $class := "" }}
 

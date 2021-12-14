@@ -16,16 +16,30 @@
         keywords = "Hugo-Bulma, Hugo, Bulma, Theme"
         description = "Hugo-Bulma is a free, open source Hugo theme based on Bulma."
 
-[zh]
+[zh-hans]
     weight          = 2
-    languageCode    = "zh"
-    languageName    = "中文"
-    contentDir      = "content/zh"
+    languageCode    = "zh-hans"
+    languageName    = "简体中文"
+    contentDir      = "content/zh-hans"
 
     copyright       = "&copy; {year} Wayne Ho"
     title           = "Hugo-Bulma主题"
 
-    [zh.params]
+    [zh-hans.params]
         author = "Wayne Ho"
         keywords = "Hugo-Bulma, Hugo, Bulma, 主题"
         description = "Hugo-Bulma是一个基于Bulma的Hugo主题，并且完全开源、免费。"
+
+[zh-hant]
+    weight          = 3
+    languageCode    = "zh-hant"
+    languageName    = "繁體中文"
+    contentDir      = "content/zh-hant"
+
+    copyright       = "&copy; {year} Wayne Ho"
+    title           = "Hugo-Bulma主題"
+
+    [zh-hant.params]
+        author = "Wayne Ho"
+        keywords = "Hugo-Bulma, Hugo, Bulma, 主題"
+        description = "Hugo-Bulma是一個基於Bulma的Hugo主題，並且完全開源、免費。"

@@ -11,30 +11,11 @@ description = ""
 title       = "Documentation"
 linkTitle   = "Documentation"
 
-tags        = ["Documentation"]
-categories  = ["Documentation"]
+tags        = []
+categories  = []
 
-[templates.list]
-    layout = 3
-
-[widgets.content]
-    isEnabled = false
-
-[widgets.children]
-    isEnabled = true
-    pageSize = 4
-    style = "3"
-    numberOfRecordsPerRow = 3
-    [widgets.children.categories]
-        isEnabled = true
-    [widgets.children.tags]
-        isEnabled = true
-
-[widgets.tags]
-    isEnabled = true
-
-[widgets.categories]
-    isEnabled       = false
+[templates.list.rows.1.columns.full]
+    widgets = ["content"]
 
 +++
 

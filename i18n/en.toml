@@ -41,10 +41,10 @@ other = "See Also"
 other = "Read More"
 
 [widget_all_categories]
-other = "All Categories"
+other = "Categories"
 
 [widget_all_tags]
-other = "All Tags"
+other = "Tags"
 
 
 [template_error_404]

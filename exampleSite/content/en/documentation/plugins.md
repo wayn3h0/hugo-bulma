@@ -110,5 +110,3 @@ A hook of Hugo processing external links in markdown.
     isEnabled   = true
     propertyID  = ""
 ```
-
----
