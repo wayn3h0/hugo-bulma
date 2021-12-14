@@ -25,12 +25,12 @@
                         {{ range $item := first $numberOfRecords $pages }}
                             <article class="tile is-child box">
                                 {{ if $item.Params.banner }}
-                                    <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
-                                        <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                                    <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">
+                                        <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title | default $item.LinkTitle }}">
                                     </a>
-                                    <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
+                                    <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1></header>
                                 {{ else }}
-                                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
+                                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1>
                                     <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
                                 {{ end }}
                             </article>
@@ -45,12 +45,12 @@
                             <div class="tile is-parent">
                                 <article class="tile is-child box">
                                     {{ if $item.Params.banner }}
-                                        <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">
-                                            <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title}}">
+                                        <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title| default $item.LinkTitle }}">
+                                            <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title | default $item.LinkTitle }}">
                                         </a>
-                                        <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1></header>
+                                        <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1></header>
                                     {{ else }}
-                                        <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title }}">{{ $item.Title }}</a></h1>
+                                        <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1>
                                         <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
                                     {{ end }}
                                 </article>

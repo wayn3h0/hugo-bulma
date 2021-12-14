@@ -2,7 +2,7 @@
 
 {{ $page := . }}
 
-{{ $rows := $page.Params.templates.list.rows | default $page.Site.Params.templates.list.rows | default slice }}
+{{ $rows := $page.Params.templates.taxonomy.rows | default $page.Site.Params.templates.taxonomy.rows | default slice }}
 
 <main class="main" role="main">
     {{ if gt (len $rows) 0 }}
@@ -27,7 +27,7 @@
                             {{ if templates.Exists $fullPath }}
                                 {{ partial $path $page }}
                             {{ else }}
-                                {{ $message := printf `templates/list: widget "%s" (%s) not found` $widget $fullPath }}
+                                {{ $message := printf `templates/taxonomy: widget "%s" (%s) not found` $widget $fullPath }}
                                 {{ partial "functions/error.html" (dict "context" $page "message" $message) }}
                             {{ end }}
                         {{ end }}
