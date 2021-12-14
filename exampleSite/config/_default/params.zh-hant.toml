@@ -1,53 +1,3 @@
-+++
-
-draft       = false
-date        = "2020-06-16"
-
-hasCJKLanguage = false
-
-author      = "Wayne Ho"
-keywords    = ["configuration", "config", "documentation", "docs"]
-description = ""
-title       = "Configuration of Theme"
-linkTitle   = "Configuration"
-
-banner      = "/images/configuration.jpg"
-
-categories  = ["Documentation"]
-tags        = ["Documentation", "Configuration", "Config"]
-
-images      = ["/images/configuration.jpg"]
-
-[menus.quicklinks]
-    weight = 1
-    parent = "documentation"
-
-[widgets.content]
-    [widgets.content.banner]
-        isEnabled = false
-
-[widgets.tableOfContents]
-     isEnabled   = false
-
-[widgets.related]
-    isEnabled               = true
-    sections                = ["documentation"]
-    numberOfRecords         = 4
-    isVertical              = true
-    numberOfRecordsPerRow   = 4
-
-[widgets.recently]
-    isEnabled               = false
-
-+++
-
-# Configuration
-
----
-
-How to configure your Hugo-Bulma site. Check the follow example configuration settings.
-
-```toml
 #################### 
 
 isQuirksMode = true     # set value to true will throw error as warning when building site, or as error
@@ -77,8 +27,7 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
 
     [design.brand]
         title = "Hugo - Bulma"
-        tagline = "The Hugo theme based on Bulma"
-
+        tagline = "基於Bulma的Hugo主題"
 
 ########## Plugins
 
@@ -95,7 +44,7 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         anonymizeIP = false
 
     [plugins.googleTagManager]
-        isEnabled   = false
+        isEnabled   = true
         containerID = ""
 
     [plugins.googleAdSense]
@@ -291,4 +240,3 @@ isQuirksMode = true     # set value to true will throw error as warning when bui
         timeFormat = "2006-01-02 15:04:05 +0800"
 
 #################### 
-```
