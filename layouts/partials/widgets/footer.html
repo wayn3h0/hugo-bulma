@@ -34,9 +34,9 @@
                         {{ range $page.Site.Menus.quicklinks }}
                             {{ if .HasChildren}}
                                 {{ $item := . }}
-                                {{ $pre := safeHTML $item.Pre }}
-                                {{ $post := safeHTML $item.Post }}
-                                {{ $name := safeHTML $item.Name }}
+                                {{ $pre := $item.Pre | safeHTML | emojify}}
+                                {{ $post := $item.Post | safeHTML | emojify }}
+                                {{ $name := $item.Name | safeHTML | emojify }}
                                 <div class="column">
                                     <nav class="quick-links">
                                         <dl>
@@ -49,7 +49,7 @@
                                                     {{ $isExternal = true }}
                                                 {{ end }}
                                                 {{ $href := $item.URL | relLangURL }}
-                                                {{ if not (hasPrefix $item.URL "http") }}
+                                                {{ if in $item.URL "://" }}
                                                     {{ $href = $item.URL | safeURL }}
                                                 {{ end }}
                                                 {{ $pre := $item.Pre | safeHTML | emojify}}
@@ -86,7 +86,7 @@
                                     {{ $isExternal = true }}
                                 {{ end }}
                                 {{ $href := $item.URL | relLangURL }}
-                                {{ if not (hasPrefix $item.URL "http") }}
+                                {{ if in $item.URL "://" }}
                                     {{ $href = $item.URL | safeURL }}
                                 {{ end }}
                                 {{ $pre := $item.Pre | safeHTML | emojify}}
