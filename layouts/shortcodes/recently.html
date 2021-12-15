@@ -1,9 +1,9 @@
 {{ $shortcode := . }}
 
 {{ $isVertical := $shortcode.Get "isVertical" | default false }}
-{{ $sections := $shortcode.Get "sections" | default $shortcode.Page.Site.Params.design.recently.sections | default slice }}
-{{ $numberOfRecords := $shortcode.Get "numberOfRecords" | default $shortcode.Page.Site.Params.design.recently.numberOfRecords | default 0 }}
-{{ $numberOfRecordsPerRow := $shortcode.Get "numberOfRecordsPerRow" | default $shortcode.Page.Site.Params.design.recently.numberOfRecordsPerRow | default 3 }}
+{{ $sections := $shortcode.Get "sections" | default $shortcode.Page.Site.Params.widgets.recently.sections | default slice }}
+{{ $numberOfRecords := $shortcode.Get "numberOfRecords" | default $shortcode.Page.Site.Params.widgets.recently.numberOfRecords | default 0 }}
+{{ $numberOfRecordsPerRow := $shortcode.Get "numberOfRecordsPerRow" | default $shortcode.Page.Site.Params.widgets.recently.numberOfRecordsPerRow | default 3 }}
 {{ if gt $numberOfRecordsPerRow $numberOfRecords }}
     {{ $numberOfRecordsPerRow = $numberOfRecords}}
 {{  end }}
