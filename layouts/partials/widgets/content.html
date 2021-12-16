@@ -17,15 +17,17 @@
                         {{ $page.Content }}
                     {{ end }}
                     {{ if or $isCategoriesEnabled $isTagsEnabled }}
-                        <hr />
-                        <footer>
-                            {{ if $isCategoriesEnabled }}
-                                {{ partial "widgets/categories.html" $page }}
-                            {{ end }}
-                            {{ if $isTagsEnabled }}
-                                {{ partial "widgets/tags.html" $page }}
-                            {{ end }}
-                        </footer>
+                        {{ if or (gt (len $page.Params.categories) 0) (gt (len $page.Params.tags) 0) }}
+                            <hr />
+                            <footer>
+                                {{ if $isCategoriesEnabled }}
+                                    {{ partial "widgets/categories.html" $page }}
+                                {{ end }}
+                                {{ if $isTagsEnabled }}
+                                    {{ partial "widgets/tags.html" $page }}
+                                {{ end }}
+                            </footer>
+                        {{ end }}
                     {{ end }}
                 </article>
             </div>
