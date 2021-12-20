@@ -1,7 +1,5 @@
 {{ $shortcode := . }}
 
-{{ $title := $shortcode.Get "title" | default "" }}
-{{ $subtitle := $shortcode.Get "subtitle" | default "" }}
 {{ $size := $shortcode.Get "size" | default "" }}
 {{ $color := $shortcode.Get "color" | default "" }}
 {{ $isGradient := $shortcode.Get "isGradient" | default false }}
@@ -36,7 +34,7 @@
 {{ end }}
 
 {{ if eq $shortcode.Inner "" }}
-    {{ $message := printf `shortcodes/hero: invalid argument (title="") at %s` $shortcode.Position }}
+    {{ $message := printf `shortcodes/hero: empty content at %s` $shortcode.Position }}
     {{ partial "functions/error.html" (dict "context" $shortcode "message" $message) }}
 {{ else }}
     <section class="{{ $class }}">
