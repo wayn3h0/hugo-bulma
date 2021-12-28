@@ -17,7 +17,7 @@
 {{ if and $isEnabled (gt (len $pages) 0) }}
     <section class="section widget-related{{ if $isVertical }} is-vertical{{ end }}">
         <div class="container">
-            <h6 class="title is-6">{{ i18n "widget_related"}}</h6>
+            <h2 class="title is-6">{{ i18n "widget_related"}}</h2>
             <hr>
             {{ if $isVertical }}
                 <div class="tile is-ancestor">
@@ -28,9 +28,9 @@
                                     <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">
                                         <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title | default $item.LinkTitle }}">
                                     </a>
-                                    <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1></header>
+                                    <h3 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h3></header>
                                 {{ else }}
-                                    <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1>
+                                    <h3 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h3>
                                     <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
                                 {{ end }}
                             </article>
@@ -48,9 +48,9 @@
                                         <a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">
                                             <img class="banner" src="{{ $item.Params.banner | relURL }}" alt="{{ $item.Title | default $item.LinkTitle }}">
                                         </a>
-                                        <h1 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1></header>
+                                        <h3 class="title is-6 pt-2"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h3></header>
                                     {{ else }}
-                                        <h1 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h1>
+                                        <h3 class="title is-6"><a href="{{ $item.Params.externalLink | default $item.RelPermalink }}" title="{{ $item.Title | default $item.LinkTitle }}">{{ $item.LinkTitle }}</a></h3>
                                         <p class="subtitle is-7">{{ $item.Params.summary | default $item.Summary }}</p>
                                     {{ end }}
                                 </article>
